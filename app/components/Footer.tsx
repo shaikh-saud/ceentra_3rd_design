@@ -1,11 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { ChevronLeftIcon } from "@radix-ui/react-icons";
 import { Send, Linkedin, Instagram, Facebook, Twitter } from "lucide-react";
-import { FlickeringGrid } from "@/components/ui/flickering-grid";
 
 const FOOTER_LINKS = [
   {
@@ -47,26 +44,33 @@ const FOOTER_LINKS = [
   },
 ];
 
-function useMediaQuery(query: string) {
-  const [value, setValue] = useState(false);
-  useEffect(() => {
-    const mq = window.matchMedia(query);
-    const handler = () => setValue(mq.matches);
-    handler();
-    mq.addEventListener("change", handler);
-    return () => mq.removeEventListener("change", handler);
-  }, [query]);
-  return value;
-}
 
 export default function Footer() {
-  const tablet = useMediaQuery("(max-width: 1024px)");
 
   return (
     <footer className="w-full" dir="rtl">
       {/* Main footer */}
-      <div className="bg-primary">
-        <div className="mx-auto max-w-[1300px] px-6 sm:px-8 py-12 sm:py-16">
+      <div className="relative bg-primary overflow-hidden">
+
+        {/* World map background layer */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{ zIndex: 0 }}
+        >
+          <img
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/World_map_-_low_resolution.svg/1200px-World_map_-_low_resolution.svg.png"
+            alt=""
+            aria-hidden="true"
+            className="w-full h-full object-cover object-center"
+            style={{
+              opacity: 0.07,
+              filter: "brightness(0) invert(1)",
+              mixBlendMode: "overlay",
+            }}
+          />
+        </div>
+
+        <div className="relative z-10 mx-auto max-w-325 px-6 sm:px-8 py-12 sm:py-16">
           <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-10 md:gap-8">
             
             {/* Brand column */}
@@ -146,22 +150,22 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* Flickering brand name */}
-      <div className="w-full h-40 md:h-56 relative bg-white overflow-hidden pointer-events-none">
-        <div className="absolute inset-0 bg-gradient-to-t from-transparent to-white z-10 from-30%" />
-        <div className="absolute inset-0 mx-4 sm:mx-6 flex items-center justify-center">
-          <FlickeringGrid
-            text={tablet ? "Centra" : "Centra"}
-            fontSize={tablet ? 100 : 180}
-            fontWeight={800}
-            className="h-full w-full"
-            squareSize={2}
-            gridGap={tablet ? 2 : 3}
-            color="#058B7F"
-            maxOpacity={0.25}
-            flickerChance={0.1}
-          />
-        </div>
+      {/* Embossed brand name */}
+      <div className="w-full bg-white overflow-hidden pointer-events-none select-none flex items-center justify-center py-2">
+        <span
+          style={{
+            fontSize: "clamp(72px, 17vw, 210px)",
+            fontWeight: 900,
+            letterSpacing: "-0.03em",
+            lineHeight: 1,
+            color: "#efefef",
+            textShadow:
+              "3px 3px 7px rgba(180,180,192,0.55), -2px -2px 5px rgba(255,255,255,1)",
+            fontFamily: "inherit",
+          }}
+        >
+          Centra
+        </span>
       </div>
     </footer>
   );

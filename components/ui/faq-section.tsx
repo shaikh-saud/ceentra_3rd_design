@@ -1,423 +1,359 @@
 "use client";
 
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import { useRef, useState } from "react";
+import { motion, useInView, AnimatePresence } from "framer-motion";
+import { Plus, Minus } from "lucide-react";
 
-export default function FAQWithSpiral() {
-  const spiralRef = useRef<HTMLDivElement | null>(null);
-  const [panelOpen, setPanelOpen] = useState(false);
-  const [query, setQuery] = useState("");
-
-  // Spiral configuration
-  const [cfg, setCfg] = useState({
-    points: 700,
-    dotRadius: 1.8,
-    duration: 3.0,
-    color: "#ffffff",
-    gradient: "neon" as
-      | "none"
-      | "rainbow"
-      | "sunset"
-      | "ocean"
-      | "fire"
-      | "neon"
-      | "pastel"
-      | "grayscale",
-    pulseEffect: true,
-    opacityMin: 0.25,
-    opacityMax: 0.9,
-    sizeMin: 0.5,
-    sizeMax: 1.4,
-    background: "#174B47", // soft modern dark teal bg
-  });
-
-  // Gradient presets
-  const gradients: Record<string, string[]> = useMemo(
-    () => ({
-      none: [],
-      rainbow: ["#ff0000", "#ff9900", "#ffff00", "#00ff00", "#0099ff", "#6633ff"],
-      sunset: ["#ff0000", "#ff9900", "#ffcc00"],
-      ocean: ["#058B7F", "#00ccff", "#00ffcc"], // customized for brand
-      fire: ["#ff0000", "#ff6600", "#ffcc00"],
-      neon: ["#058B7F", "#00ffff", "#00ffcc"], // customized for brand
-      pastel: ["#ffcccc", "#ccffcc", "#ccccff"],
-      grayscale: ["#ffffff", "#999999", "#333333"],
-    }),
-    []
-  );
-
-  useEffect(() => {
-    try {
-      console.assert(Array.isArray(gradients.none) && gradients.none.length === 0, "Gradient 'none' must be an empty array");
-      console.assert(cfg.sizeMin <= cfg.sizeMax, "sizeMin should be <= sizeMax");
-      console.assert(cfg.opacityMin <= cfg.opacityMax, "opacityMin should be <= opacityMax");
-    } catch {}
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  // Keyboard shortcuts
-  useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
-      const k = e.key.toLowerCase();
-      if (k === "h") setPanelOpen((v) => !v);
-      if (k === "r") randomize();
-    };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, []);
-
-  // Generate spiral SVG and mount
-  useEffect(() => {
-    if (!spiralRef.current) return;
-
-    const SIZE = 560; // larger presence
-    const GOLDEN_ANGLE = Math.PI * (3 - Math.sqrt(5));
-    const N = cfg.points;
-    const DOT = cfg.dotRadius;
-    const CENTER = SIZE / 2;
-    const PADDING = 4;
-    const MAX_R = CENTER - PADDING - DOT;
-
-    const svgNS = "http://www.w3.org/2000/svg";
-    const svg = document.createElementNS(svgNS, "svg");
-    svg.setAttribute("width", String(SIZE));
-    svg.setAttribute("height", String(SIZE));
-    svg.setAttribute("viewBox", `0 0 ${SIZE} ${SIZE}`);
-
-    // Gradient
-    if (cfg.gradient !== "none") {
-      const defs = document.createElementNS(svgNS, "defs");
-      const g = document.createElementNS(svgNS, "linearGradient");
-      g.setAttribute("id", "spiralGradient");
-      g.setAttribute("gradientUnits", "userSpaceOnUse");
-      g.setAttribute("x1", "0%");
-      g.setAttribute("y1", "0%");
-      g.setAttribute("x2", "100%");
-      g.setAttribute("y2", "100%");
-      gradients[cfg.gradient].forEach((color, idx, arr) => {
-        const stop = document.createElementNS(svgNS, "stop");
-        stop.setAttribute("offset", `${(idx * 100) / (arr.length - 1)}%`);
-        stop.setAttribute("stop-color", color);
-        g.appendChild(stop);
-      });
-      defs.appendChild(g);
-      svg.appendChild(defs);
-    }
-
-    for (let i = 0; i < N; i++) {
-      const idx = i + 0.5;
-      const frac = idx / N;
-      const r = Math.sqrt(frac) * MAX_R;
-      const theta = idx * GOLDEN_ANGLE;
-      const x = CENTER + r * Math.cos(theta);
-      const y = CENTER + r * Math.sin(theta);
-
-      const c = document.createElementNS(svgNS, "circle");
-      c.setAttribute("cx", x.toFixed(3));
-      c.setAttribute("cy", y.toFixed(3));
-      c.setAttribute("r", String(DOT));
-      c.setAttribute("fill", cfg.gradient === "none" ? cfg.color : "url(#spiralGradient)");
-      c.setAttribute("opacity", "0.6");
-
-      if (cfg.pulseEffect) {
-        const animR = document.createElementNS(svgNS, "animate");
-        animR.setAttribute("attributeName", "r");
-        animR.setAttribute("values", `${DOT * cfg.sizeMin};${DOT * cfg.sizeMax};${DOT * cfg.sizeMin}`);
-        animR.setAttribute("dur", `${cfg.duration}s`);
-        animR.setAttribute("begin", `${(frac * cfg.duration).toFixed(3)}s`);
-        animR.setAttribute("repeatCount", "indefinite");
-        animR.setAttribute("calcMode", "spline");
-        animR.setAttribute("keySplines", "0.4 0 0.6 1;0.4 0 0.6 1");
-        c.appendChild(animR);
-
-        const animO = document.createElementNS(svgNS, "animate");
-        animO.setAttribute("attributeName", "opacity");
-        animO.setAttribute("values", `${cfg.opacityMin};${cfg.opacityMax};${cfg.opacityMin}`);
-        animO.setAttribute("dur", `${cfg.duration}s`);
-        animO.setAttribute("begin", `${(frac * cfg.duration).toFixed(3)}s`);
-        animO.setAttribute("repeatCount", "indefinite");
-        animO.setAttribute("calcMode", "spline");
-        animO.setAttribute("keySplines", "0.4 0 0.6 1;0.4 0 0.6 1");
-        c.appendChild(animO);
-      }
-
-      svg.appendChild(c);
-    }
-
-    spiralRef.current.innerHTML = "";
-    spiralRef.current.appendChild(svg);
-  }, [cfg, gradients]);
-
-  const randomize = () => {
-    const rand = (min: number, max: number) => Math.random() * (max - min) + min;
-    const lightColors = ["#ffffff"];
-    const darkColors = ["#222222", "#111111"];
-    const useLightBg = Math.random() > 0.5;
-
-    setCfg((c) => ({
-      ...c,
-      points: Math.floor(rand(300, 1600)),
-      dotRadius: rand(0.8, 3.2),
-      duration: rand(1.2, 7.5),
-      pulseEffect: Math.random() > 0.35,
-      opacityMin: rand(0.1, 0.4),
-      opacityMax: rand(0.6, 1.0),
-      sizeMin: rand(0.4, 0.9),
-      sizeMax: rand(1.2, 2.2),
-      background: useLightBg ? "#f5f5f5" : "#000000",
-      color: useLightBg
-        ? darkColors[Math.floor(Math.random() * darkColors.length)]
-        : lightColors[Math.floor(Math.random() * lightColors.length)],
-      gradient:
-        Math.random() > 0.6
-          ? (["rainbow", "ocean", "grayscale", "neon"] as const)[
-              Math.floor(Math.random() * 4)
-            ]
-          : "none",
-    }));
-  };
-
-  const faqs = [
+// ─── Data ─────────────────────────────────────────────────────────────────────
+const FAQ_DATA: Record<string, { q: string; a: string }[]> = {
+  عام: [
     {
       q: "كيف يمكنني البدء باستخدام المنصة؟",
-      a: "يمكنك البدء بسهولة من خلال إنشاء حساب مجاني، ثم إضافة طلبك وتحديد تفاصيل الخدمة المطلوبة. بعد ذلك ستتلقى عروضًا من شركات متخصصة ويمكنك اختيار الأنسب لك.",
+      a: "يمكنك البدء بسهولة من خلال إنشاء حساب مجاني، ثم إضافة طلبك وتحديد تفاصيل الخدمة المطلوبة. بعد ذلك ستتلقى عروضًا من شركات متخصصة ويمكنك اختيار الأنسب لك في وقت قصير.",
     },
     {
       q: "هل التسجيل في المنصة مجاني؟",
-      a: "نعم، التسجيل في المنصة مجاني تمامًا، ويمكنك تصفح الخدمات وإنشاء الطلبات دون أي رسوم مبدئية.",
+      a: "نعم، التسجيل في المنصة مجاني تمامًا ويمكنك تصفح الخدمات وإنشاء الطلبات دون أي رسوم مبدئية. تُفرض رسوم فقط عند اختيار الباقات المدفوعة.",
     },
     {
       q: "كيف أختار أفضل شركة تسويق لمشروعي؟",
-      a: "يمكنك مقارنة العروض المقدمة من الشركات بناءً على الخبرة، التقييمات، والأسعار. كما يمكنك التواصل مع الشركات مباشرة لاتخاذ القرار المناسب.",
+      a: "يمكنك مقارنة العروض المقدمة من الشركات بناءً على الخبرة، التقييمات، والأسعار. كما يمكنك التواصل مع الشركات مباشرة قبل اتخاذ قرارك النهائي.",
     },
     {
       q: "هل تقدم المنصة ضمانًا على الخدمات؟",
-      a: "نحرص على التعامل مع شركات موثوقة ومعتمدة، كما نوفر بيئة آمنة تضمن حقوق جميع الأطراف وتساعد في تقديم خدمات عالية الجودة.",
+      a: "نحرص على التعامل مع شركات موثوقة ومعتمدة، كما نوفر بيئة آمنة تضمن حقوق جميع الأطراف وتساعد في تقديم خدمات عالية الجودة مع وجود آلية لحل النزاعات.",
+    },
+    {
+      q: "ما هي أوقات الدعم الفني؟",
+      a: "يتوفر الدعم الفني على مدار الساعة طوال أيام الأسبوع عبر المحادثة الفورية والبريد الإلكتروني، مع وقت استجابة لا يتجاوز 24 ساعة.",
+    },
+  ],
+  الخدمات: [
+    {
+      q: "ما هي أنواع الخدمات المتاحة على المنصة؟",
+      a: "تشمل المنصة خدمات التسويق الرقمي، إدارة وسائل التواصل الاجتماعي، تحسين محركات البحث (SEO)، الإعلانات المدفوعة، تصميم الهوية البصرية، إنتاج المحتوى، والاستشارات التسويقية.",
+    },
+    {
+      q: "كيف أنشر طلب خدمة تسويقية؟",
+      a: "بعد تسجيل الدخول، انقر على 'إنشاء طلب'، حدد نوع الخدمة وميزانيتك والمدة الزمنية المطلوبة، ثم انشر الطلب لتستقبل عروضًا من الشركات خلال 24 ساعة.",
+    },
+    {
+      q: "هل يمكنني طلب أكثر من خدمة في آن واحد؟",
+      a: "نعم، يمكنك إنشاء عدة طلبات في نفس الوقت لخدمات مختلفة وإدارتها جميعًا من لوحة تحكم واحدة.",
+    },
+    {
+      q: "كيف تتم عملية التفاوض مع الشركات؟",
+      a: "بعد استلام العروض، يمكنك مراسلة الشركات مباشرة عبر المنصة لمناقشة التفاصيل والأسعار والمدة قبل إتمام الاتفاق.",
+    },
+  ],
+  الاشتراكات: [
+    {
+      q: "ما هي الباقات المتاحة؟",
+      a: "تقدم المنصة ثلاث باقات: الباقة الأساسية المجانية، الباقة المتقدمة للأفراد والمشاريع الصغيرة، وباقة الشركات للمؤسسات الكبيرة مع مزايا حصرية.",
+    },
+    {
+      q: "هل يمكنني تغيير باقتي في أي وقت؟",
+      a: "نعم، يمكنك الترقية أو التخفيض في باقتك في أي وقت. التغييرات تسري فورًا وتُحسب التكاليف بشكل تناسبي.",
     },
     {
       q: "ما هي طرق الدفع المتاحة؟",
-      a: "توفر المنصة عدة وسائل دفع آمنة وسهلة، ويتم تحديد طرق الدفع المتاحة حسب الباقة أو الخدمة المختارة.",
+      a: "تقبل المنصة الدفع عبر بطاقات الائتمان (Visa/Mastercard)، تحويل بنكي، ومدى، مع تشفير كامل لجميع المعاملات المالية.",
     },
     {
-      q: "هل يمكنني إلغاء الطلب بعد نشره؟",
-      a: "نعم، يمكنك إلغاء الطلب وفقًا لسياسة المنصة، مع مراعاة حالة الطلب والاتفاق مع مزود الخدمة.",
+      q: "هل يمكنني إلغاء الاشتراك بعد الدفع؟",
+      a: "نعم، يمكنك إلغاء الاشتراك في أي وقت مع الاحتفاظ بمزايا الباقة حتى نهاية فترة الاشتراك المدفوع.",
     },
-  ];
+  ],
+  الشركات: [
+    {
+      q: "كيف يمكن لشركتي التسجيل كمزود خدمة؟",
+      a: "يمكن للشركات التسجيل من خلال اختيار 'أنا شركة تسويق' عند التسجيل، ثم تعبئة بيانات الشركة ووثائق التحقق. يستغرق الموافقة على الحساب من 1-3 أيام عمل.",
+    },
+    {
+      q: "ما هي متطلبات توثيق الشركة؟",
+      a: "تحتاج لتقديم: السجل التجاري ساري المفعول، هوية المسؤول، ورقم الحساب البنكي لاستقبال المدفوعات. يضمن التوثيق ثقة العملاء في خدماتك.",
+    },
+    {
+      q: "كيف تصلني طلبات العملاء؟",
+      a: "ستصلك إشعارات فورية بالطلبات المناسبة لتخصصك عبر التطبيق والبريد الإلكتروني، ويمكنك تقديم عرضك مباشرة من لوحة تحكم الشركة.",
+    },
+    {
+      q: "ما العمولة التي تأخذها المنصة؟",
+      a: "تأخذ المنصة نسبة عمولة تنافسية من قيمة كل صفقة مكتملة، يمكن الاطلاع على التفاصيل الكاملة في صفحة الأسعار أو التواصل مع فريق المبيعات.",
+    },
+  ],
+  الأمان: [
+    {
+      q: "كيف تحمون بيانات المستخدمين؟",
+      a: "نستخدم تشفيرًا من الدرجة المصرفية (SSL/TLS 256-bit) لجميع البيانات، مع التزام تام بأنظمة حماية البيانات الشخصية المعمول بها في المملكة العربية السعودية.",
+    },
+    {
+      q: "هل معلوماتي المالية آمنة؟",
+      a: "نعم، لا نخزن أي معلومات بطاقة ائتمانية على خوادمنا. جميع المعاملات تتم عبر بوابات دفع معتمدة ومشفرة بالكامل.",
+    },
+    {
+      q: "ماذا يحدث في حال وجود نزاع بين الطرفين؟",
+      a: "توفر المنصة فريق وساطة متخصص لحل النزاعات، مع نظام تحكيم واضح يضمن الوصول لحل عادل لجميع الأطراف خلال 7 أيام عمل.",
+    },
+  ],
+};
 
-  const filtered = query
-    ? faqs.filter(({ q, a }) => (q + a).toLowerCase().includes(query.toLowerCase()))
-    : faqs;
+const CATEGORIES = Object.keys(FAQ_DATA);
 
+// ─── FAQ Accordion Item ────────────────────────────────────────────────────────
+function FAQItem({
+  q, a, isOpen, onToggle,
+}: {
+  q: string; a: string; isOpen: boolean; onToggle: () => void;
+}) {
   return (
     <div
-      className="relative min-h-[80vh] w-full overflow-hidden text-white"
-      style={{ backgroundColor: cfg.background }}
-      dir="rtl"
+      className="group border-b transition-colors duration-200"
+      style={{ borderColor: isOpen ? "rgba(5,139,127,0.2)" : "rgba(0,0,0,0.07)" }}
     >
-      {/* Background Spiral */}
-      <div
-        className="pointer-events-none absolute inset-0 flex items-center justify-center opacity-30 [mask-image:radial-gradient(circle_at_center,rgba(255,255,255,1),rgba(255,255,255,0.1)_60%,transparent_75%)]"
-        style={{ mixBlendMode: "screen", top: "-20%" }}
-      >
-        <div ref={spiralRef} />
-      </div>
-
-      {/* Layout */}
-      <div className="relative mx-auto max-w-[1200px] px-6 py-24 z-10">
-        {/* Header */}
-        <header className="mb-14 flex flex-col md:flex-row items-end justify-between border-b border-white/10 pb-8 gap-6">
-          <div>
-            <h1 className="text-4xl md:text-5xl font-black text-white">الأسئلة الشائعة</h1>
-            <p className="mt-3 text-sm md:text-base text-white/60 leading-relaxed max-w-lg">
-              نجيب على أهم استفساراتك حول استخدام المنصة والخدمات المتاحة
-            </p>
-          </div>
-          <div className="flex items-center gap-3 w-full md:w-auto">
-            <input
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              placeholder="ابحث عن سؤالك..."
-              className="h-12 w-full md:w-64 rounded-xl border border-white/20 bg-black/20 backdrop-blur-sm px-4 text-sm text-white placeholder-white/40 outline-none transition focus:border-primary/60 focus:ring-1 focus:ring-primary/60"
-            />
-          </div>
-        </header>
-
-        {/* Content */}
-        <section className="relative">
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-            {filtered.map((item, i) => (
-              <FAQItem key={i} q={item.q} a={item.a} index={i + 1} />
-            ))}
-          </div>
-          {filtered.length === 0 && (
-            <div className="text-center py-10 text-white/50">لا توجد أسئلة تطابق بحثك</div>
-          )}
-        </section>
-      </div>
-
-      {/* Control Panel (Development only, hidden natively or kept functional via shortcut) */}
-      {panelOpen && (
-        <aside className="fixed left-4 top-4 z-50 w-[320px] rounded-2xl border border-white/15 bg-black/70 p-4 backdrop-blur text-left" dir="ltr">
-          <h3 className="mb-3 text-sm font-semibold tracking-wide text-white/80">Spiral Controls</h3>
-          <div className="space-y-3 text-xs">
-            <Slider label="Points" min={100} max={2000} step={50} value={cfg.points} onChange={(v)=> setCfg({...cfg, points: v})} />
-            <Slider label="Dot radius" min={0.5} max={5} step={0.1} value={cfg.dotRadius} onChange={(v)=> setCfg({...cfg, dotRadius: v})} />
-            <Slider label="Duration" min={1} max={10} step={0.1} value={cfg.duration} onChange={(v)=> setCfg({...cfg, duration: v})} />
-
-            <Toggle label="Pulse" value={cfg.pulseEffect} onChange={(v)=> setCfg({...cfg, pulseEffect: v})} />
-            <Slider label="Opacity min" min={0} max={1} step={0.05} value={cfg.opacityMin} onChange={(v)=> setCfg({...cfg, opacityMin: v})} />
-            <Slider label="Opacity max" min={0} max={1} step={0.05} value={cfg.opacityMax} onChange={(v)=> setCfg({...cfg, opacityMax: v})} />
-            <Slider label="Size min" min={0.1} max={2} step={0.1} value={cfg.sizeMin} onChange={(v)=> setCfg({...cfg, sizeMin: v})} />
-            <Slider label="Size max" min={0.1} max={3} step={0.1} value={cfg.sizeMax} onChange={(v)=> setCfg({...cfg, sizeMax: v})} />
-
-            <Select
-              label="Gradient"
-              value={cfg.gradient}
-              options={[
-                { label: "None", value: "none" },
-                { label: "Rainbow", value: "rainbow" },
-                { label: "Sunset", value: "sunset" },
-                { label: "Ocean", value: "ocean" },
-                { label: "Fire", value: "fire" },
-                { label: "Neon", value: "neon" },
-                { label: "Pastel", value: "pastel" },
-                { label: "Grayscale", value: "grayscale" },
-              ]}
-              onChange={(v)=> setCfg({...cfg, gradient: v as any})}
-            />
-
-            <div className="flex gap-2">
-              <button
-                onClick={randomize}
-                className="w-full rounded-xl border border-white/20 px-3 py-2 text-xs hover:border-white/50"
-              >
-                Randomize (R)
-              </button>
-              <button
-                onClick={() => setPanelOpen(false)}
-                className="w-full rounded-xl border border-white/20 px-3 py-2 text-xs hover:border-white/50"
-              >
-                Close (H)
-              </button>
-            </div>
-          </div>
-        </aside>
-      )}
-    </div>
-  );
-}
-
-function FAQItem({ q, a, index }: { q: string; a: string; index: number }) {
-  const [open, setOpen] = useState(false);
-  return (
-    <div className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 p-6 transition hover:border-white/30 hover:bg-white/10">
       <button
-        onClick={() => setOpen((v) => !v)}
-        className="flex w-full items-center justify-between text-right"
-        aria-expanded={open}
+        onClick={onToggle}
+        className="flex w-full items-center justify-between gap-4 py-5 text-right"
+        aria-expanded={isOpen}
       >
-        <div className="flex items-center gap-4 text-right pl-4">
-          <span className="text-sm font-bold text-primary/80 shrink-0">{String(index).padStart(2, "0")}</span>
-          <h3 className="text-[15px] sm:text-[16px] font-bold text-white leading-tight">{q}</h3>
-        </div>
-        <span className="text-white/60 transition group-hover:text-white shrink-0 text-xl font-light">{open ? "–" : "+"}</span>
-      </button>
-      <div
-        className={`grid transition-[grid-template-rows] duration-300 ease-[cubic-bezier(.4,0,.2,1)] ${open ? "mt-4 grid-rows-[1fr]" : "grid-rows-[0fr]"}`}
-      >
-        <div className="min-h-0 overflow-hidden pr-10">
-          <p className="text-[14px] leading-[1.8] text-white/70 font-medium">{a}</p>
-        </div>
-      </div>
-      {/* Hover halo */}
-      <div className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100">
-        <div
-          className="absolute -inset-1 rounded-2xl border border-primary/20"
-          style={{ maskImage: "radial-gradient(200px_200px_at_var(--x,50%)_var(--y,50%),white,transparent)" }}
-        />
-      </div>
-    </div>
-  );
-}
-
-// ... internal controls components below
-
-function Slider({
-  label,
-  min,
-  max,
-  step,
-  value,
-  onChange,
-}: {
-  label: string;
-  min: number;
-  max: number;
-  step: number;
-  value: number;
-  onChange: (v: number) => void;
-}) {
-  return (
-    <label className="block">
-      <div className="mb-1 flex items-center justify-between">
-        <span>{label}</span>
-        <span className="tabular-nums text-white/50">{value?.toFixed(2)}</span>
-      </div>
-      <input
-        type="range"
-        min={min}
-        max={max}
-        step={step}
-        value={value}
-        onChange={(e) => onChange(parseFloat(e.target.value))}
-        className="w-full"
-      />
-    </label>
-  );
-}
-
-function Toggle({ label, value, onChange }: { label: string; value: boolean; onChange: (v: boolean) => void }) {
-  return (
-    <label className="flex items-center justify-between">
-      <span>{label}</span>
-      <button
-        onClick={() => onChange(!value)}
-        className={`h-6 w-10 rounded-full border border-white/20 transition ${value ? "bg-white" : "bg-transparent"}`}
-        aria-pressed={value}
-      >
-        <span className={`block h-5 w-5 translate-x-0.5 rounded-full bg-black transition ${value ? "translate-x-4" : "translate-x-0"}`} />
-      </button>
-    </label>
-  );
-}
-
-function Select({
-  label,
-  value,
-  options,
-  onChange,
-}: {
-  label: string;
-  value: string;
-  options: { label: string; value: string }[];
-  onChange: (v: string) => void;
-}) {
-  return (
-    <label className="block">
-      <div className="mb-1">{label}</div>
-      <div className="relative">
-        <select
-          value={value}
-          onChange={(e) => onChange(e.target.value)}
-          className="w-full appearance-none rounded-xl border border-white/20 bg-black px-3 py-2 text-xs outline-none"
+        <h3
+          className="text-[14.5px] sm:text-[15.5px] font-bold leading-snug flex-1 text-right transition-colors duration-200"
+          style={{ color: isOpen ? "#058B7F" : "#1a2e2d" }}
         >
-          {options.map((o) => (
-            <option key={o.value} value={o.value}>
-              {o.label}
-            </option>
-          ))}
-        </select>
-        <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-white/50">▾</span>
+          {q}
+        </h3>
+        <div
+          className="shrink-0 w-7 h-7 rounded-full flex items-center justify-center transition-all duration-300"
+          style={{
+            background: isOpen ? "#058B7F" : "rgba(5,139,127,0.08)",
+            border: isOpen ? "1.5px solid #058B7F" : "1.5px solid rgba(5,139,127,0.2)",
+          }}
+        >
+          {isOpen
+            ? <Minus className="w-3.5 h-3.5 text-white" strokeWidth={2.5} />
+            : <Plus className="w-3.5 h-3.5 text-primary" strokeWidth={2.5} />
+          }
+        </div>
+      </button>
+
+      <AnimatePresence initial={false}>
+        {isOpen && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.32, ease: [0.4, 0, 0.2, 1] }}
+            className="overflow-hidden"
+          >
+            <p className="pb-5 pr-1 text-[13.5px] leading-[1.9] text-text-secondary/65">
+              {a}
+            </p>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
+
+// ─── Animation ─────────────────────────────────────────────────────────────────
+const fadeUp = {
+  hidden: { opacity: 0, y: 20 },
+  visible: (d: number) => ({
+    opacity: 1, y: 0,
+    transition: { duration: 0.55, ease: "easeOut" as const, delay: d },
+  }),
+};
+
+// ═══════════════════════════════════════════════════════════════════════════════
+export default function FAQWithSpiral() {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-80px" });
+
+  const [activeCategory, setActiveCategory] = useState(CATEGORIES[0]);
+  const [openIndex, setOpenIndex] = useState<number | null>(0);
+
+  const currentFAQs = FAQ_DATA[activeCategory] ?? [];
+
+  const handleCategoryChange = (cat: string) => {
+    setActiveCategory(cat);
+    setOpenIndex(0); // auto-open first item on category change
+  };
+
+  return (
+    <section
+      ref={ref}
+      id="faq"
+      className="relative py-20 sm:py-24 md:py-28 overflow-hidden"
+      style={{ background: "#F7F9F9" }}
+    >
+      {/* Ambient blob */}
+      <div
+        className="absolute top-0 right-0 w-96 h-96 rounded-full pointer-events-none"
+        style={{
+          background: "radial-gradient(circle, rgba(5,139,127,0.06) 0%, transparent 70%)",
+          filter: "blur(60px)",
+        }}
+      />
+      <div
+        className="absolute bottom-0 left-0 w-72 h-72 rounded-full pointer-events-none"
+        style={{
+          background: "radial-gradient(circle, rgba(5,139,127,0.05) 0%, transparent 70%)",
+          filter: "blur(50px)",
+        }}
+      />
+
+      <div className="relative z-10 max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
+        <div className="flex flex-col lg:flex-row gap-12 lg:gap-20">
+
+          {/* ══ LEFT PANEL — title + category nav ══ */}
+          <div className="lg:w-72 xl:w-80 shrink-0">
+            <motion.div
+              variants={fadeUp} initial="hidden"
+              animate={isInView ? "visible" : "hidden"} custom={0}
+            >
+              {/* Small label */}
+              <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-primary/[0.07] border border-primary/20 text-primary text-[12px] font-semibold mb-4">
+                <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+                لديك سؤال؟
+              </span>
+
+              {/* Main heading */}
+              <h2
+                className="font-extrabold leading-tight tracking-tight text-text-primary mb-2"
+                style={{ fontSize: "clamp(2rem, 4vw, 3rem)" }}
+              >
+                الأسئلة
+                <br />
+                <span
+                  style={{
+                    background: "linear-gradient(110deg, #058B7F 20%, #0FAE9E 60%)",
+                    WebkitBackgroundClip: "text",
+                    WebkitTextFillColor: "transparent",
+                    backgroundClip: "text",
+                  }}
+                >
+                  الشائعة
+                </span>
+              </h2>
+
+              <p className="text-[13px] text-text-secondary/55 leading-relaxed mb-8 max-w-[220px]">
+                نجيب على أهم استفساراتك حول المنصة وخدماتها
+              </p>
+
+              {/* Category label */}
+              <p className="text-[11px] font-bold uppercase tracking-widest text-primary mb-3">
+                تصفح حسب الموضوع
+              </p>
+
+              {/* Category list */}
+              <nav className="flex flex-col gap-1">
+                {CATEGORIES.map((cat, i) => {
+                  const isActive = activeCategory === cat;
+                  return (
+                    <motion.button
+                      key={cat}
+                      onClick={() => handleCategoryChange(cat)}
+                      variants={fadeUp} initial="hidden"
+                      animate={isInView ? "visible" : "hidden"} custom={0.06 + i * 0.04}
+                      className="relative flex items-center gap-3 px-4 py-2.5 text-right w-full rounded-xl transition-all duration-200 group"
+                      style={{
+                        background: isActive ? "rgba(5,139,127,0.09)" : "transparent",
+                        color: isActive ? "#058B7F" : "#5a6e6c",
+                      }}
+                    >
+                      {/* Active indicator bar */}
+                      <div
+                        className="absolute right-0 top-1/2 -translate-y-1/2 w-0.5 h-5 rounded-full transition-all duration-200"
+                        style={{
+                          background: isActive ? "#058B7F" : "transparent",
+                        }}
+                      />
+                      <span
+                        className="text-[14px] font-semibold transition-colors duration-200 group-hover:text-primary"
+                        style={{ color: isActive ? "#058B7F" : undefined }}
+                      >
+                        {cat}
+                      </span>
+                      {isActive && (
+                        <motion.div
+                          layoutId="cat-dot"
+                          className="ml-auto w-1.5 h-1.5 rounded-full bg-primary shrink-0"
+                        />
+                      )}
+                    </motion.button>
+                  );
+                })}
+              </nav>
+
+              {/* Bottom contact nudge */}
+              <motion.div
+                variants={fadeUp} initial="hidden"
+                animate={isInView ? "visible" : "hidden"} custom={0.45}
+                className="mt-10 p-4 rounded-2xl"
+                style={{
+                  background: "linear-gradient(135deg, rgba(5,139,127,0.08), rgba(15,174,158,0.05))",
+                  border: "1px solid rgba(5,139,127,0.15)",
+                }}
+              >
+                <p className="text-[12.5px] text-text-secondary/65 leading-relaxed text-right mb-3">
+                  لم تجد إجابة لسؤالك؟ تواصل مع فريق الدعم
+                </p>
+                <a
+                  href="#contact"
+                  className="inline-flex items-center gap-1.5 text-[12px] font-bold text-primary hover:underline"
+                >
+                  تواصل معنا ←
+                </a>
+              </motion.div>
+            </motion.div>
+          </div>
+
+          {/* ══ RIGHT PANEL — accordion FAQs ══ */}
+          <div className="flex-1 min-w-0">
+            {/* Category heading */}
+            <motion.div
+              variants={fadeUp} initial="hidden"
+              animate={isInView ? "visible" : "hidden"} custom={0.1}
+              className="mb-6 pb-4 flex items-center justify-between"
+              style={{ borderBottom: "2px solid rgba(5,139,127,0.12)" }}
+            >
+              <span className="text-[12px] text-text-secondary/40">
+                {currentFAQs.length} سؤال
+              </span>
+              <h3 className="text-[18px] font-extrabold text-text-primary">
+                {activeCategory}
+              </h3>
+            </motion.div>
+
+            {/* FAQ items */}
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeCategory}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                transition={{ duration: 0.28, ease: "easeOut" }}
+                className="bg-white rounded-2xl px-6"
+                style={{
+                  border: "1px solid rgba(5,139,127,0.1)",
+                  boxShadow: "0 4px 24px rgba(5,139,127,0.06)",
+                }}
+              >
+                {currentFAQs.map((item, i) => (
+                  <FAQItem
+                    key={i}
+                    q={item.q}
+                    a={item.a}
+                    isOpen={openIndex === i}
+                    onToggle={() => setOpenIndex(openIndex === i ? null : i)}
+                  />
+                ))}
+              </motion.div>
+            </AnimatePresence>
+          </div>
+
+        </div>
       </div>
-    </label>
+    </section>
   );
 }
