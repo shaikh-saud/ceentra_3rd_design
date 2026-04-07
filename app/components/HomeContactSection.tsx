@@ -114,10 +114,10 @@ export default function HomeContactSection() {
                 {/* Map background */}
                 <div className="absolute inset-0 rounded-2xl" style={{ background: "#f0f8f7", zIndex: -1 }} />
 
-                {/* Saudi Arabia pin — positioned roughly center-right for Middle East */}
+                {/* Riyadh, Saudi Arabia pin — 24.7°N 46.7°E → ~37% from right, ~34% from top */}
                 <div
                   className="absolute flex flex-col items-center"
-                  style={{ right: "35%", top: "42%", zIndex: 10 }}
+                  style={{ right: "37%", top: "32%", zIndex: 10 }}
                 >
                   {/* Tooltip */}
                   <div
@@ -165,7 +165,7 @@ export default function HomeContactSection() {
           <motion.div
             variants={fadeUp} initial="hidden"
             animate={isInView ? "visible" : "hidden"} custom={0.1}
-            className="w-full lg:w-[520px] shrink-0"
+            className="w-full lg:w-130 shrink-0"
           >
             <div
               className="relative rounded-3xl p-7 sm:p-8 overflow-hidden"
@@ -223,7 +223,7 @@ export default function HomeContactSection() {
                   <Label className="text-[12.5px] font-semibold text-text-secondary/65">رسالتك</Label>
                   <Textarea
                     placeholder="اكتب رسالتك هنا..."
-                    className="rounded-xl bg-white border-0 min-h-[120px] text-[14px] shadow-[0_1px_3px_rgba(0,0,0,0.08)] resize-none focus-visible:ring-primary/40"
+                    className="rounded-xl bg-white border-0 min-h-30 text-[14px] shadow-[0_1px_3px_rgba(0,0,0,0.08)] resize-none focus-visible:ring-primary/40"
                   />
                 </div>
 
