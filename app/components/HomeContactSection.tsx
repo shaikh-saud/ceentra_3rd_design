@@ -1,12 +1,14 @@
 "use client";
 
 import { useRef } from "react";
+import Image from "next/image";
 import { motion, useInView } from "framer-motion";
 import { Mail, Phone, MapPin, MessageCircle } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+
 
 const fadeUp = {
   hidden: { opacity: 0, y: 22 },
@@ -97,66 +99,19 @@ export default function HomeContactSection() {
               </span>
             </motion.div>
 
-            {/* World map */}
+            {/* Location image */}
             <motion.div
               variants={fadeUp} initial="hidden"
               animate={isInView ? "visible" : "hidden"} custom={0.18}
-              className="relative mt-2"
+              className="relative mt-2 rounded-2xl overflow-hidden"
+              style={{ height: "240px", border: "1px solid rgba(5,139,127,0.12)" }}
             >
-              <div className="relative overflow-hidden rounded-2xl" style={{ height: "220px" }}>
-                {/* Map image */}
-                <img
-                  src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/World_map_-_low_resolution.svg/1200px-World_map_-_low_resolution.svg.png"
-                  alt="خريطة العالم"
-                  className="w-full h-full object-cover object-center"
-                  style={{ filter: "opacity(0.12) sepia(1) hue-rotate(130deg) saturate(2)", mixBlendMode: "multiply" }}
-                />
-                {/* Map background */}
-                <div className="absolute inset-0 rounded-2xl" style={{ background: "#f0f8f7", zIndex: -1 }} />
-
-                {/* Riyadh, Saudi Arabia pin — 24.7°N 46.7°E → ~37% from right, ~34% from top */}
-                <div
-                  className="absolute flex flex-col items-center"
-                  style={{ right: "37%", top: "32%", zIndex: 10 }}
-                >
-                  {/* Tooltip */}
-                  <div
-                    className="px-3 py-1.5 rounded-full text-[11px] font-bold text-text-primary mb-1.5 whitespace-nowrap"
-                    style={{
-                      background: "rgba(255,255,255,0.95)",
-                      boxShadow: "0 2px 12px rgba(0,0,0,0.12)",
-                      border: "1px solid rgba(5,139,127,0.15)",
-                    }}
-                  >
-                    نحن هنا 📍
-                  </div>
-
-                  {/* Pin stem */}
-                  <div className="relative flex flex-col items-center">
-                    <div
-                      className="w-3.5 h-3.5 rounded-full"
-                      style={{
-                        background: "linear-gradient(135deg, #058B7F, #0FAE9E)",
-                        boxShadow: "0 0 0 4px rgba(5,139,127,0.2), 0 0 0 8px rgba(5,139,127,0.08)",
-                      }}
-                    />
-                    {/* Ripple */}
-                    <div
-                      className="absolute w-3.5 h-3.5 rounded-full animate-ping"
-                      style={{ background: "rgba(5,139,127,0.35)" }}
-                    />
-                  </div>
-                </div>
-
-                {/* Subtle grid overlay */}
-                <div
-                  className="absolute inset-0 rounded-2xl pointer-events-none"
-                  style={{
-                    backgroundImage: "radial-gradient(circle, rgba(5,139,127,0.08) 1px, transparent 1px)",
-                    backgroundSize: "24px 24px",
-                  }}
-                />
-              </div>
+              <Image
+                src="/map-location.png"
+                alt="موقعنا في الرياض"
+                fill
+                className="object-cover object-center"
+              />
             </motion.div>
 
           </div>
