@@ -50,7 +50,7 @@ const features = [
     icon: Video,
     accent: "teal",
   },
-];
+] as const;
 
 const NAVY  = "#0e2453";
 const TEAL  = "#058B7F";

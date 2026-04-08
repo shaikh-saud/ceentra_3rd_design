@@ -282,8 +282,11 @@ export default function Hero() {
           initial="hidden"
           animate="visible"
           className="font-extrabold tracking-tight w-full"
-          style={{ color: "#0e2453" }}
-          style={{ fontSize: "clamp(1.35rem, 3.8vw, 3rem)", lineHeight: 1.32 }}
+          style={{ 
+            color: "#0e2453",
+            fontSize: "clamp(1.35rem, 3.8vw, 3rem)", 
+            lineHeight: 1.32 
+          }}
         >
           <span className="block whitespace-nowrap">منصتك الموثوقة للعثور على أفضل</span>
 

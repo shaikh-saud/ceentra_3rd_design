@@ -124,8 +124,10 @@ export default function Testimonials() {
             variants={fadeUp} initial="hidden"
             animate={isInView ? "visible" : "hidden"} custom={0.08}
             className="font-extrabold leading-tight tracking-tight"
-            style={{ color: "#0e2453" }}
-            style={{ fontSize: "clamp(1.6rem, 3.8vw, 2.8rem)" }}
+            style={{ 
+              color: "#0e2453",
+              fontSize: "clamp(1.6rem, 3.8vw, 2.8rem)" 
+            }}
           >
             ماذا يقول{" "}
             <span
