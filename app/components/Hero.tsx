@@ -15,10 +15,10 @@ interface ParticleData {
 }
 
 // ─── Typing animation hook ──────────────────────────────────────────────────────
-const TYPING_SPEED   = 88;
+const TYPING_SPEED = 88;
 const DELETING_SPEED = 48;
-const PAUSE_AFTER    = 2400;
-const PAUSE_BEFORE   = 380;
+const PAUSE_AFTER = 2400;
+const PAUSE_BEFORE = 380;
 
 const WORDS = [
   "شركات التسويق الرقمي",
@@ -176,7 +176,7 @@ const ParticleCanvas: React.FC = () => {
       init();
     };
 
-    const onMove  = (e: MouseEvent) => { mouse.x = e.clientX; mouse.y = e.clientY; };
+    const onMove = (e: MouseEvent) => { mouse.x = e.clientX; mouse.y = e.clientY; };
     const onLeave = () => { mouse.x = null; mouse.y = null; };
 
     window.addEventListener("resize", resize);
@@ -282,10 +282,10 @@ export default function Hero() {
           initial="hidden"
           animate="visible"
           className="font-extrabold tracking-tight w-full"
-          style={{ 
+          style={{
             color: "#0e2453",
-            fontSize: "clamp(1.35rem, 3.8vw, 3rem)", 
-            lineHeight: 1.32 
+            fontSize: "clamp(1.35rem, 3.8vw, 3rem)",
+            lineHeight: 1.32
           }}
         >
           <span className="block whitespace-nowrap">منصتك الموثوقة للعثور على أفضل</span>
