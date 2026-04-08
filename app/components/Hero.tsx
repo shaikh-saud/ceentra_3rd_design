@@ -15,15 +15,10 @@ interface ParticleData {
 }
 
 // ─── Typing animation hook ──────────────────────────────────────────────────────
-// UX timing rationale:
-//   - 88ms per character  → smooth, premium feel (not rushed, not sluggish)
-//   - 48ms per delete     → delete faster than type so the new word feels fresh
-//   - 2 400ms pause       → enough time to read the full phrase comfortably
-//   - 380ms gap           → short breath before the next word starts appearing
-const TYPING_SPEED  = 88;
+const TYPING_SPEED   = 88;
 const DELETING_SPEED = 48;
-const PAUSE_AFTER   = 2400;
-const PAUSE_BEFORE  = 380;
+const PAUSE_AFTER    = 2400;
+const PAUSE_BEFORE   = 380;
 
 const WORDS = [
   "شركات التسويق الرقمي",
@@ -50,7 +45,6 @@ const useTypingAnimation = () => {
     const { displayed, wordIndex, isDeleting } = state;
     const currentWord = WORDS[wordIndex];
 
-    // Finished typing → pause, then delete
     if (!isDeleting && displayed === currentWord) {
       const t = setTimeout(
         () => setState((s) => ({ ...s, isDeleting: true })),
@@ -59,7 +53,6 @@ const useTypingAnimation = () => {
       return () => clearTimeout(t);
     }
 
-    // Finished deleting → short pause, next word
     if (isDeleting && displayed === "") {
       const t = setTimeout(
         () =>
@@ -73,7 +66,6 @@ const useTypingAnimation = () => {
       return () => clearTimeout(t);
     }
 
-    // Typing or deleting one character at a time
     const next = isDeleting
       ? currentWord.slice(0, displayed.length - 1)
       : currentWord.slice(0, displayed.length + 1);
@@ -88,7 +80,7 @@ const useTypingAnimation = () => {
   return state.displayed;
 };
 
-// ─── Particle Canvas (light bg) ───────────────────────────────────────────────
+// ─── Particle Canvas (navy dark bg) ───────────────────────────────────────────
 const ParticleCanvas: React.FC = () => {
   const canvasRef = React.useRef<HTMLCanvasElement>(null);
 
@@ -105,7 +97,7 @@ const ParticleCanvas: React.FC = () => {
     const draw = (p: ParticleData) => {
       ctx.beginPath();
       ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-      ctx.fillStyle = "rgba(5,139,127,0.5)";
+      ctx.fillStyle = "rgba(15,174,158,0.45)";
       ctx.fill();
     };
 
@@ -158,8 +150,8 @@ const ParticleCanvas: React.FC = () => {
               near = Math.sqrt(mx * mx + my * my) < mouse.radius;
             }
             ctx.strokeStyle = near
-              ? `rgba(4,110,101,${op * 0.85})`
-              : `rgba(15,174,158,${op * 0.4})`;
+              ? `rgba(5,139,127,${op * 0.75})`
+              : `rgba(15,174,158,${op * 0.22})`;
             ctx.lineWidth = 0.8;
             ctx.beginPath();
             ctx.moveTo(particles[a].x, particles[a].y);
@@ -172,8 +164,8 @@ const ParticleCanvas: React.FC = () => {
 
     const animate = () => {
       raf = requestAnimationFrame(animate);
-      ctx.fillStyle = "#F7F9F9";
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      // Clear canvas so section gradient shows through
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
       particles.forEach(update);
       connect();
     };
@@ -213,19 +205,26 @@ const TrustPill: React.FC = () => {
     "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=80&h=80&fit=crop&crop=face",
   ];
   return (
-    <div className="inline-flex items-center gap-3 bg-white/80 backdrop-blur-sm border border-primary/15 rounded-full py-2 px-4 shadow-sm">
+    <div className="inline-flex items-center gap-3 rounded-full py-2 px-4"
+      style={{
+        background: "rgba(14,36,83,0.06)",
+        border: "1px solid rgba(14,36,83,0.14)",
+        backdropFilter: "blur(12px)",
+      }}
+    >
       <div className="flex" style={{ direction: "ltr" }}>
         {avatars.map((src, i) => (
           <div
             key={i}
-            className="h-7 w-7 rounded-full overflow-hidden border-2 border-white -ml-2 first:ml-0 shadow-sm"
+            className="h-7 w-7 rounded-full overflow-hidden -ml-2 first:ml-0"
+            style={{ border: "2px solid rgba(14,36,83,0.15)", boxShadow: "0 2px 6px rgba(0,0,0,0.12)" }}
           >
             <img src={src} alt="" className="h-full w-full object-cover" />
           </div>
         ))}
       </div>
-      <p className="text-text-secondary text-[13px] font-semibold whitespace-nowrap">
-        <span className="text-primary font-bold">+200</span> شركة موثّقة ومسجّلة
+      <p className="text-[13px] font-semibold whitespace-nowrap" style={{ color: "rgba(14,36,83,0.75)" }}>
+        <span className="font-bold" style={{ color: "#0FAE9E" }}>+200</span> شركة موثّقة ومسجّلة
       </p>
     </div>
   );
@@ -248,36 +247,29 @@ export default function Hero() {
   return (
     <section
       id="home"
-      className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-6 bg-bg-light"
+      className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-6"
+      style={{ background: "#ffffff" }}
     >
       {/* Particle canvas */}
       <ParticleCanvas />
 
-      {/* Centre vignette — keeps text zone crisp */}
-      <div
-        className="absolute inset-0 z-1 pointer-events-none"
-        style={{
-          background:
-            "radial-gradient(ellipse 68% 68% at 50% 50%, rgba(247,249,249,0.76) 0%, rgba(247,249,249,0.08) 72%, transparent 100%)",
-        }}
-      />
 
-      {/* Ambient teal glow behind the heading */}
-      <div
-        className="absolute top-[44%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-175 h-110 rounded-full pointer-events-none z-2"
-        style={{
-          background: "radial-gradient(ellipse, rgba(5,139,127,0.07) 0%, transparent 70%)",
-        }}
-      />
 
       {/* ── Content stack ── */}
       <div className="relative z-10 text-center w-full max-w-4xl mx-auto flex flex-col items-center">
 
         {/* Badge */}
         <motion.div custom={0} variants={fadeUp} initial="hidden" animate="visible" className="mb-8">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/8 border border-primary/20 backdrop-blur-sm">
-            <Sparkles className="h-4 w-4 text-primary" />
-            <span className="text-[13px] font-semibold text-primary">
+          <div
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full"
+            style={{
+              background: "rgba(15,174,158,0.15)",
+              border: "1px solid rgba(15,174,158,0.35)",
+              backdropFilter: "blur(8px)",
+            }}
+          >
+            <Sparkles className="h-4 w-4" style={{ color: "#0FAE9E" }} />
+            <span className="text-[13px] font-semibold" style={{ color: "#0FAE9E" }}>
               منصة سنترَا — شريكك الموثوق في التسويق الرقمي
             </span>
           </div>
@@ -289,19 +281,12 @@ export default function Hero() {
           variants={fadeUp}
           initial="hidden"
           animate="visible"
-          className="font-extrabold tracking-tight text-text-primary w-full"
+          className="font-extrabold tracking-tight w-full"
+          style={{ color: "#0e2453" }}
           style={{ fontSize: "clamp(1.35rem, 3.8vw, 3rem)", lineHeight: 1.32 }}
         >
-          {/* Static first line — forced single line */}
           <span className="block whitespace-nowrap">منصتك الموثوقة للعثور على أفضل</span>
 
-          {/*
-            Dynamic second line — RTL notes:
-            • The container is dir="rtl" (inherited), so characters append right→left naturally.
-            • min-h prevents layout jump when displayed is empty between words.
-            • The cursor span sits AFTER the text in DOM order → appears on the LEFT in RTL,
-              which is visually correct (end of the reading direction).
-          */}
           <span
             className="block mt-2"
             style={{ minHeight: "1.35em" }}
@@ -310,7 +295,7 @@ export default function Hero() {
           >
             <span
               style={{
-                background: "linear-gradient(110deg, #058B7F 10%, #0FAE9E 52%, #046E65 92%)",
+                background: "linear-gradient(110deg, #0FAE9E 10%, #058B7F 52%, #0dcfbc 92%)",
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
                 backgroundClip: "text",
@@ -318,7 +303,7 @@ export default function Hero() {
             >
               {typedText}
             </span>
-            {/* Blinking cursor — sits left of text in RTL display */}
+            {/* Blinking cursor */}
             <span
               aria-hidden="true"
               style={{
@@ -326,8 +311,8 @@ export default function Hero() {
                 width: "3px",
                 height: "0.88em",
                 borderRadius: "2px",
-                background: "#058B7F",
-                marginRight: "4px",          // RTL: gap between cursor and last character
+                background: "#0FAE9E",
+                marginRight: "4px",
                 verticalAlign: "middle",
                 animation: "cursorBlink 1.1s ease-in-out infinite",
               }}
@@ -341,29 +326,47 @@ export default function Hero() {
           variants={fadeUp}
           initial="hidden"
           animate="visible"
-          className="mt-7 leading-[1.95] text-text-secondary max-w-2xl mx-auto"
-          style={{ fontSize: "clamp(0.95rem, 2.1vw, 1.1rem)" }}
+          className="mt-7 leading-[1.95] max-w-2xl mx-auto"
+          style={{ fontSize: "clamp(0.95rem, 2.1vw, 1.1rem)", color: "rgba(14,36,83,0.55)" }}
         >
           اكتشف بسهولة شركات تسويق موثوقة، قارن الخدمات، وابدأ في تنمية أعمالك
           بثقة. منصة سنترَا توفر لك تجربة آمنة وسلسة للتواصل مع أفضل الشركات
           وتحقيق نتائج حقيقية.
         </motion.p>
 
-        {/* Single CTA */}
+        {/* CTAs */}
         <motion.div
           custom={3}
           variants={fadeUp}
           initial="hidden"
           animate="visible"
-          className="mt-10"
+          className="mt-10 flex flex-wrap items-center justify-center gap-4"
         >
+          {/* Primary teal CTA */}
           <Link
             href="#contact"
-            className="inline-flex items-center justify-center gap-2 px-10 py-4 rounded-full bg-primary text-white font-bold text-[15px] transition-all duration-300 hover:bg-primary-dark hover:scale-[1.04] active:scale-[0.98]"
-            style={{ boxShadow: "0 4px 24px rgba(5,139,127,0.38)" }}
+            className="inline-flex items-center justify-center gap-2 px-10 py-4 rounded-full font-bold text-[15px] text-white transition-all duration-300 hover:scale-[1.04] active:scale-[0.98]"
+            style={{
+              background: "linear-gradient(135deg, #058B7F 0%, #0FAE9E 100%)",
+              boxShadow: "0 4px 24px rgba(5,139,127,0.45)",
+            }}
           >
             ابدأ الآن مجانًا
             <ArrowUpRight className="h-5 w-5" />
+          </Link>
+
+          {/* Ghost secondary CTA */}
+          <Link
+            href="#how-it-works"
+            className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full font-semibold text-[15px] transition-all duration-300 hover:scale-[1.04] active:scale-[0.98]"
+            style={{
+              color: "#0e2453",
+              border: "1px solid rgba(14,36,83,0.20)",
+              background: "rgba(14,36,83,0.05)",
+              backdropFilter: "blur(8px)",
+            }}
+          >
+            كيف تعمل؟
           </Link>
         </motion.div>
 
@@ -377,6 +380,13 @@ export default function Hero() {
         >
           <TrustPill />
         </motion.div>
+      </div>
+
+      {/* Bottom wave divider into next section */}
+      <div className="absolute bottom-0 left-0 right-0 z-10 pointer-events-none overflow-hidden leading-none">
+        <svg viewBox="0 0 1440 56" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style={{ display: "block", width: "100%", height: "56px" }}>
+          <path d="M0,28 C360,56 1080,0 1440,28 L1440,56 L0,56 Z" fill="#F7F9F9" />
+        </svg>
       </div>
     </section>
   );

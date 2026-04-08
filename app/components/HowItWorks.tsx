@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState, useEffect } from "react";
-import { motion, useInView, AnimatePresence } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import { UserPlus, FileText, BarChart3, Rocket } from "lucide-react";
 
 // ─── Step data ────────────────────────────────────────────────────────────────
@@ -40,61 +40,22 @@ const steps = [
 function Connector() {
   return (
     <div className="hidden lg:flex items-center justify-center shrink-0">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
         <path
           d="M17 12H7M7 12L11 8M7 12L11 16"
-          stroke="#058B7F"
-          strokeWidth="1.6"
+          stroke="#0e2453"
+          strokeWidth="1.5"
           strokeLinecap="round"
           strokeLinejoin="round"
-          opacity="0.3"
+          opacity="0.22"
         />
       </svg>
     </div>
   );
 }
 
-// ─── Progress ring (SVG) ──────────────────────────────────────────────────────
-// Draws a circular countdown border that drains over 3s
-const DURATION = 3000; // ms per card
-const R = 36; // radius
-const CIRCUMFERENCE = 2 * Math.PI * R;
-
-function ProgressRing({ active }: { active: boolean }) {
-  const [offset, setOffset] = useState(CIRCUMFERENCE);
-
-  useEffect(() => {
-    if (!active) {
-      setOffset(CIRCUMFERENCE);
-      return;
-    }
-    setOffset(CIRCUMFERENCE);
-    const start = performance.now();
-    let raf: number;
-    const tick = (now: number) => {
-      const elapsed = now - start;
-      const progress = Math.min(elapsed / DURATION, 1);
-      setOffset(CIRCUMFERENCE * (1 - progress));
-      if (progress < 1) raf = requestAnimationFrame(tick);
-    };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, [active]);
-
-  return (
-    <svg
-      className="absolute inset-0 w-full h-full pointer-events-none"
-      style={{ borderRadius: "999px" }}
-      viewBox="0 0 100 100"
-      preserveAspectRatio="none"
-    >
-      {/* We don't want a ring here — just the card border animation handled via CSS */}
-    </svg>
-  );
-}
-
 // ─── Shared smooth transition ─────────────────────────────────────────────────
-// One config used everywhere — prevents elements finishing at different times
+const DURATION = 3000;
 const T = { duration: 0.75, ease: [0.4, 0, 0.2, 1] as const };
 
 // ─── Animation ───────────────────────────────────────────────────────────────
@@ -112,16 +73,13 @@ export default function HowItWorks() {
   const sectionRef = useRef(null);
   const isInView = useInView(sectionRef, { once: true, margin: "-60px" });
 
-  // Auto-cycle active card every 4s — gives enough read time
   const [activeIndex, setActiveIndex] = useState(0);
 
   useEffect(() => {
-    // Small initial delay so the page finishes loading before cycling starts
     const init = setTimeout(() => {
       const id = setInterval(() => {
         setActiveIndex((prev) => (prev + 1) % steps.length);
       }, DURATION);
-      // store interval id for cleanup — returned via closure
       (window as any).__howItWorksInterval = id;
     }, 800);
     return () => {
@@ -137,10 +95,21 @@ export default function HowItWorks() {
       className="relative py-24 sm:py-28 md:py-32 px-5 sm:px-6 overflow-hidden"
       style={{ background: "#F7F9F9" }}
     >
-      {/* Ambient radial glow */}
+      {/* Subtle navy ambient blob top-right */}
       <div
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[860px] h-[560px] rounded-full pointer-events-none"
-        style={{ background: "radial-gradient(ellipse, rgba(5,139,127,0.05) 0%, transparent 68%)" }}
+        className="absolute top-0 right-0 w-130 h-105 rounded-full pointer-events-none"
+        style={{
+          background: "radial-gradient(ellipse, rgba(14,36,83,0.055) 0%, transparent 70%)",
+          filter: "blur(60px)",
+        }}
+      />
+      {/* Teal ambient blob bottom-left */}
+      <div
+        className="absolute bottom-0 left-0 w-105 h-80 rounded-full pointer-events-none"
+        style={{
+          background: "radial-gradient(ellipse, rgba(5,139,127,0.06) 0%, transparent 70%)",
+          filter: "blur(60px)",
+        }}
       />
 
       <div className="relative z-10 max-w-6xl mx-auto">
@@ -148,15 +117,29 @@ export default function HowItWorks() {
         {/* ── Section header ── */}
         <div className="text-center mb-20">
           <motion.div variants={fadeUp} initial="hidden" animate={isInView ? "visible" : "hidden"} custom={0} className="mb-5">
-            <span className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/[0.07] text-primary py-1.5 px-4 text-[13px] font-semibold">
-              <span className="w-1.5 h-1.5 rounded-full bg-primary inline-block animate-pulse" />
+            <span
+              className="inline-flex items-center gap-2 rounded-full py-1.5 px-4 text-[13px] font-semibold"
+              style={{
+                background: "rgba(14,36,83,0.07)",
+                border: "1px solid rgba(14,36,83,0.14)",
+                color: "#0e2453",
+              }}
+            >
+              <span
+                className="w-1.5 h-1.5 rounded-full inline-block animate-pulse"
+                style={{ background: "#058B7F" }}
+              />
               آلية العمل
             </span>
           </motion.div>
 
           <motion.h2
             variants={fadeUp} initial="hidden" animate={isInView ? "visible" : "hidden"} custom={0.1}
-            className="text-[28px] sm:text-[34px] md:text-[42px] font-extrabold tracking-tight text-text-primary leading-[1.25]"
+            className="font-extrabold tracking-tight leading-tight"
+            style={{
+              fontSize: "clamp(1.75rem, 4vw, 2.75rem)",
+              color: "#0e2453",
+            }}
           >
             كيف تبدأ مع{" "}
             <span style={{
@@ -171,7 +154,8 @@ export default function HowItWorks() {
 
           <motion.p
             variants={fadeUp} initial="hidden" animate={isInView ? "visible" : "hidden"} custom={0.18}
-            className="mt-4 text-[15px] sm:text-[16px] text-text-secondary leading-[1.85] max-w-xl mx-auto"
+            className="mt-4 text-[15px] sm:text-[16px] leading-[1.85] max-w-xl mx-auto"
+            style={{ color: "rgba(14,36,83,0.55)" }}
           >
             أربع خطوات بسيطة تفصلك عن إيجاد شريك التسويق المثالي لنمو أعمالك.
           </motion.p>
@@ -200,14 +184,6 @@ export default function HowItWorks() {
                   whileHover={{ scale: 1.02 }}
                   transition={{ type: "spring", stiffness: 240, damping: 28 }}
                 >
-                  {/*
-                    ── Pill shell ──
-                    Two background layers stacked:
-                      • Bottom: white card (always present)
-                      • Top:    teal gradient overlay — opacity 0→1
-                    Animating only `opacity` gives perfectly smooth cross-fade
-                    because it never tries to interpolate between gradient ↔ solid.
-                  */}
                   <div
                     className="relative w-full flex flex-col items-center overflow-hidden"
                     style={{
@@ -215,76 +191,115 @@ export default function HowItWorks() {
                       padding: "44px 28px",
                       height: "340px",
                       background: "#ffffff",
-                      border: "1.5px solid rgba(5,139,127,0.16)",
+                      border: "1.5px solid rgba(14,36,83,0.10)",
                     }}
                   >
-                    {/* Teal gradient layer — fades in/out */}
+                    {/* Light gray layer — fades in when active */}
                     <motion.div
                       className="absolute inset-0 pointer-events-none"
                       style={{
                         borderRadius: "999px",
-                        background: "linear-gradient(175deg, #058B7F 0%, #046E65 100%)",
+                        background: "linear-gradient(175deg, #f6f8fa 0%, #eef1f5 100%)",
                       }}
                       animate={{ opacity: isActive ? 1 : 0 }}
                       transition={T}
                     />
 
-                    {/* Shadow overlay — separate so it doesn't fight the bg */}
+                    {/* Teal top-edge glow when active */}
+                    <motion.div
+                      className="absolute top-0 left-0 right-0 h-1 pointer-events-none"
+                      style={{
+                        borderRadius: "999px 999px 0 0",
+                        background: "linear-gradient(90deg, #058B7F, #0FAE9E)",
+                      }}
+                      animate={{ opacity: isActive ? 1 : 0 }}
+                      transition={T}
+                    />
+
+                    {/* Shadow */}
                     <motion.div
                       className="absolute inset-0 pointer-events-none"
                       style={{ borderRadius: "999px" }}
                       animate={{
                         boxShadow: isActive
-                          ? "0 18px 56px rgba(5,139,127,0.34)"
-                          : "0 4px 20px rgba(0,0,0,0.07)",
+                          ? "0 18px 56px rgba(14,36,83,0.12)"
+                          : "0 4px 20px rgba(0,0,0,0.06)",
                       }}
                       transition={T}
                     />
 
-                    {/* Inner decorative ring on teal */}
+                    {/* Inner decorative ring on active */}
                     <motion.div
                       className="absolute inset-4 pointer-events-none"
-                      style={{ borderRadius: "999px", border: "1px solid rgba(255,255,255,0.12)" }}
+                      style={{ borderRadius: "999px", border: "1px solid rgba(255,255,255,0.07)" }}
                       animate={{ opacity: isActive ? 1 : 0 }}
                       transition={T}
                     />
 
-                    {/* All content sits above the overlay layers */}
+                    {/* Content */}
                     <div className="relative z-10 flex flex-col items-center w-full h-full">
 
                       {/* ── Icon circle ── */}
-                      <div className="relative mb-5 flex items-center justify-center shrink-0"
-                           style={{ width: "68px", height: "68px", borderRadius: "50%" }}>
-                        {/* Teal bg (inactive) */}
-                        <motion.div className="absolute inset-0 rounded-full"
-                          style={{ background: "rgba(5,139,127,0.09)" }}
-                          animate={{ opacity: isActive ? 0 : 1 }} transition={T} />
-                        {/* White bg (active) */}
-                        <motion.div className="absolute inset-0 rounded-full"
-                          style={{ background: "rgba(255,255,255,0.22)" }}
-                          animate={{ opacity: isActive ? 1 : 0 }} transition={T} />
-                        {/* Icon — cross-fade color via two spans */}
+                      <div
+                        className="relative mb-5 flex items-center justify-center shrink-0"
+                        style={{ width: "68px", height: "68px", borderRadius: "50%" }}
+                      >
+                        {/* Inactive bg — teal tint */}
+                        <motion.div
+                          className="absolute inset-0 rounded-full"
+                          style={{ background: "rgba(5,139,127,0.10)" }}
+                          animate={{ opacity: isActive ? 0 : 1 }}
+                          transition={T}
+                        />
+                        {/* Active bg — teal ring on navy */}
+                        <motion.div
+                          className="absolute inset-0 rounded-full"
+                          style={{ background: "rgba(15,174,158,0.18)", border: "1.5px solid rgba(15,174,158,0.35)" }}
+                          animate={{ opacity: isActive ? 1 : 0 }}
+                          transition={T}
+                        />
+
+                        {/* Icon color cross-fade */}
                         <span className="relative z-10" style={{ width: "26px", height: "26px", display: "block" }}>
-                          <motion.span className="absolute inset-0 flex items-center justify-center"
-                            animate={{ opacity: isActive ? 0 : 1 }} transition={T}>
+                          <motion.span
+                            className="absolute inset-0 flex items-center justify-center"
+                            animate={{ opacity: isActive ? 0 : 1 }}
+                            transition={T}
+                          >
                             <Icon style={{ width: "26px", height: "26px", color: "#058B7F" }} />
                           </motion.span>
-                          <motion.span className="absolute inset-0 flex items-center justify-center"
-                            animate={{ opacity: isActive ? 1 : 0 }} transition={T}>
-                            <Icon style={{ width: "26px", height: "26px", color: "#ffffff" }} />
+                          <motion.span
+                            className="absolute inset-0 flex items-center justify-center"
+                            animate={{ opacity: isActive ? 1 : 0 }}
+                            transition={T}
+                          >
+                            <Icon style={{ width: "26px", height: "26px", color: "#0FAE9E" }} />
                           </motion.span>
                         </span>
                       </div>
 
                       {/* ── Label pill ── */}
-                      <div className="mb-4 px-3 py-0.5 text-[11px] font-bold tracking-wide relative"
-                           style={{ borderRadius: "999px" }}>
-                        <motion.div className="absolute inset-0" style={{ borderRadius: "999px", background: "rgba(5,139,127,0.08)" }}
-                          animate={{ opacity: isActive ? 0 : 1 }} transition={T} />
-                        <motion.div className="absolute inset-0" style={{ borderRadius: "999px", background: "rgba(255,255,255,0.16)" }}
-                          animate={{ opacity: isActive ? 1 : 0 }} transition={T} />
-                        <motion.span className="relative z-10 block"
-                          animate={{ color: isActive ? "rgba(255,255,255,0.9)" : "#058B7F" }} transition={T}>
+                      <div
+                        className="mb-4 px-3 py-0.5 text-[11px] font-bold tracking-wide relative"
+                        style={{ borderRadius: "999px" }}
+                      >
+                        <motion.div
+                          className="absolute inset-0"
+                          style={{ borderRadius: "999px", background: "rgba(14,36,83,0.07)" }}
+                          animate={{ opacity: isActive ? 0 : 1 }}
+                          transition={T}
+                        />
+                        <motion.div
+                          className="absolute inset-0"
+                          style={{ borderRadius: "999px", background: "rgba(15,174,158,0.20)" }}
+                          animate={{ opacity: isActive ? 1 : 0 }}
+                          transition={T}
+                        />
+                        <motion.span
+                          className="relative z-10 block"
+                          animate={{ color: isActive ? "#0FAE9E" : "#0e2453" }}
+                          transition={T}
+                        >
                           {step.label}
                         </motion.span>
                       </div>
@@ -292,7 +307,7 @@ export default function HowItWorks() {
                       {/* ── Title ── */}
                       <motion.h3
                         className="font-extrabold leading-snug mb-3 relative z-10"
-                        animate={{ color: isActive ? "#ffffff" : "#1A1A1A" }}
+                        animate={{ color: isActive ? "#0e2453" : "#0e2453" }}
                         transition={T}
                         style={{ fontSize: "clamp(1rem, 1.6vw, 1.15rem)" }}
                       >
@@ -302,16 +317,16 @@ export default function HowItWorks() {
                       {/* ── Description ── */}
                       <motion.p
                         className="text-[13px] leading-[1.85] relative z-10"
-                        animate={{ color: isActive ? "rgba(255,255,255,0.72)" : "#5A5A5A" }}
+                        animate={{ color: isActive ? "rgba(14,36,83,0.55)" : "rgba(14,36,83,0.55)" }}
                         transition={T}
                       >
                         {step.description}
                       </motion.p>
 
-                      {/* ── Faint watermark number ── */}
+                      {/* ── Watermark number ── */}
                       <motion.span
                         className="absolute bottom-7 select-none pointer-events-none font-black leading-none"
-                        animate={{ color: isActive ? "rgba(255,255,255,0.07)" : "rgba(5,139,127,0.05)" }}
+                        animate={{ color: isActive ? "rgba(14,36,83,0.04)" : "rgba(14,36,83,0.04)" }}
                         transition={T}
                         style={{ fontSize: "72px" }}
                       >
@@ -319,14 +334,19 @@ export default function HowItWorks() {
                       </motion.span>
                     </div>
 
-                    {/* ── Progress bar ── */}
-                    <div className="absolute bottom-0 left-0 right-0 overflow-hidden"
-                         style={{ borderRadius: "0 0 999px 999px", height: "4px" }}>
+                    {/* ── Progress bar (teal on navy card) ── */}
+                    <div
+                      className="absolute bottom-0 left-0 right-0 overflow-hidden"
+                      style={{ borderRadius: "0 0 999px 999px", height: "4px" }}
+                    >
                       {isActive && (
                         <motion.div
                           key={activeIndex}
                           className="h-full"
-                          style={{ background: "rgba(255,255,255,0.45)", transformOrigin: "right" }}
+                          style={{
+                            background: "linear-gradient(90deg, #058B7F, #0FAE9E)",
+                            transformOrigin: "right",
+                          }}
                           initial={{ scaleX: 1 }}
                           animate={{ scaleX: 0 }}
                           transition={{ duration: DURATION / 1000, ease: "linear" }}
@@ -356,11 +376,14 @@ export default function HowItWorks() {
               style={{
                 width:  activeIndex === i ? "24px" : "8px",
                 height: "8px",
-                background: activeIndex === i ? "#058B7F" : "rgba(5,139,127,0.25)",
+                background: activeIndex === i
+                  ? "linear-gradient(90deg, #058B7F, #0FAE9E)"
+                  : "rgba(14,36,83,0.18)",
               }}
             />
           ))}
         </motion.div>
+
       </div>
     </section>
   );

@@ -4,6 +4,11 @@ import { useRef, useState } from "react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
 import { Check, ArrowUpRight, BadgeCheck, Shield, Zap } from "lucide-react";
 
+const NAVY  = "#0e2453";
+const NAVY2 = "#091a3e";
+const TEAL  = "#058B7F";
+const TEAL_L = "#0FAE9E";
+
 // ─── Types ─────────────────────────────────────────────────────────────────────
 type PlanKey = "monthly" | "semi" | "annual";
 
@@ -16,7 +21,7 @@ interface Plan {
   saving?: string;
   popular?: boolean;
   description: string;
-  features: { group: string; items: string[] }[];
+  features: { group: string; items: string[]; accent: "navy" | "teal" }[];
 }
 
 // ─── Data ──────────────────────────────────────────────────────────────────────
@@ -29,14 +34,8 @@ const individualPlans: Plan[] = [
     period: "شهريًا",
     description: "مثالية للبدء السريع وتجربة المنصة بدون التزامات طويلة",
     features: [
-      {
-        group: "الوصول والخدمات",
-        items: ["الوصول إلى جميع الخدمات", "5 طلبات شهريًا", "تصفح شركات التسويق", "البحث والمقارنة"],
-      },
-      {
-        group: "الدعم والتقارير",
-        items: ["دعم فني عبر واتساب", "تقارير أساسية", "إشعارات العروض", "لوحة تحكم بسيطة"],
-      },
+      { group: "الوصول والخدمات", accent: "navy", items: ["الوصول إلى جميع الخدمات", "5 طلبات شهريًا", "تصفح شركات التسويق", "البحث والمقارنة"] },
+      { group: "الدعم والتقارير",  accent: "teal", items: ["دعم فني عبر واتساب", "تقارير أساسية", "إشعارات العروض", "لوحة تحكم بسيطة"] },
     ],
   },
   {
@@ -49,14 +48,8 @@ const individualPlans: Plan[] = [
     popular: true,
     description: "الخيار الأمثل لأصحاب المشاريع الذين يريدون نتائج مستمرة",
     features: [
-      {
-        group: "الوصول والخدمات",
-        items: ["الوصول إلى جميع الخدمات", "15 طلب شهريًا", "أولوية في عرض الطلبات", "الاستشارات المجانية"],
-      },
-      {
-        group: "الدعم والتقارير",
-        items: ["دعم فني 24/7", "تقارير متقدمة", "تنبيهات ذكية", "لوحة تحكم متقدمة"],
-      },
+      { group: "الوصول والخدمات", accent: "navy", items: ["الوصول إلى جميع الخدمات", "15 طلب شهريًا", "أولوية في عرض الطلبات", "الاستشارات المجانية"] },
+      { group: "الدعم والتقارير",  accent: "teal", items: ["دعم فني 24/7", "تقارير متقدمة", "تنبيهات ذكية", "لوحة تحكم متقدمة"] },
     ],
   },
   {
@@ -68,14 +61,8 @@ const individualPlans: Plan[] = [
     saving: "وفّر 40%",
     description: "أفضل قيمة للراغبين في الاستفادة الكاملة من منصة سنترَا",
     features: [
-      {
-        group: "الوصول والخدمات",
-        items: ["الوصول الكامل لجميع الخدمات", "طلبات غير محدودة", "ظهور مميز في النتائج", "باقة استشارات مجانية"],
-      },
-      {
-        group: "الدعم والتقارير",
-        items: ["دعم فني VIP", "تقارير شاملة وتفصيلية", "مدير حساب خاص", "وصول مبكر للميزات"],
-      },
+      { group: "الوصول والخدمات", accent: "navy", items: ["الوصول الكامل لجميع الخدمات", "طلبات غير محدودة", "ظهور مميز في النتائج", "باقة استشارات مجانية"] },
+      { group: "الدعم والتقارير",  accent: "teal", items: ["دعم فني VIP", "تقارير شاملة وتفصيلية", "مدير حساب خاص", "وصول مبكر للميزات"] },
     ],
   },
 ];
@@ -89,14 +76,8 @@ const companyPlans: Plan[] = [
     period: "شهريًا",
     description: "للشركات التي تبحث عن تواجد فعّال على المنصة",
     features: [
-      {
-        group: "الحضور والظهور",
-        items: ["حساب شركة موثق", "الظهور في قائمة الشركات", "10 عروض شهريًا", "صفحة شركة مخصصة"],
-      },
-      {
-        group: "الإدارة والدعم",
-        items: ["لوحة تحكم متقدمة", "إحصائيات الزيارات", "دعم فني مخصص", "إدارة العروض"],
-      },
+      { group: "الحضور والظهور", accent: "navy", items: ["حساب شركة موثق", "الظهور في قائمة الشركات", "10 عروض شهريًا", "صفحة شركة مخصصة"] },
+      { group: "الإدارة والدعم",  accent: "teal", items: ["لوحة تحكم متقدمة", "إحصائيات الزيارات", "دعم فني مخصص", "إدارة العروض"] },
     ],
   },
   {
@@ -109,14 +90,8 @@ const companyPlans: Plan[] = [
     popular: true,
     description: "للشركات التي ترغب في ظهور مميز وتقارير متقدمة",
     features: [
-      {
-        group: "الحضور والظهور",
-        items: ["ظهور مميز في النتائج", "30 عرض شهريًا", "شارة الشركة الموثوقة", "إعلان في الصفحة الرئيسية"],
-      },
-      {
-        group: "الإدارة والدعم",
-        items: ["تقارير وإحصائيات متقدمة", "دعم أولوية 24/7", "إدارة العروض بالجملة", "تحليلات العملاء"],
-      },
+      { group: "الحضور والظهور", accent: "navy", items: ["ظهور مميز في النتائج", "30 عرض شهريًا", "شارة الشركة الموثوقة", "إعلان في الصفحة الرئيسية"] },
+      { group: "الإدارة والدعم",  accent: "teal", items: ["تقارير وإحصائيات متقدمة", "دعم أولوية 24/7", "إدارة العروض بالجملة", "تحليلات العملاء"] },
     ],
   },
   {
@@ -128,14 +103,8 @@ const companyPlans: Plan[] = [
     saving: "وفّر 40%",
     description: "الحل الشامل للشركات الكبيرة مع إدارة مخصصة",
     features: [
-      {
-        group: "الحضور والظهور",
-        items: ["ظهور في الصفحة الرئيسية", "عروض غير محدودة", "حساب VIP موثق", "تسويق مجاني للشركة"],
-      },
-      {
-        group: "الإدارة والدعم",
-        items: ["مدير حساب مخصص", "تقارير تفصيلية شاملة", "API متكامل مع الأنظمة", "أولوية قصوى في الدعم"],
-      },
+      { group: "الحضور والظهور", accent: "navy", items: ["ظهور في الصفحة الرئيسية", "عروض غير محدودة", "حساب VIP موثق", "تسويق مجاني للشركة"] },
+      { group: "الإدارة والدعم",  accent: "teal", items: ["مدير حساب مخصص", "تقارير تفصيلية شاملة", "API متكامل مع الأنظمة", "أولوية قصوى في الدعم"] },
     ],
   },
 ];
@@ -144,22 +113,27 @@ const companyPlans: Plan[] = [
 function TypeToggle({ isCompany, onChange }: { isCompany: boolean; onChange: (v: boolean) => void }) {
   return (
     <div className="flex justify-center">
-      <div className="relative flex rounded-full bg-white border border-gray-200 p-1 shadow-sm">
+      <div
+        className="relative flex rounded-full p-1"
+        style={{ background: "#fff", border: `1.5px solid rgba(14,36,83,0.12)`, boxShadow: "0 2px 8px rgba(14,36,83,0.08)" }}
+      >
         {(["individual", "company"] as const).map((type) => {
           const active = type === "company" ? isCompany : !isCompany;
           return (
             <button
               key={type}
               onClick={() => onChange(type === "company")}
-              className={`relative z-10 h-10 rounded-full px-7 text-[14px] font-semibold transition-colors duration-300 ${
-                active ? "text-white" : "text-text-secondary hover:text-text-primary"
-              }`}
+              className={`relative z-10 h-10 rounded-full px-7 text-[14px] font-semibold transition-colors duration-300`}
+              style={{ color: active ? "#fff" : NAVY }}
             >
               {active && (
                 <motion.span
                   layoutId="type-pill"
-                  className="absolute inset-0 rounded-full bg-gradient-to-b from-primary-light to-primary"
-                  style={{ boxShadow: "0 4px 16px rgba(5,139,127,0.30)" }}
+                  className="absolute inset-0 rounded-full"
+                  style={{
+                    background: `linear-gradient(135deg, ${NAVY} 0%, ${NAVY2} 100%)`,
+                    boxShadow: `0 4px 16px rgba(14,36,83,0.30)`,
+                  }}
                   transition={{ type: "spring", stiffness: 500, damping: 32 }}
                 />
               )}
@@ -184,18 +158,20 @@ function PlanPills({ plans, activeKey, onChange }: { plans: Plan[]; activeKey: P
             onClick={() => onChange(plan.key)}
             className="relative flex items-center gap-2 h-11 rounded-full px-5 text-[13px] font-bold transition-all duration-300"
             style={{
-              background: isActive ? "linear-gradient(135deg, #058B7F, #0FAE9E)" : "#ffffff",
-              color: isActive ? "#ffffff" : "#5A5A5A",
-              border: isActive ? "none" : "1.5px solid #e5e7eb",
-              boxShadow: isActive
-                ? "0 4px 20px rgba(5,139,127,0.30)"
-                : "0 1px 4px rgba(0,0,0,0.06)",
+              background: isActive ? `linear-gradient(135deg, ${TEAL}, ${TEAL_L})` : "#ffffff",
+              color: isActive ? "#ffffff" : NAVY,
+              border: isActive ? "none" : `1.5px solid rgba(14,36,83,0.12)`,
+              boxShadow: isActive ? `0 4px 20px rgba(5,139,127,0.30)` : "0 1px 4px rgba(0,0,0,0.06)",
             }}
           >
-            {/* Always rendered — opacity controls visibility to avoid insertBefore reconciliation error */}
             <span
-              className="absolute -top-3 left-1/2 -translate-x-1/2 bg-white text-primary text-[9px] font-black px-2 py-0.5 rounded-full whitespace-nowrap border border-primary/20 pointer-events-none transition-opacity duration-200"
-              style={{ opacity: plan.popular && isActive ? 1 : 0 }}
+              className="absolute -top-3 left-1/2 -translate-x-1/2 text-[9px] font-black px-2 py-0.5 rounded-full whitespace-nowrap pointer-events-none transition-opacity duration-200"
+              style={{
+                opacity: plan.popular && isActive ? 1 : 0,
+                background: "#fff",
+                color: TEAL,
+                border: `1px solid ${TEAL}30`,
+              }}
             >
               ⭐ الأشهر
             </span>
@@ -204,8 +180,8 @@ function PlanPills({ plans, activeKey, onChange }: { plans: Plan[]; activeKey: P
               <span
                 className="text-[9px] font-bold px-1.5 py-0.5 rounded-full"
                 style={{
-                  background: isActive ? "rgba(255,255,255,0.25)" : "rgba(5,139,127,0.08)",
-                  color: isActive ? "#fff" : "#058B7F",
+                  background: isActive ? "rgba(255,255,255,0.25)" : `rgba(14,36,83,0.07)`,
+                  color: isActive ? "#fff" : NAVY,
                 }}
               >
                 {plan.saving}
@@ -218,30 +194,30 @@ function PlanPills({ plans, activeKey, onChange }: { plans: Plan[]; activeKey: P
   );
 }
 
-// ─── Price Orb ─────────────────────────────────────────────────────────────────
+// ─── Price Orb — navy gradient ─────────────────────────────────────────────────
 function PriceOrb({ plan }: { plan: Plan }) {
   return (
     <div className="relative flex items-center justify-center">
-      {/* Outermost glow ring */}
+      {/* Outer glow — navy */}
       <div
         className="absolute rounded-full"
         style={{
           width: "320px", height: "320px",
-          background: "radial-gradient(circle, rgba(5,139,127,0.10) 0%, transparent 70%)",
+          background: `radial-gradient(circle, rgba(14,36,83,0.10) 0%, transparent 70%)`,
         }}
       />
-      {/* Outer dashed orbit */}
+      {/* Dashed orbit — teal */}
       <div
-        className="absolute rounded-full border border-dashed border-primary/15"
-        style={{ width: "280px", height: "280px" }}
+        className="absolute rounded-full"
+        style={{ width: "280px", height: "280px", border: `1px dashed rgba(5,139,127,0.20)` }}
       />
-      {/* Mid ring */}
+      {/* Mid ring — navy */}
       <div
-        className="absolute rounded-full border border-primary/10"
-        style={{ width: "230px", height: "230px" }}
+        className="absolute rounded-full"
+        style={{ width: "230px", height: "230px", border: `1px solid rgba(14,36,83,0.10)` }}
       />
 
-      {/* Main orb */}
+      {/* Main orb — navy gradient */}
       <motion.div
         key={plan.key}
         initial={{ scale: 0.88, opacity: 0 }}
@@ -252,27 +228,24 @@ function PriceOrb({ plan }: { plan: Plan }) {
         style={{
           width: "192px", height: "192px",
           borderRadius: "50%",
-          background: "linear-gradient(145deg, #058B7F 0%, #046E65 100%)",
-          boxShadow: "0 16px 56px rgba(5,139,127,0.38), 0 2px 0 rgba(255,255,255,0.15) inset",
+          background: `linear-gradient(145deg, ${NAVY} 0%, ${NAVY2} 100%)`,
+          boxShadow: `0 16px 56px rgba(14,36,83,0.42), 0 0 0 1.5px rgba(5,139,127,0.25), 0 2px 0 rgba(255,255,255,0.10) inset`,
         }}
       >
-        {/* Inner shimmer ring */}
+        {/* Teal inner shimmer ring */}
         <div
           className="absolute inset-3 rounded-full pointer-events-none"
-          style={{ border: "1px solid rgba(255,255,255,0.14)" }}
+          style={{ border: `1px solid rgba(15,174,158,0.20)` }}
         />
-
-        {/* Price text */}
+        {/* Price */}
         <div className="flex flex-col items-center" dir="ltr">
-          <span className="text-[11px] font-semibold text-white/60 mb-1">ريال سعودي</span>
-          <span className="text-[46px] font-black text-white leading-none tracking-tight">
-            {plan.price}
-          </span>
-          <span className="text-[11px] text-white/60 mt-1">/ {plan.period}</span>
+          <span className="text-[11px] font-semibold mb-1" style={{ color: "rgba(255,255,255,0.50)" }}>ريال سعودي</span>
+          <span className="text-[46px] font-black text-white leading-none tracking-tight">{plan.price}</span>
+          <span className="text-[11px] mt-1" style={{ color: "rgba(255,255,255,0.50)" }}>/ {plan.period}</span>
         </div>
       </motion.div>
 
-      {/* Floating badge: popular */}
+      {/* Popular badge — teal */}
       {plan.popular && (
         <motion.div
           initial={{ opacity: 0, y: -8 }}
@@ -280,10 +253,10 @@ function PriceOrb({ plan }: { plan: Plan }) {
           transition={{ delay: 0.25, duration: 0.45 }}
           className="absolute -top-3 right-8 flex items-center gap-1.5 px-3 py-1.5 rounded-full"
           style={{
-            background: "#fff",
-            border: "1.5px solid rgba(5,139,127,0.2)",
-            boxShadow: "0 4px 14px rgba(5,139,127,0.14)",
-            fontSize: "11px", fontWeight: 700, color: "#058B7F",
+            background: `linear-gradient(135deg, ${TEAL}, ${TEAL_L})`,
+            color: "#fff",
+            fontSize: "11px", fontWeight: 700,
+            boxShadow: `0 4px 14px rgba(5,139,127,0.32)`,
           }}
         >
           <Zap className="w-3 h-3" />
@@ -291,7 +264,7 @@ function PriceOrb({ plan }: { plan: Plan }) {
         </motion.div>
       )}
 
-      {/* Floating badge: saving */}
+      {/* Saving badge — white pill with navy text */}
       {plan.saving && (
         <motion.div
           initial={{ opacity: 0, x: 8 }}
@@ -299,17 +272,18 @@ function PriceOrb({ plan }: { plan: Plan }) {
           transition={{ delay: 0.3, duration: 0.45 }}
           className="absolute -bottom-2 left-6 px-3 py-1.5 rounded-full"
           style={{
-            background: "linear-gradient(135deg, #058B7F, #0FAE9E)",
-            color: "#fff",
-            fontSize: "11px", fontWeight: 700,
-            boxShadow: "0 4px 14px rgba(5,139,127,0.28)",
+            background: "#fff",
+            color: NAVY,
+            fontSize: "11px", fontWeight: 800,
+            border: `1.5px solid rgba(14,36,83,0.14)`,
+            boxShadow: "0 4px 14px rgba(14,36,83,0.12)",
           }}
         >
           {plan.saving}
         </motion.div>
       )}
 
-      {/* Floating orbit dots */}
+      {/* Orbit dots — alternating navy / teal */}
       {[0, 60, 120, 180, 240, 300].map((deg, i) => (
         <div
           key={i}
@@ -317,7 +291,7 @@ function PriceOrb({ plan }: { plan: Plan }) {
           style={{
             width: i % 2 === 0 ? "6px" : "4px",
             height: i % 2 === 0 ? "6px" : "4px",
-            background: i % 2 === 0 ? "rgba(5,139,127,0.25)" : "rgba(5,139,127,0.12)",
+            background: i % 2 === 0 ? `rgba(14,36,83,0.25)` : `rgba(5,139,127,0.30)`,
             transform: `rotate(${deg}deg) translateY(-128px)`,
           }}
         />
@@ -330,116 +304,114 @@ function PriceOrb({ plan }: { plan: Plan }) {
 function FeaturePills({ plan }: { plan: Plan }) {
   return (
     <div className="flex flex-col gap-6">
-      {plan.features.map((group, gi) => (
-        <div key={gi}>
-          {/* Group label — pill shape */}
-          <div className="flex items-center gap-2 mb-4 justify-end">
-            <span className="text-[11px] font-black text-primary uppercase tracking-widest">
-              {group.group}
-            </span>
-            <div
-              className="h-5 px-2 rounded-full flex items-center"
-              style={{ background: "rgba(5,139,127,0.08)" }}
-            >
-              <BadgeCheck className="w-3 h-3 text-primary" />
-            </div>
-          </div>
-
-          {/* Feature items — each a pill row */}
-          <ul className="flex flex-col gap-2.5">
-            {group.items.map((item, ii) => (
-              <motion.li
-                key={`${plan.key}-${gi}-${ii}`}
-                initial={{ opacity: 0, x: 16 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.38, delay: gi * 0.1 + ii * 0.06, ease: "easeOut" }}
-                className="flex items-center justify-end gap-3"
+      {plan.features.map((group, gi) => {
+        const color = group.accent === "navy" ? NAVY : TEAL;
+        const colorBg = group.accent === "navy" ? "rgba(14,36,83,0.07)" : "rgba(5,139,127,0.08)";
+        return (
+          <div key={gi}>
+            {/* Group label */}
+            <div className="flex items-center gap-2 mb-4 justify-end">
+              <span
+                className="text-[11px] font-black uppercase tracking-widest"
+                style={{ color }}
               >
-                {/* Text */}
-                <span className="text-[14px] text-text-secondary leading-snug">{item}</span>
-                {/* Check pill */}
-                <div
-                  className="flex items-center justify-center shrink-0"
-                  style={{
-                    width: "24px", height: "24px",
-                    borderRadius: "50%",
-                    background: "rgba(5,139,127,0.09)",
-                    border: "1.5px solid rgba(5,139,127,0.20)",
-                  }}
+                {group.group}
+              </span>
+              <div className="h-5 px-2 rounded-full flex items-center" style={{ background: colorBg }}>
+                <BadgeCheck className="w-3 h-3" style={{ color }} />
+              </div>
+            </div>
+
+            {/* Feature items */}
+            <ul className="flex flex-col gap-2.5">
+              {group.items.map((item, ii) => (
+                <motion.li
+                  key={`${plan.key}-${gi}-${ii}`}
+                  initial={{ opacity: 0, x: 16 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.38, delay: gi * 0.1 + ii * 0.06, ease: "easeOut" }}
+                  className="flex items-center justify-end gap-3"
                 >
-                  <Check className="w-3 h-3 text-primary" strokeWidth={2.8} />
-                </div>
-              </motion.li>
-            ))}
-          </ul>
+                  <span className="text-[14px] leading-snug" style={{ color: "rgba(14,36,83,0.70)" }}>{item}</span>
+                  <div
+                    className="flex items-center justify-center shrink-0"
+                    style={{
+                      width: "24px", height: "24px",
+                      borderRadius: "50%",
+                      background: colorBg,
+                      border: `1.5px solid ${color}30`,
+                    }}
+                  >
+                    <Check className="w-3 h-3" style={{ color }} strokeWidth={2.8} />
+                  </div>
+                </motion.li>
+              ))}
+            </ul>
 
-          {/* Soft separator between groups — wavy pill shape */}
-          {gi < plan.features.length - 1 && (
-            <div
-              className="mt-5 mx-auto"
-              style={{
-                height: "2px", width: "60%",
-                background: "linear-gradient(to left, transparent, rgba(5,139,127,0.12), transparent)",
-                borderRadius: "999px",
-              }}
-            />
-          )}
-        </div>
-      ))}
+            {/* Separator — navy to teal gradient */}
+            {gi < plan.features.length - 1 && (
+              <div
+                className="mt-5 mx-auto"
+                style={{
+                  height: "2px", width: "60%",
+                  background: `linear-gradient(to left, transparent, rgba(5,139,127,0.18), rgba(14,36,83,0.12), transparent)`,
+                  borderRadius: "999px",
+                }}
+              />
+            )}
+          </div>
+        );
+      })}
 
-      {/* CTA section — no box, just floated */}
+      {/* CTA */}
       <div className="mt-2 flex flex-col items-end gap-3">
         <button
           className="flex items-center gap-2 px-8 py-4 rounded-full font-bold text-[15px] text-white transition-all duration-300 hover:scale-[1.03] active:scale-[0.97]"
           style={{
-            background: "linear-gradient(135deg, #058B7F 0%, #0FAE9E 100%)",
-            boxShadow: "0 6px 28px rgba(5,139,127,0.36)",
+            background: `linear-gradient(135deg, ${TEAL} 0%, ${TEAL_L} 100%)`,
+            boxShadow: `0 6px 28px rgba(5,139,127,0.36)`,
           }}
         >
           اشترك الآن
           <ArrowUpRight className="w-4 h-4" />
         </button>
-        <p className="text-[11px] text-text-secondary/45">بدون رسوم خفية · إلغاء في أي وقت</p>
+        <p className="text-[11px]" style={{ color: "rgba(14,36,83,0.38)" }}>بدون رسوم خفية · إلغاء في أي وقت</p>
       </div>
     </div>
   );
 }
 
-// ─── Main pricing display ──────────────────────────────────────────────────────
+// ─── Plan description pill ─────────────────────────────────────────────────────
 function PricingDisplay({ plan }: { plan: Plan }) {
   return (
     <AnimatePresence mode="wait">
       <motion.div
-        key={`${plan.key}`}
+        key={plan.key}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         transition={{ duration: 0.35 }}
         className="w-full max-w-5xl mx-auto"
       >
-        {/* Plan description pill — centred above layout */}
         <div className="flex justify-center mb-10">
           <div
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-[13px] text-text-secondary/70"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-[13px]"
             style={{
-              background: "#F7F9F9",
-              border: "1px solid rgba(5,139,127,0.12)",
+              background: "#fff",
+              border: `1px solid rgba(14,36,83,0.10)`,
+              color: "rgba(14,36,83,0.60)",
+              boxShadow: "0 1px 4px rgba(14,36,83,0.06)",
             }}
           >
-            <Shield className="w-3.5 h-3.5 text-primary/60" />
+            <Shield className="w-3.5 h-3.5" style={{ color: TEAL, opacity: 0.7 }} />
             {plan.description}
           </div>
         </div>
 
-        {/* Orb + Features — two-column, no enclosing box */}
         <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
-
-          {/* Left: Price Orb */}
           <div className="w-full lg:w-[42%] flex justify-center">
             <PriceOrb plan={plan} />
           </div>
-
-          {/* Right: Feature pills */}
           <div className="w-full lg:w-[58%]">
             <FeaturePills plan={plan} />
           </div>
@@ -476,36 +448,52 @@ export default function PricingSection() {
       className="relative py-20 sm:py-24 md:py-28 px-5 sm:px-6 overflow-hidden"
       style={{ background: "#F7F9F9" }}
     >
-      {/* Ambient blobs — all ellipses, no rectangles */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/3 w-[700px] h-[500px] rounded-full pointer-events-none"
-        style={{ background: "radial-gradient(ellipse, rgba(5,139,127,0.06) 0%, transparent 68%)" }} />
-      <div className="absolute bottom-0 right-0 w-80 h-80 rounded-full pointer-events-none"
-        style={{ background: "radial-gradient(ellipse, rgba(15,174,158,0.05) 0%, transparent 70%)" }} />
+      {/* Ambient blobs — navy top, teal bottom */}
+      <div
+        className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/3 w-175 h-125 rounded-full pointer-events-none"
+        style={{ background: `radial-gradient(ellipse, rgba(14,36,83,0.06) 0%, transparent 68%)` }}
+      />
+      <div
+        className="absolute bottom-0 right-0 w-80 h-80 rounded-full pointer-events-none"
+        style={{ background: `radial-gradient(ellipse, rgba(5,139,127,0.06) 0%, transparent 70%)` }}
+      />
 
       <div className="relative z-10 max-w-5xl mx-auto">
 
-        {/* ── Section header ── */}
+        {/* ── Header ── */}
         <div className="text-center mb-10">
           <motion.div variants={fadeUp} initial="hidden" animate={isInView ? "visible" : "hidden"} custom={0} className="mb-4">
-            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/[0.07] border border-primary/20 text-primary text-[13px] font-semibold">
-              <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+            <span
+              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-[13px] font-semibold"
+              style={{
+                background: "rgba(14,36,83,0.07)",
+                border: "1px solid rgba(14,36,83,0.14)",
+                color: NAVY,
+              }}
+            >
+              <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: TEAL }} />
               الأسعار
             </span>
           </motion.div>
 
           <motion.h2
             variants={fadeUp} initial="hidden" animate={isInView ? "visible" : "hidden"} custom={0.08}
-            className="text-[26px] sm:text-[32px] md:text-[40px] font-extrabold text-text-primary leading-[1.28] tracking-tight mb-4"
+            className="font-extrabold leading-tight tracking-tight mb-4"
+            style={{ fontSize: "clamp(1.6rem, 4vw, 2.6rem)", color: NAVY }}
           >
             اختر الخطة{" "}
-            <span style={{ background: "linear-gradient(110deg, #058B7F 20%, #0FAE9E 60%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
+            <span style={{
+              background: `linear-gradient(110deg, ${TEAL} 20%, ${TEAL_L} 60%)`,
+              WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text",
+            }}>
               المناسبة لك
             </span>
           </motion.h2>
 
           <motion.p
             variants={fadeUp} initial="hidden" animate={isInView ? "visible" : "hidden"} custom={0.14}
-            className="text-[14px] sm:text-[15px] text-text-secondary/70 max-w-lg mx-auto leading-relaxed"
+            className="text-[14px] sm:text-[15px] max-w-lg mx-auto leading-relaxed"
+            style={{ color: "rgba(14,36,83,0.50)" }}
           >
             باقات مرنة تناسب الأفراد والشركات — ابدأ الآن وحقق أهدافك بسهولة
           </motion.p>
@@ -516,30 +504,39 @@ export default function PricingSection() {
           <TypeToggle isCompany={isCompany} onChange={setIsCompany} />
         </motion.div>
 
-        {/* ── Plan pill selector ── */}
+        {/* ── Plan pills ── */}
         <motion.div variants={fadeUp} initial="hidden" animate={isInView ? "visible" : "hidden"} custom={0.26} className="mb-12">
           <PlanPills plans={plans} activeKey={activePlanKey} onChange={setActivePlanKey} />
         </motion.div>
 
-        {/* ── Orb + features (no card wrapper) ── */}
+        {/* ── Display ── */}
         <motion.div variants={fadeUp} initial="hidden" animate={isInView ? "visible" : "hidden"} custom={0.32}>
           <PricingDisplay plan={activePlan} />
         </motion.div>
 
-        {/* ── Reassurance row ── */}
+        {/* ── Reassurance row — alternating navy/teal checks ── */}
         <motion.div
           variants={fadeUp} initial="hidden" animate={isInView ? "visible" : "hidden"} custom={0.42}
           className="mt-14 flex flex-wrap items-center justify-center gap-x-8 gap-y-2"
         >
-          {["بدون عقود ملزمة", "إلغاء في أي وقت", "دفع آمن ومشفّر", "دعم متواصل"].map((t) => (
-            <div key={t} className="flex items-center gap-1.5 text-[12px] text-text-secondary/45">
-              <div className="w-4 h-4 rounded-full flex items-center justify-center" style={{ background: "rgba(5,139,127,0.08)" }}>
-                <Check className="w-2.5 h-2.5 text-primary" strokeWidth={3} />
+          {[
+            { text: "بدون عقود ملزمة", accent: NAVY },
+            { text: "إلغاء في أي وقت",  accent: TEAL },
+            { text: "دفع آمن ومشفّر",   accent: NAVY },
+            { text: "دعم متواصل",       accent: TEAL },
+          ].map((t) => (
+            <div key={t.text} className="flex items-center gap-1.5 text-[12px]" style={{ color: "rgba(14,36,83,0.45)" }}>
+              <div
+                className="w-4 h-4 rounded-full flex items-center justify-center"
+                style={{ background: `${t.accent}12` }}
+              >
+                <Check className="w-2.5 h-2.5" style={{ color: t.accent }} strokeWidth={3} />
               </div>
-              {t}
+              {t.text}
             </div>
           ))}
         </motion.div>
+
       </div>
     </section>
   );

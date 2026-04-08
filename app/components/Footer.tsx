@@ -50,7 +50,12 @@ export default function Footer() {
   return (
     <footer className="w-full" dir="rtl">
       {/* Main footer */}
-      <div className="relative bg-primary overflow-hidden">
+      <div
+        className="relative overflow-hidden"
+        style={{
+          background: "#058B7F",
+        }}
+      >
 
         {/* World map background layer */}
         <div
@@ -70,31 +75,32 @@ export default function Footer() {
           />
         </div>
 
+
+
         <div className="relative z-10 mx-auto max-w-325 px-6 sm:px-8 py-12 sm:py-16">
           <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-10 md:gap-8">
-            
+
             {/* Brand column */}
             <div className="flex flex-col items-start gap-4 max-w-[280px] shrink-0">
               <Link href="/">
-                {/* Fallback to text if logo.svg is absent, but keeping image as requested by design */}
                 <span className="text-white font-black text-2xl tracking-tight">Centra</span>
               </Link>
               <p className="text-[13px] leading-relaxed text-white/55">
                 منصة سنترا - وسيط موثوق بين العملاء وشركات التسويق. نضمن لك تجربة آمنة وموثوقة.
               </p>
               <div className="flex items-center gap-3 mt-2">
-                <a href="#" className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 transition-colors">
-                  <Linkedin className="w-4 h-4 text-white" />
-                </a>
-                <a href="#" className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 transition-colors">
-                  <Instagram className="w-4 h-4 text-white" />
-                </a>
-                <a href="#" className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 transition-colors">
-                  <Facebook className="w-4 h-4 text-white" />
-                </a>
-                <a href="#" className="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 transition-colors">
-                  <Twitter className="w-4 h-4 text-white" />
-                </a>
+                {[Linkedin, Instagram, Facebook, Twitter].map((Icon, i) => (
+                  <a
+                    key={i}
+                    href="#"
+                    className="flex items-center justify-center w-8 h-8 rounded-full transition-colors duration-200"
+                    style={{ background: "rgba(255,255,255,0.12)", border: "1px solid rgba(255,255,255,0.18)" }}
+                    onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.background = "rgba(255,255,255,0.22)"; }}
+                    onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.background = "rgba(255,255,255,0.12)"; }}
+                  >
+                    <Icon className="w-4 h-4 text-white" />
+                  </a>
+                ))}
               </div>
             </div>
 
@@ -128,14 +134,25 @@ export default function Footer() {
               <p className="text-[13px] text-white/50 mb-3 leading-relaxed">
                 اشترك ليصلك كل جديد
               </p>
-              <div className="flex items-center bg-white/10 rounded-full overflow-hidden border border-white/15">
+              <div
+                className="flex items-center rounded-full overflow-hidden"
+                style={{
+                  background: "rgba(255,255,255,0.12)",
+                  border: "1px solid rgba(255,255,255,0.20)",
+                }}
+              >
                 <input
                   type="email"
                   placeholder="Enter your email address"
                   className="flex-1 bg-transparent px-4 py-2.5 text-[13px] text-white placeholder:text-white/40 outline-none min-w-0 font-sans"
                   dir="ltr"
                 />
-                <button className="shrink-0 w-9 h-9 flex items-center justify-center bg-white/15 hover:bg-white/25 transition-colors duration-200 rounded-full m-0.5">
+                <button
+                  className="shrink-0 w-9 h-9 flex items-center justify-center rounded-full m-0.5 transition-colors duration-200"
+                  style={{ background: "rgba(255,255,255,0.18)" }}
+                  onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.background = "rgba(255,255,255,0.30)"; }}
+                  onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.background = "rgba(255,255,255,0.18)"; }}
+                >
                   <Send className="w-4 h-4 text-white rotate-180" strokeWidth={2} />
                 </button>
               </div>

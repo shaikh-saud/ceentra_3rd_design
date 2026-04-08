@@ -60,6 +60,19 @@ export const ExpandingCards = React.forwardRef<HTMLUListElement, ExpandingCardsP
       >
         {items.map((item, index) => {
           const isActive = activeIndex === index;
+          // Alternate navy / teal per card
+          const isNavy = index % 2 === 0;
+          const activeOverlay = isNavy
+            ? "linear-gradient(to top, rgba(9,26,62,0.94) 0%, rgba(14,36,83,0.60) 45%, rgba(14,36,83,0.18) 100%)"
+            : "linear-gradient(to top, rgba(4,110,101,0.92) 0%, rgba(5,139,127,0.58) 45%, rgba(5,139,127,0.16) 100%)";
+          const inactiveOverlay = isNavy
+            ? "linear-gradient(to top, rgba(9,26,62,0.82) 0%, rgba(14,36,83,0.35) 60%, rgba(0,0,0,0.10) 100%)"
+            : "linear-gradient(to top, rgba(4,110,101,0.80) 0%, rgba(5,139,127,0.30) 60%, rgba(0,0,0,0.10) 100%)";
+          const activeBorder  = isNavy ? "rgba(14,36,83,0.40)"  : "rgba(5,139,127,0.35)";
+          const activeShadow  = isNavy
+            ? "0 8px 40px rgba(14,36,83,0.28)"
+            : "0 8px 40px rgba(5,139,127,0.22)";
+
           return (
             <li
               key={item.id}
@@ -67,10 +80,11 @@ export const ExpandingCards = React.forwardRef<HTMLUListElement, ExpandingCardsP
                 "group relative cursor-pointer overflow-hidden",
                 "rounded-2xl min-h-0 min-w-0",
                 "border transition-all duration-500",
-                isActive
-                  ? "border-primary/30 shadow-[0_8px_40px_rgba(5,139,127,0.20)]"
-                  : "border-primary/10 shadow-sm hover:border-primary/20",
               )}
+              style={{
+                borderColor: isActive ? activeBorder : "rgba(14,36,83,0.08)",
+                boxShadow: isActive ? activeShadow : "0 1px 4px rgba(0,0,0,0.06)",
+              }}
               onMouseEnter={() => setActiveIndex(index)}
               onClick={() => setActiveIndex(index)}
               tabIndex={0}
@@ -82,18 +96,14 @@ export const ExpandingCards = React.forwardRef<HTMLUListElement, ExpandingCardsP
                 alt={item.title}
                 className={cn(
                   "absolute inset-0 h-full w-full object-cover transition-all duration-700 ease-out",
-                  isActive ? "scale-100 grayscale-0" : "scale-110 grayscale-[30%]",
+                  isActive ? "scale-100 grayscale-0" : "scale-110 grayscale-30",
                 )}
               />
 
-              {/* Gradient overlay — heavier at bottom for text legibility */}
+              {/* Gradient overlay — navy on even cards, teal on odd */}
               <div
-                className="absolute inset-0 transition-opacity duration-500"
-                style={{
-                  background: isActive
-                    ? "linear-gradient(to top, rgba(4,110,101,0.92) 0%, rgba(5,139,127,0.55) 45%, rgba(5,139,127,0.15) 100%)"
-                    : "linear-gradient(to top, rgba(4,110,101,0.80) 0%, rgba(5,139,127,0.30) 60%, rgba(0,0,0,0.10) 100%)",
-                }}
+                className="absolute inset-0 transition-all duration-500"
+                style={{ background: isActive ? activeOverlay : inactiveOverlay }}
               />
 
               {/* Collapsed state — rotated title (desktop only) */}

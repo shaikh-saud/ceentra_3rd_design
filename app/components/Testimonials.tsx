@@ -92,13 +92,14 @@ export default function Testimonials() {
       className="relative overflow-hidden py-20 sm:py-24 md:py-28"
       style={{ background: "#F7F9F9" }}
     >
-      {/* Ambient blob */}
+      {/* Navy blob top-left, teal blob bottom-right */}
       <div
-        className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-2xl h-64 pointer-events-none"
-        style={{
-          background: "radial-gradient(ellipse, rgba(5,139,127,0.07) 0%, transparent 70%)",
-          filter: "blur(40px)",
-        }}
+        className="absolute top-0 left-0 w-96 h-80 rounded-full pointer-events-none"
+        style={{ background: "radial-gradient(ellipse, rgba(14,36,83,0.06) 0%, transparent 70%)", filter: "blur(50px)" }}
+      />
+      <div
+        className="absolute bottom-0 right-0 w-80 h-72 rounded-full pointer-events-none"
+        style={{ background: "radial-gradient(ellipse, rgba(5,139,127,0.07) 0%, transparent 70%)", filter: "blur(50px)" }}
       />
 
       <div className="relative z-10 max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
@@ -110,8 +111,11 @@ export default function Testimonials() {
             animate={isInView ? "visible" : "hidden"} custom={0}
             className="mb-4"
           >
-            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/[0.07] border border-primary/20 text-primary text-[13px] font-semibold">
-              <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+            <span
+              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-[13px] font-semibold"
+              style={{ background: "rgba(14,36,83,0.07)", border: "1px solid rgba(14,36,83,0.14)", color: "#0e2453" }}
+            >
+              <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: "#058B7F" }} />
               آراء العملاء
             </span>
           </motion.div>
@@ -119,7 +123,8 @@ export default function Testimonials() {
           <motion.h2
             variants={fadeUp} initial="hidden"
             animate={isInView ? "visible" : "hidden"} custom={0.08}
-            className="font-extrabold leading-[1.28] tracking-tight text-text-primary"
+            className="font-extrabold leading-tight tracking-tight"
+            style={{ color: "#0e2453" }}
             style={{ fontSize: "clamp(1.6rem, 3.8vw, 2.8rem)" }}
           >
             ماذا يقول{" "}
@@ -138,7 +143,8 @@ export default function Testimonials() {
           <motion.p
             variants={fadeUp} initial="hidden"
             animate={isInView ? "visible" : "hidden"} custom={0.14}
-            className="mt-4 text-[14px] sm:text-[15px] text-text-secondary/65 leading-[1.85] max-w-lg mx-auto"
+            className="mt-4 text-[14px] sm:text-[15px] leading-[1.85] max-w-lg mx-auto"
+            style={{ color: "rgba(14,36,83,0.50)" }}
           >
             أكثر من 500 عميل راضٍ شاركوا تجربتهم مع سنترَا — اقرأ بعض قصص نجاحهم
           </motion.p>
@@ -150,23 +156,15 @@ export default function Testimonials() {
             className="mt-8 flex flex-wrap items-center justify-center gap-8"
           >
             {[
-              { value: "98%", label: "رضا العملاء" },
-              { value: "+500", label: "تقييم إيجابي" },
-              { value: "4.9★", label: "متوسط التقييم" },
+              { value: "98%",   label: "رضا العملاء",    color: "#0e2453" },
+              { value: "+500",  label: "تقييم إيجابي",   color: "#058B7F" },
+              { value: "4.9★",  label: "متوسط التقييم",  color: "#0e2453" },
             ].map((s) => (
               <div key={s.label} className="flex flex-col items-center gap-1">
-                <span
-                  className="text-[26px] font-black leading-none"
-                  style={{
-                    background: "linear-gradient(110deg, #058B7F, #0FAE9E)",
-                    WebkitBackgroundClip: "text",
-                    WebkitTextFillColor: "transparent",
-                    backgroundClip: "text",
-                  }}
-                >
+                <span className="text-[26px] font-black leading-none" style={{ color: s.color }}>
                   {s.value}
                 </span>
-                <span className="text-[12px] text-text-secondary/50">{s.label}</span>
+                <span className="text-[12px]" style={{ color: "rgba(14,36,83,0.45)" }}>{s.label}</span>
               </div>
             ))}
           </motion.div>

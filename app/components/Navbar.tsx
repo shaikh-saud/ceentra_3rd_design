@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback, useRef } from "react";
+import Image from "next/image";
 import { Home, Settings, Info, Lightbulb, CreditCard, Users } from "lucide-react";
 
 const NAV_LINKS = [
@@ -39,8 +40,7 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, [activeSection]);
 
-  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    e.preventDefault();
+  const handleClick = useCallback((href: string) => {
     const el = document.getElementById(href.substring(1));
     if (el) {
       isClickScrolling.current = true;
@@ -49,67 +49,79 @@ export default function Navbar() {
       if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
       scrollTimeout.current = setTimeout(() => { isClickScrolling.current = false; }, 1000);
     }
-  };
+  }, []);
 
   return (
     <div className="fixed top-5 left-1/2 -translate-x-1/2 z-50">
-      <ul className="flex items-center gap-4">
+      <ul
+        className="flex items-center gap-2 px-2 py-2 rounded-full" dir="rtl"
+        style={{
+          background: "rgba(255,255,255,0.95)",
+          backdropFilter: "blur(20px)",
+          border: "1px solid rgba(14,36,83,0.10)",
+          boxShadow: "0 8px 32px rgba(14,36,83,0.12), 0 2px 8px rgba(0,0,0,0.08)",
+        }}
+      >
+        {/* Logo — right side (RTL leading) */}
+        <li className="flex items-center justify-center h-11 px-3 shrink-0">
+          <Image
+            src="/ceentra-logo.png"
+            alt="Centra"
+            width={96}
+            height={32}
+            className="object-contain"
+          />
+        </li>
+
+        {/* Divider */}
+        <li className="h-6 w-px shrink-0" style={{ background: "rgba(14,36,83,0.15)" }} />
+
         {NAV_LINKS.map((link) => {
           const active = activeSection === link.href;
           const Icon   = link.icon;
           return (
             <li
               key={link.href}
-              className={`relative flex items-center justify-center h-15 rounded-full cursor-pointer overflow-hidden transition-all duration-500 group
-                ${active ? "w-40 shadow-none" : "w-15 hover:w-40 hover:shadow-none"}`}
+              className={`relative flex items-center justify-center h-11 rounded-full cursor-pointer overflow-hidden transition-all duration-500 group
+                ${active ? "w-36" : "w-11 hover:w-36"}`}
               style={{
                 background: active
-                  ? "linear-gradient(135deg, #058B7F, #0FAE9E)"
-                  : "#ffffff",
+                  ? "linear-gradient(135deg, #058B7F 0%, #0FAE9E 100%)"
+                  : "transparent",
                 boxShadow: active
-                  ? "0 8px 24px rgba(5,139,127,0.40)"
-                  : "0 4px 16px rgba(0,0,0,0.10), 0 1px 4px rgba(0,0,0,0.06)",
+                  ? "0 4px 16px rgba(5,139,127,0.40)"
+                  : "none",
               }}
-              onClick={(e) => handleClick(e as unknown as React.MouseEvent<HTMLAnchorElement>, link.href)}
+              onClick={() => handleClick(link.href)}
             >
-              {/* Hover gradient bg — inactive only */}
+              {/* Hover teal gradient bg — inactive only */}
               {!active && (
                 <span
                   className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-500"
-                  style={{ background: "linear-gradient(135deg, #058B7F, #0FAE9E)" }}
-                />
-              )}
-              {/* Glow */}
-              {!active && (
-                <span
-                  className="absolute top-2.5 inset-x-0 h-full rounded-full blur-[15px] -z-10 opacity-0 group-hover:opacity-50 transition-all duration-500"
-                  style={{ background: "linear-gradient(135deg, #058B7F, #0FAE9E)" }}
+                  style={{ background: "linear-gradient(135deg, #058B7F 0%, #0FAE9E 100%)" }}
                 />
               )}
 
-              {/* Icon — visible, shrinks to 0 on hover */}
-              <span className="relative z-10 transition-all duration-500 group-hover:scale-0 group-hover:opacity-0"
-                style={{ display: active ? "none" : "flex" }}>
-                <Icon className="w-6 h-6" style={{ color: "#94a3b8" }} strokeWidth={1.8} />
-              </span>
-
-              {/* Label — always visible when active, appears on hover for inactive */}
+              {/* Icon — shrinks to 0 on hover */}
               <span
-                className="absolute z-10 text-white text-[13px] font-bold whitespace-nowrap transition-all duration-500"
-                style={{
-                  opacity:         active ? 1 : 0,
-                  transform:       active ? "scale(1)" : "scale(0)",
-                  transitionDelay: "150ms",
-                }}
+                className="relative z-10 transition-all duration-500 group-hover:scale-0 group-hover:opacity-0"
+                style={{ display: active ? "none" : "flex" }}
               >
-                {link.label}
+                <Icon className="w-5 h-5" style={{ color: "rgba(14,36,83,0.55)" }} strokeWidth={1.8} />
               </span>
+
+              {/* Label — always visible when active */}
+              {active && (
+                <span className="absolute z-10 text-white text-[13px] font-bold whitespace-nowrap">
+                  {link.label}
+                </span>
+              )}
 
               {/* Hover label for inactive */}
               {!active && (
                 <span
                   className="absolute z-10 text-white text-[13px] font-bold whitespace-nowrap scale-0 opacity-0 group-hover:scale-100 group-hover:opacity-100 transition-all duration-500"
-                  style={{ transitionDelay: "150ms" }}
+                  style={{ transitionDelay: "120ms" }}
                 >
                   {link.label}
                 </span>

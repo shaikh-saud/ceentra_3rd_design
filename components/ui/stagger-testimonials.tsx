@@ -46,14 +46,14 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({
         `,
         zIndex: isCenter ? 10 : 0,
         background: isCenter
-          ? "linear-gradient(135deg, #058B7F 0%, #0FAE9E 100%)"
+          ? "#058B7F"
           : "rgba(255,255,255,0.96)",
         border: isCenter
-          ? "2px solid #058B7F"
-          : "2px solid rgba(5,139,127,0.15)",
+          ? "2px solid rgba(15,174,158,0.55)"
+          : "2px solid rgba(14,36,83,0.10)",
         boxShadow: isCenter
-          ? "0px 8px 0px 4px rgba(5,139,127,0.25), 0 20px 50px rgba(5,139,127,0.20)"
-          : "0 4px 20px rgba(0,0,0,0.06)",
+          ? "0px 8px 0px 4px rgba(14,36,83,0.28), 0 20px 50px rgba(5,139,127,0.22)"
+          : "0 4px 20px rgba(14,36,83,0.06)",
         padding: "32px",
         display: "flex",
         flexDirection: "column",
@@ -67,7 +67,7 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({
           top: 42,
           width: SQRT_5000,
           height: 2,
-          background: isCenter ? "rgba(255,255,255,0.30)" : "rgba(5,139,127,0.18)",
+          background: isCenter ? "rgba(255,255,255,0.30)" : "rgba(14,36,83,0.10)",
         }}
       />
 
@@ -80,8 +80,8 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({
           width: 48,
           height: 56,
           boxShadow: isCenter
-            ? "3px 3px 0px rgba(255,255,255,0.25)"
-            : "3px 3px 0px rgba(5,139,127,0.12)",
+            ? "3px 3px 0px rgba(255,255,255,0.30)"
+            : "3px 3px 0px rgba(14,36,83,0.10)",
         }}
       />
 
@@ -92,8 +92,8 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({
             <svg
               key={i}
               className="w-3.5 h-3.5"
-              fill={i < testimonial.rating! ? (isCenter ? "#ffffff" : "#058B7F") : "transparent"}
-              stroke={isCenter ? "rgba(255,255,255,0.5)" : "rgba(5,139,127,0.35)"}
+              fill={i < testimonial.rating! ? (isCenter ? "#FBBF24" : "#0e2453") : "transparent"}
+              stroke={isCenter ? "rgba(255,255,255,0.3)" : "rgba(14,36,83,0.25)"}
               strokeWidth={1.5}
               viewBox="0 0 20 20"
             >
@@ -107,7 +107,7 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({
       <h3
         className="text-[15px] sm:text-[17px] font-bold leading-[1.65] text-right flex-1"
         style={{
-          color: isCenter ? "#ffffff" : "#1a2e2d",
+          color: isCenter ? "#ffffff" : "#0e2453",
         }}
       >
         "{testimonial.testimonial}"
@@ -117,13 +117,13 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({
       <div className="mt-3 text-right">
         <p
           className="text-[13px] font-bold"
-          style={{ color: isCenter ? "rgba(255,255,255,0.95)" : "#058B7F" }}
+          style={{ color: isCenter ? "#ffffff" : "#0e2453" }}
         >
           {testimonial.by}
         </p>
         <p
           className="text-[11.5px] mt-0.5"
-          style={{ color: isCenter ? "rgba(255,255,255,0.65)" : "rgba(5,139,127,0.6)" }}
+          style={{ color: isCenter ? "rgba(255,255,255,0.85)" : "rgba(14,36,83,0.50)" }}
         >
           {testimonial.role}
         </p>
@@ -203,16 +203,16 @@ export const StaggerTestimonials: React.FC<StaggerTestimonialsProps> = ({ items 
             "flex h-12 w-12 items-center justify-center transition-all duration-200",
             "rounded-full border-2 bg-white",
           )}
-          style={{ borderColor: "rgba(5,139,127,0.25)", color: "#058B7F" }}
+          style={{ borderColor: "rgba(14,36,83,0.20)", color: "#0e2453" }}
           onMouseEnter={(e) => {
-            (e.currentTarget as HTMLButtonElement).style.background = "#058B7F";
-            (e.currentTarget as HTMLButtonElement).style.color = "#fff";
-            (e.currentTarget as HTMLButtonElement).style.borderColor = "#058B7F";
+            (e.currentTarget as HTMLButtonElement).style.background = "#0e2453";
+            (e.currentTarget as HTMLButtonElement).style.color = "#0FAE9E";
+            (e.currentTarget as HTMLButtonElement).style.borderColor = "#0e2453";
           }}
           onMouseLeave={(e) => {
             (e.currentTarget as HTMLButtonElement).style.background = "#fff";
-            (e.currentTarget as HTMLButtonElement).style.color = "#058B7F";
-            (e.currentTarget as HTMLButtonElement).style.borderColor = "rgba(5,139,127,0.25)";
+            (e.currentTarget as HTMLButtonElement).style.color = "#0e2453";
+            (e.currentTarget as HTMLButtonElement).style.borderColor = "rgba(14,36,83,0.20)";
           }}
           aria-label="السابق"
         >
@@ -224,16 +224,16 @@ export const StaggerTestimonials: React.FC<StaggerTestimonialsProps> = ({ items 
             "flex h-12 w-12 items-center justify-center transition-all duration-200",
             "rounded-full border-2 bg-white",
           )}
-          style={{ borderColor: "rgba(5,139,127,0.25)", color: "#058B7F" }}
+          style={{ borderColor: "rgba(14,36,83,0.20)", color: "#0e2453" }}
           onMouseEnter={(e) => {
-            (e.currentTarget as HTMLButtonElement).style.background = "#058B7F";
-            (e.currentTarget as HTMLButtonElement).style.color = "#fff";
-            (e.currentTarget as HTMLButtonElement).style.borderColor = "#058B7F";
+            (e.currentTarget as HTMLButtonElement).style.background = "#0e2453";
+            (e.currentTarget as HTMLButtonElement).style.color = "#0FAE9E";
+            (e.currentTarget as HTMLButtonElement).style.borderColor = "#0e2453";
           }}
           onMouseLeave={(e) => {
             (e.currentTarget as HTMLButtonElement).style.background = "#fff";
-            (e.currentTarget as HTMLButtonElement).style.color = "#058B7F";
-            (e.currentTarget as HTMLButtonElement).style.borderColor = "rgba(5,139,127,0.25)";
+            (e.currentTarget as HTMLButtonElement).style.color = "#0e2453";
+            (e.currentTarget as HTMLButtonElement).style.borderColor = "rgba(14,36,83,0.20)";
           }}
           aria-label="التالي"
         >

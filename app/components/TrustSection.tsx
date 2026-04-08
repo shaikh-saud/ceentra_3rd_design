@@ -95,15 +95,8 @@ export default function TrustSection() {
     <section
       ref={ref}
       id="services"
-      className="relative py-20 sm:py-24 md:py-28 overflow-hidden"
-      style={{ background: "#F7F9F9" }}
+      className="relative py-20 sm:py-24 md:py-28 overflow-hidden bg-white"
     >
-      {/* Ambient blob */}
-      <div
-        className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] rounded-full pointer-events-none"
-        style={{ background: "radial-gradient(ellipse, rgba(5,139,127,0.05) 0%, transparent 70%)" }}
-      />
-
       <div className="relative z-10 max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
 
         {/* ── Header ── */}
@@ -113,8 +106,16 @@ export default function TrustSection() {
             animate={isInView ? "visible" : "hidden"} custom={0}
             className="mb-4"
           >
-            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/[0.07] border border-primary/20 text-primary text-[13px] font-semibold">
-              <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+            <span
+              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-[13px] font-semibold"
+              style={{
+                background: "rgba(14,36,83,0.07)",
+                border: "1px solid rgba(14,36,83,0.14)",
+                color: "#0e2453",
+                backdropFilter: "blur(8px)",
+              }}
+            >
+              <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: "#0FAE9E" }} />
               خدماتنا
             </span>
           </motion.div>
@@ -122,12 +123,13 @@ export default function TrustSection() {
           <motion.h2
             variants={fadeUp} initial="hidden"
             animate={isInView ? "visible" : "hidden"} custom={0.08}
-            className="text-[26px] sm:text-[32px] md:text-[40px] font-extrabold text-text-primary leading-[1.28] tracking-tight"
+            className="font-extrabold leading-tight tracking-tight text-[#0e2453]"
+            style={{ fontSize: "clamp(1.6rem, 4vw, 2.6rem)" }}
           >
             اختر الخدمة التي{" "}
             <span
               style={{
-                background: "linear-gradient(110deg, #058B7F 20%, #0FAE9E 60%)",
+                background: "linear-gradient(110deg, #058B7F 20%, #0FAE9E 70%)",
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
                 backgroundClip: "text",
@@ -140,7 +142,8 @@ export default function TrustSection() {
           <motion.p
             variants={fadeUp} initial="hidden"
             animate={isInView ? "visible" : "hidden"} custom={0.15}
-            className="mt-4 text-[14px] sm:text-[15px] text-text-secondary/70 leading-[1.85] max-w-xl mx-auto"
+            className="mt-4 text-[14px] sm:text-[15px] leading-[1.85] max-w-xl mx-auto"
+            style={{ color: "rgba(14,36,83,0.65)" }}
           >
             منصة سنترَا تجمع أبرز خدمات التسويق الرقمي في مكان واحد — مرّر على أي خدمة لتكتشف المزيد.
           </motion.p>
@@ -165,14 +168,14 @@ export default function TrustSection() {
           className="mt-10 flex flex-wrap items-center justify-center gap-x-8 gap-y-3"
         >
           {[
-            "200+ شركة موثقة",
-            "98% رضا العملاء",
-            "خدمة 24/7",
-            "بيئة آمنة ومضمونة",
+            { text: "200+ شركة موثقة",    dot: "#0FAE9E" },
+            { text: "98% رضا العملاء",    dot: "rgba(14,36,83,0.70)" },
+            { text: "خدمة 24/7",          dot: "#0FAE9E" },
+            { text: "بيئة آمنة ومضمونة", dot: "rgba(14,36,83,0.70)" },
           ].map((item) => (
-            <div key={item} className="flex items-center gap-2 text-text-secondary/55 text-[12.5px]">
-              <span className="w-1.5 h-1.5 rounded-full bg-primary/50 shrink-0" />
-              {item}
+            <div key={item.text} className="flex items-center gap-2 text-[12.5px]" style={{ color: "rgba(14,36,83,0.65)" }}>
+              <span className="w-1.5 h-1.5 rounded-full shrink-0" style={{ background: item.dot }} />
+              {item.text}
             </div>
           ))}
         </motion.div>

@@ -106,15 +106,13 @@ function RequestCard({ request, index }: { request: typeof requests[0]; index: n
       <div
         style={{
           borderRadius: "24px",
-          background: "rgba(255,255,255,0.08)",
-          backdropFilter: "blur(18px)",
-          WebkitBackdropFilter: "blur(18px)",
+          background: "#ffffff",
           border: hovered
-            ? "1px solid rgba(255,255,255,0.30)"
-            : "1px solid rgba(255,255,255,0.12)",
+            ? "1px solid rgba(5,139,127,0.30)"
+            : "1px solid rgba(14,36,83,0.06)",
           boxShadow: hovered
-            ? "0 20px 60px rgba(0,0,0,0.35), 0 0 0 1px rgba(15,174,158,0.30), 0 0 40px rgba(5,139,127,0.18)"
-            : "0 8px 32px rgba(0,0,0,0.24)",
+            ? "0 20px 60px rgba(14,36,83,0.08), 0 0 0 1px rgba(15,174,158,0.30), 0 0 40px rgba(5,139,127,0.18)"
+            : "0 8px 32px rgba(14,36,83,0.04)",
           transition: "border 0.35s, box-shadow 0.35s",
           padding: "24px",
           minHeight: "260px",
@@ -161,7 +159,7 @@ function RequestCard({ request, index }: { request: typeof requests[0]; index: n
           className="font-extrabold text-right leading-snug mb-2"
           style={{
             fontSize: "16px",
-            color: hovered ? "#ffffff" : "rgba(255,255,255,0.95)",
+            color: hovered ? "#058B7F" : "#0e2453",
             transition: "color 0.3s",
           }}
         >
@@ -171,7 +169,7 @@ function RequestCard({ request, index }: { request: typeof requests[0]; index: n
         {/* Description */}
         <p
           className="text-right leading-[1.75] line-clamp-2 mb-auto"
-          style={{ fontSize: "13px", color: "rgba(255,255,255,0.52)" }}
+          style={{ fontSize: "13px", color: "rgba(14,36,83,0.55)" }}
         >
           {request.description}
         </p>
@@ -193,7 +191,7 @@ function RequestCard({ request, index }: { request: typeof requests[0]; index: n
         {/* Footer */}
         <div
           className="flex items-center justify-between pt-4"
-          style={{ borderTop: "1px solid rgba(255,255,255,0.08)" }}
+          style={{ borderTop: "1px solid rgba(14,36,83,0.06)" }}
         >
           {/* CTA */}
           <button
@@ -204,7 +202,7 @@ function RequestCard({ request, index }: { request: typeof requests[0]; index: n
               background: hovered
                 ? "linear-gradient(135deg, #058B7F, #0FAE9E)"
                 : "rgba(5,139,127,0.22)",
-              color: "#ffffff",
+              color: hovered ? "#ffffff" : "#058B7F",
               border: "1px solid rgba(15,174,158,0.30)",
               boxShadow: hovered ? "0 4px 18px rgba(5,139,127,0.40)" : "none",
             }}
@@ -216,7 +214,7 @@ function RequestCard({ request, index }: { request: typeof requests[0]; index: n
           {/* Time */}
           <span
             className="flex items-center gap-1"
-            style={{ fontSize: "11px", color: "rgba(255,255,255,0.38)" }}
+            style={{ fontSize: "11px", color: "rgba(14,36,83,0.45)" }}
           >
             <Clock className="w-3 h-3" />
             {request.time}
@@ -269,23 +267,23 @@ function BackgroundBlobs() {
       {/* Top-right large glow */}
       <div
         className="absolute -top-24 -right-24 w-96 h-96 rounded-full pointer-events-none"
-        style={{ background: "radial-gradient(circle, rgba(15,174,158,0.18) 0%, transparent 65%)", filter: "blur(40px)" }}
+        style={{ background: "radial-gradient(circle, rgba(15,174,158,0.08) 0%, transparent 65%)", filter: "blur(40px)" }}
       />
       {/* Bottom-left medium glow */}
       <div
         className="absolute bottom-0 -left-16 w-72 h-72 rounded-full pointer-events-none"
-        style={{ background: "radial-gradient(circle, rgba(5,139,127,0.20) 0%, transparent 60%)", filter: "blur(50px)" }}
+        style={{ background: "radial-gradient(circle, rgba(5,139,127,0.10) 0%, transparent 60%)", filter: "blur(50px)" }}
       />
       {/* Centre subtle glow */}
       <div
         className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-150 h-75 rounded-full pointer-events-none"
-        style={{ background: "radial-gradient(ellipse, rgba(4,110,101,0.12) 0%, transparent 70%)", filter: "blur(60px)" }}
+        style={{ background: "radial-gradient(ellipse, rgba(4,110,101,0.05) 0%, transparent 70%)", filter: "blur(60px)" }}
       />
       {/* Dot grid overlay — very subtle */}
       <div
-        className="absolute inset-0 pointer-events-none opacity-[0.04]"
+        className="absolute inset-0 pointer-events-none opacity-[0.25]"
         style={{
-          backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.8) 1px, transparent 1px)",
+          backgroundImage: "radial-gradient(circle, rgba(14,36,83,0.4) 1px, transparent 1px)",
           backgroundSize: "32px 32px",
         }}
       />
@@ -311,8 +309,7 @@ export default function FeaturedRequests() {
     <section
       ref={ref}
       id="jobs"
-      className="relative py-20 sm:py-24 md:py-28 overflow-hidden"
-      style={{ background: "linear-gradient(160deg, #0B2E2B 0%, #0F3532 40%, #092422 100%)" }}
+      className="relative py-20 sm:py-24 md:py-28 overflow-hidden bg-[#F7F9F9]"
     >
       <BackgroundBlobs />
 
@@ -339,7 +336,7 @@ export default function FeaturedRequests() {
 
             <motion.h2
               variants={fadeUp} initial="hidden" animate={isInView ? "visible" : "hidden"} custom={0.08}
-              className="font-extrabold leading-[1.28] tracking-tight text-white"
+              className="font-extrabold leading-[1.28] tracking-tight text-[#0e2453]"
               style={{ fontSize: "clamp(1.6rem, 3.8vw, 2.6rem)" }}
             >
               أحدث طلبات العملاء
@@ -348,7 +345,7 @@ export default function FeaturedRequests() {
             <motion.p
               variants={fadeUp} initial="hidden" animate={isInView ? "visible" : "hidden"} custom={0.14}
               className="mt-3 text-[14px] sm:text-[15px]"
-              style={{ color: "rgba(255,255,255,0.50)" }}
+              style={{ color: "rgba(14,36,83,0.55)" }}
             >
               قدّم عرضك الآن وابدأ العمل مع عملاء حقيقيين
             </motion.p>
@@ -364,15 +361,15 @@ export default function FeaturedRequests() {
               className="inline-flex items-center gap-2 rounded-full font-semibold text-[14px] transition-all duration-300 hover:scale-[1.03]"
               style={{
                 padding: "10px 22px",
-                background: "rgba(255,255,255,0.08)",
-                border: "1px solid rgba(255,255,255,0.15)",
-                color: "rgba(255,255,255,0.85)",
+                background: "rgba(14,36,83,0.04)",
+                border: "1px solid rgba(14,36,83,0.15)",
+                color: "#0e2453",
               }}
             >
               عرض كل الطلبات
               <ArrowLeft className="w-4 h-4" />
             </a>
-            <span className="text-[11px]" style={{ color: "rgba(255,255,255,0.28)" }}>
+            <span className="text-[11px]" style={{ color: "rgba(14,36,83,0.40)" }}>
               اسحب للتصفح ←
             </span>
           </motion.div>
@@ -402,7 +399,7 @@ export default function FeaturedRequests() {
               >
                 {s.value}
               </span>
-              <span className="text-[13px]" style={{ color: "rgba(255,255,255,0.40)" }}>
+              <span className="text-[13px]" style={{ color: "rgba(14,36,83,0.55)" }}>
                 {s.label}
               </span>
             </div>
