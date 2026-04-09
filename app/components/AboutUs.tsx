@@ -397,7 +397,7 @@ export default function AboutUs() {
               className="mb-10"
             >
               <a
-                href="#contact"
+                href="/register"
                 className="inline-flex items-center gap-2 text-white font-bold text-[14px] sm:text-[15px] px-8 py-4 rounded-full transition-all duration-300 hover:opacity-90 hover:scale-[1.03] active:scale-[0.98]"
                 style={{
                   background: "linear-gradient(135deg, #0e2453 0%, #162d6e 100%)",

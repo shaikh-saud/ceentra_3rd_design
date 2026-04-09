@@ -1,9 +1,10 @@
 import Navbar from "@/app/components/Navbar";
 import Footer from "@/app/components/Footer";
-import HomeContactSection from "@/app/components/HomeContactSection";
+import FAQWithSpiral from "@/components/ui/faq-section";
 import { AnimatedGridPattern } from "@/components/ui/animated-grid-pattern";
+import Image from "next/image";
 
-export default function ContactPage() {
+export default function FAQPage() {
   return (
     <>
       <Navbar />
@@ -24,8 +25,8 @@ export default function ContactPage() {
         <div className="absolute bottom-[20%] left-[-5%] w-[400px] h-[400px] rounded-full bg-[#0e2453] opacity-[0.04] blur-[100px] pointer-events-none z-0" />
 
         {/* Page Content wrapped for layering */}
-        <div className="relative z-10 pt-10">
-            <HomeContactSection />
+        <div className="relative z-10 pt-20">
+            <FAQWithSpiral />
         </div>
       </main>
 

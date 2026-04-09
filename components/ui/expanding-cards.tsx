@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import { cn } from "@/lib/utils";
+import Link from "next/link";
 
 export interface CardItem {
   id: string | number;
@@ -10,6 +11,7 @@ export interface CardItem {
   imgSrc: string;
   icon: React.ReactNode;
   tag?: string;
+  href?: string;
 }
 
 interface ExpandingCardsProps extends React.HTMLAttributes<HTMLUListElement> {
@@ -90,6 +92,10 @@ export const ExpandingCards = React.forwardRef<HTMLUListElement, ExpandingCardsP
               tabIndex={0}
               onFocus={() => setActiveIndex(index)}
             >
+              {/* Full card clickable link when active */}
+              {isActive && item.href && (
+                <Link href={item.href} className="absolute inset-0 z-30" aria-label={`View ${item.title}`} />
+              )}
               {/* Background image */}
               <img
                 src={item.imgSrc}
@@ -175,15 +181,28 @@ export const ExpandingCards = React.forwardRef<HTMLUListElement, ExpandingCardsP
                     isActive ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3",
                   )}
                 >
-                  <span
-                    className="inline-flex items-center gap-1.5 text-[12px] font-bold text-white/90 hover:text-white"
-                    style={{ borderBottom: "1px solid rgba(255,255,255,0.4)", paddingBottom: "1px" }}
-                  >
-                    اكتشف المزيد
-                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" style={{ transform: "rotate(180deg)" }}>
-                      <path d="M2 6h8M6 2l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                    </svg>
-                  </span>
+                  {item.href ? (
+                    <Link
+                      href={item.href}
+                      className="inline-flex items-center gap-1.5 text-[12px] font-bold text-white/90 hover:text-white"
+                      style={{ borderBottom: "1px solid rgba(255,255,255,0.4)", paddingBottom: "1px" }}
+                    >
+                      اكتشف المزيد
+                      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" style={{ transform: "rotate(180deg)" }}>
+                        <path d="M2 6h8M6 2l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                      </svg>
+                    </Link>
+                  ) : (
+                    <span
+                      className="inline-flex items-center gap-1.5 text-[12px] font-bold text-white/90 hover:text-white"
+                      style={{ borderBottom: "1px solid rgba(255,255,255,0.4)", paddingBottom: "1px" }}
+                    >
+                      اكتشف المزيد
+                      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" style={{ transform: "rotate(180deg)" }}>
+                        <path d="M2 6h8M6 2l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                      </svg>
+                    </span>
+                  )}
                 </div>
               </article>
             </li>

@@ -23,6 +23,7 @@ const SERVICES: CardItem[] = [
       "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1200&q=80",
     icon: <Building2 className="w-5 h-5" strokeWidth={1.8} />,
     tag: "الأكثر طلبًا",
+    href: "/marketing-companies",
   },
   {
     id: "requests",
@@ -33,6 +34,7 @@ const SERVICES: CardItem[] = [
       "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=1200&q=80",
     icon: <FileText className="w-5 h-5" strokeWidth={1.8} />,
     tag: "سريع وسهل",
+    href: "/solutions",
   },
   {
     id: "consulting",
@@ -43,6 +45,7 @@ const SERVICES: CardItem[] = [
       "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1200&q=80",
     icon: <Lightbulb className="w-5 h-5" strokeWidth={1.8} />,
     tag: "خبراء معتمدون",
+    href: "/consulting",
   },
   {
     id: "jobs",
@@ -53,6 +56,7 @@ const SERVICES: CardItem[] = [
       "https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=1200&q=80",
     icon: <Briefcase className="w-5 h-5" strokeWidth={1.8} />,
     tag: "فرص حصرية",
+    href: "/jobs",
   },
   {
     id: "courses",
@@ -63,6 +67,7 @@ const SERVICES: CardItem[] = [
       "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=1200&q=80",
     icon: <GraduationCap className="w-5 h-5" strokeWidth={1.8} />,
     tag: "تعلّم واحترف",
+    href: "/courses",
   },
   {
     id: "production",
@@ -73,6 +78,7 @@ const SERVICES: CardItem[] = [
       "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=1200&q=80",
     icon: <Video className="w-5 h-5" strokeWidth={1.8} />,
     tag: "محتوى إبداعي",
+    href: "/visual-production",
   },
 ];
 

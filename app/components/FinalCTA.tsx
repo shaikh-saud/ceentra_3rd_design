@@ -4,6 +4,7 @@ import { ArrowLeft, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { AnimatedGridPattern } from "@/components/ui/animated-grid-pattern";
 import { cn } from "@/lib/utils";
+import Link from "next/link";
 
 const NAVY = "#0e2453";
 const TEAL = "#058B7F";
@@ -48,30 +49,34 @@ export default function FinalCTA() {
             </p>
 
             <div className="mt-8 flex flex-col sm:flex-row gap-4 w-full sm:w-auto justify-center">
-              <Button
-                size="lg"
-                className="h-14 px-8 text-[15px] font-bold rounded-full transition-all hover:-translate-y-0.5 w-full sm:w-auto group hover:bg-gray-50"
-                style={{
-                  background: "#ffffff",
-                  color: "#058B7F",
-                  boxShadow: "0 8px 24px rgba(0,0,0,0.1)",
-                }}
-              >
-                ابدأ الآن مجانًا
-                <ArrowLeft className="mr-2 h-5 w-5 transition-transform group-hover:-translate-x-1" />
-              </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                className="h-14 px-8 text-[15px] font-bold rounded-full transition-all hover:-translate-y-0.5 w-full sm:w-auto hover:bg-white/10 hover:text-white border border-white/30"
-                style={{
-                  background: "transparent",
-                  color: "#fff",
-                }}
-              >
-                <MessageCircle className="ml-2 h-5 w-5" />
-                تواصل معنا
-              </Button>
+              <Link href="/register">
+                <Button
+                  size="lg"
+                  className="h-14 px-8 text-[15px] font-bold rounded-full transition-all hover:-translate-y-0.5 w-full sm:w-auto group hover:bg-gray-50"
+                  style={{
+                    background: "#ffffff",
+                    color: "#058B7F",
+                    boxShadow: "0 8px 24px rgba(0,0,0,0.1)",
+                  }}
+                >
+                  ابدأ الآن مجانًا
+                  <ArrowLeft className="mr-2 h-5 w-5 transition-transform group-hover:-translate-x-1" />
+                </Button>
+              </Link>
+              <Link href="/contact">
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="h-14 px-8 text-[15px] font-bold rounded-full transition-all hover:-translate-y-0.5 w-full sm:w-auto hover:bg-white/10 hover:text-white border border-white/30"
+                  style={{
+                    background: "transparent",
+                    color: "#fff",
+                  }}
+                >
+                  <MessageCircle className="ml-2 h-5 w-5" />
+                  تواصل معنا
+                </Button>
+              </Link>
             </div>
           </div>
         </div>

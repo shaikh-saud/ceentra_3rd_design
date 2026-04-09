@@ -347,7 +347,7 @@ export default function Hero() {
         >
           {/* Primary teal CTA */}
           <Link
-            href="#contact"
+            href="/register"
             className="inline-flex items-center justify-center gap-2 px-10 py-4 rounded-full font-bold text-[15px] text-white transition-all duration-300 hover:scale-[1.04] active:scale-[0.98]"
             style={{
               background: "linear-gradient(135deg, #058B7F 0%, #0FAE9E 100%)",
@@ -360,7 +360,7 @@ export default function Hero() {
 
           {/* Ghost secondary CTA */}
           <Link
-            href="#how-it-works"
+            href="/how-it-works"
             className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full font-semibold text-[15px] transition-all duration-300 hover:scale-[1.04] active:scale-[0.98]"
             style={{
               color: "#0e2453",
