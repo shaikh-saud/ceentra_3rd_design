@@ -104,7 +104,6 @@ export default function LoginPage() {
           numSquares={30}
           maxOpacity={0.04}
           duration={3}
-          repeatDelay={1}
           className="text-[#0e2453]"
         />
         <div className="absolute top-10 right-[-5%] w-[400px] h-[400px] rounded-full bg-[#058B7F] opacity-[0.03] blur-[100px] pointer-events-none" />

@@ -16,7 +16,6 @@ export default function FAQPage() {
           numSquares={30}
           maxOpacity={0.05}
           duration={3}
-          repeatDelay={1}
           className="text-[#0e2453]"
         />
 
