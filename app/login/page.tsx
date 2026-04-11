@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { 
   Mail, 
   Lock, 
@@ -87,10 +88,23 @@ export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const router = useRouter();
 
   const fillDemoAccount = (demoEmail: string) => {
     setEmail(demoEmail);
     setPassword("password");
+  };
+
+  const handleLogin = (e: React.FormEvent) => {
+    e.preventDefault();
+    // Role-based mock redirect
+    const account = DEMO_ACCOUNTS.find((a) => a.email === email);
+    if (account?.role === "Admin") {
+      router.push("/dashboard/admin");
+    } else {
+      // Future: redirect other roles to their dashboards
+      router.push("/");
+    }
   };
 
   return (
@@ -121,7 +135,7 @@ export default function LoginPage() {
             {/* Right Section: Login Form (Visually Right, Code block first due to RTL framework layouts) */}
             <div className="bg-white rounded-3xl shadow-[0_8px_40px_rgb(0,0,0,0.04)] border border-gray-100 p-8 md:p-10">
               
-              <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
+              <form className="space-y-6" onSubmit={handleLogin}>
                 <div className="space-y-1.5">
                   <label className="text-[13px] font-bold text-[#0e2453] px-1">البريد الإلكتروني</label>
                   <div className="relative flex items-center">
