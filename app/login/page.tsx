@@ -97,12 +97,18 @@ export default function LoginPage() {
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    // Role-based mock redirect
     const account = DEMO_ACCOUNTS.find((a) => a.email === email);
     if (account?.role === "Admin") {
       router.push("/dashboard/admin");
+    } else if (account?.role === "Client") {
+      router.push("/dashboard/client");
+    } else if (account?.role === "Company") {
+      router.push("/dashboard/company");
+    } else if (account?.role === "Consultant") {
+      router.push("/dashboard/consultant");
+    } else if (account?.role === "Trainer") {
+      router.push("/dashboard/trainer");
     } else {
-      // Future: redirect other roles to their dashboards
       router.push("/");
     }
   };
