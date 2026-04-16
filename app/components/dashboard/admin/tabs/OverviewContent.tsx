@@ -9,10 +9,10 @@ import {
 import StatCard from "../ui/StatCard";
 
 const STATS_CARDS = [
-  { title:"إجمالي المستخدمين", value:"72",   subtitle:"36 عميل نشط",         icon:Users,     gradient:"from-[#0e2453] to-[#1a3a7a]", change:"+12%" },
-  { title:"الشركات",           value:"27",   subtitle:"شركة مسجلة",           icon:Building2, gradient:"from-[#058B7F] to-[#0FAE9E]", change:"+5" },
-  { title:"المستشارين",        value:"1",    subtitle:"0 طلب معلق",           icon:Lightbulb, gradient:"from-[#0e2453] to-[#058B7F]", change:"جديد" },
-  { title:"الإيرادات",         value:"850K", subtitle:"ريال سعودي / شهرياً", icon:TrendingUp, gradient:"from-[#058B7F] to-[#047a6f]", change:"+18%" },
+  { title:"إجمالي المستخدمين", value:"72",   subtitle:"36 عميل نشط",         icon:Users,     gradient:"bg-navy",    change:"+12%" },
+  { title:"الشركات",           value:"27",   subtitle:"شركة مسجلة",           icon:Building2, gradient:"bg-primary", change:"+5" },
+  { title:"المستشارين",        value:"1",    subtitle:"0 طلب معلق",           icon:Lightbulb, gradient:"bg-navy",    change:"جديد" },
+  { title:"الإيرادات",         value:"850K", subtitle:"ريال سعودي / شهرياً", icon:TrendingUp, gradient:"bg-primary", change:"+18%" },
 ];
 
 const ACTIVITIES = [
@@ -59,12 +59,12 @@ export default function OverviewContent() {
                 return (
                   <button
                     key={i}
-                    className="flex items-center gap-3 px-4 py-3.5 rounded-xl border border-gray-200 text-[#0e2453] font-bold text-[13px] transition-all duration-200 hover:bg-[#058B7F] hover:text-white hover:border-[#058B7F] hover:-translate-y-0.5 hover:shadow-md group"
+                    className="flex items-center gap-3 px-4 py-3.5 rounded-xl border border-gray-200 text-navy font-bold text-[13px] transition-all duration-200 hover:bg-navy hover:text-white hover:border-navy hover:-translate-y-0.5 hover:shadow-md group"
                   >
                     <Icon className="w-4 h-4 shrink-0 group-hover:text-white" />
                     <span className="flex-1 text-right">{action.label}</span>
                     {action.badge && (
-                      <span className="text-[10px] font-bold bg-[#058B7F]/10 text-[#058B7F] px-2 py-0.5 rounded-md group-hover:bg-white/20 group-hover:text-white transition-colors">
+                      <span className="text-[10px] font-bold bg-navy/10 text-navy px-2 py-0.5 rounded-md group-hover:bg-white/20 group-hover:text-white transition-colors">
                         {action.badge}
                       </span>
                     )}
@@ -87,12 +87,12 @@ export default function OverviewContent() {
                   className={`flex items-center gap-3 px-4 py-3.5 rounded-xl border transition-colors ${
                     alert.severity === "high"   ? "bg-red-50/60 border-red-100 text-red-700" :
                     alert.severity === "medium" ? "bg-amber-50/60 border-amber-100 text-amber-700" :
-                    "bg-[#058B7F]/[0.04] border-[#058B7F]/10 text-[#058B7F]"
+                    "bg-navy/4 border-navy/10 text-navy/70"
                   }`}
                 >
                   <div className={`w-2 h-2 rounded-full shrink-0 ${
                     alert.severity === "high" ? "bg-red-500" :
-                    alert.severity === "medium" ? "bg-amber-500" : "bg-[#058B7F]"
+                    alert.severity === "medium" ? "bg-amber-500" : "bg-navy/60"
                   }`} />
                   <span className="text-[13px] font-bold flex-1">{alert.text}</span>
                   <ChevronRight className="w-4 h-4 opacity-40" />
@@ -105,7 +105,7 @@ export default function OverviewContent() {
         {/* Activities */}
         <div className="bg-white rounded-2xl border border-gray-100 shadow-[0_4px_20px_rgba(0,0,0,0.03)] p-6 h-fit">
           <h3 className="text-[16px] font-extrabold text-[#0e2453] mb-5 flex items-center gap-2">
-            <Clock className="w-4 h-4 text-[#058B7F]" />
+            <Clock className="w-4 h-4 text-navy/60" />
             آخر الأنشطة
           </h3>
           <div className="space-y-1">

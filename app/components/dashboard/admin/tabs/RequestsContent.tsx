@@ -15,8 +15,8 @@ export default function RequestsContent() {
 
       {/* Main card */}
       <div className="bg-white rounded-2xl border border-gray-100 shadow-[0_4px_24px_rgba(0,0,0,0.04)] p-10 flex flex-col items-center justify-center gap-4 text-center transition-all duration-200 hover:shadow-[0_8px_32px_rgba(0,0,0,0.08)] hover:-translate-y-0.5">
-        <div className="w-14 h-14 rounded-2xl bg-[#058B7F]/10 flex items-center justify-center">
-          <Inbox className="w-7 h-7 text-[#058B7F]" strokeWidth={1.6} />
+        <div className="w-14 h-14 rounded-2xl bg-navy/10 flex items-center justify-center">
+          <Inbox className="w-7 h-7 text-navy" strokeWidth={1.6} />
         </div>
         <div className="space-y-1.5">
           <h2 className="text-[20px] font-extrabold text-[#0e2453]">إدارة الطلبات</h2>

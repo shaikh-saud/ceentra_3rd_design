@@ -12,14 +12,14 @@ export default function EmptyState({ icon: Icon, title, subtitle }: EmptyStatePr
   return (
     <div className="flex flex-col items-center justify-center py-20 px-6 animate-[fadeSlideUp_0.6s_ease-out]">
       <div className="relative mb-6">
-        <div className="w-24 h-24 rounded-full bg-[#058B7F]/[0.06] flex items-center justify-center">
-          <div className="w-16 h-16 rounded-full bg-[#058B7F]/[0.08] flex items-center justify-center">
-            <Icon className="w-8 h-8 text-[#058B7F]/40" strokeWidth={1.5} />
+        <div className="w-24 h-24 rounded-full bg-navy/5 flex items-center justify-center">
+          <div className="w-16 h-16 rounded-full bg-navy/7 flex items-center justify-center">
+            <Icon className="w-8 h-8 text-navy/35" strokeWidth={1.5} />
           </div>
         </div>
-        <span className="absolute top-1 left-1 w-2.5 h-2.5 rounded-full bg-[#058B7F]/20" />
-        <span className="absolute bottom-2 right-0 w-2 h-2 rounded-full bg-[#0e2453]/10" />
-        <span className="absolute top-4 -right-2 w-1.5 h-1.5 rounded-full bg-[#058B7F]/15" />
+        <span className="absolute top-1 left-1 w-2.5 h-2.5 rounded-full bg-navy/15" />
+        <span className="absolute bottom-2 right-0 w-2 h-2 rounded-full bg-navy/10" />
+        <span className="absolute top-4 -right-2 w-1.5 h-1.5 rounded-full bg-navy/10" />
       </div>
 
       <h3 className="text-[18px] font-extrabold text-[#0e2453]/60 mb-2">{title}</h3>

@@ -27,7 +27,7 @@ const CREATORS: Creator[] = [
 ];
 
 const PATH_CONFIG: Record<CreatorPath, string> = {
-  "UGC":          "bg-[#058B7F]/10 text-[#058B7F] border-[#058B7F]/20",
+  "UGC":          "bg-navy/10 text-navy border-navy/20",
   "مؤثر / مدوّن": "bg-yellow-50 text-yellow-700 border-yellow-200",
 };
 
@@ -52,8 +52,8 @@ export default function CreatorsContent() {
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
           <div className="flex items-center gap-3 flex-wrap mb-1.5">
-            <div className="w-9 h-9 rounded-xl bg-[#058B7F]/10 flex items-center justify-center shrink-0">
-              <Video className="w-4 h-4 text-[#058B7F]" />
+            <div className="w-9 h-9 rounded-xl bg-navy/10 flex items-center justify-center shrink-0">
+              <Video className="w-4 h-4 text-navy" />
             </div>
             <h1 className="text-[24px] font-extrabold text-[#0e2453] leading-tight">
               طلبات اعتماد صناع المحتوى
@@ -107,7 +107,7 @@ export default function CreatorsContent() {
                     {/* Name */}
                     <td className="px-5 py-4">
                       <div className="flex items-center gap-3">
-                        <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#0e2453] to-[#058B7F] flex items-center justify-center text-white text-[12px] font-extrabold shrink-0 shadow-sm group-hover:scale-105 transition-transform duration-200">
+                        <div className="w-9 h-9 rounded-xl bg-navy flex items-center justify-center text-white text-[12px] font-extrabold shrink-0 shadow-sm group-hover:scale-105 transition-transform duration-200">
                           {creator.name.slice(0, 2)}
                         </div>
                         <div className="min-w-0">
@@ -175,7 +175,7 @@ export default function CreatorsContent() {
                 style={{ animationDelay: `${idx * 60}ms`, animationFillMode: "both" }}
               >
                 <div className="flex items-start gap-3 mb-3">
-                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#0e2453] to-[#058B7F] flex items-center justify-center text-white text-[13px] font-extrabold shrink-0 shadow-sm">
+                  <div className="w-10 h-10 rounded-xl bg-navy flex items-center justify-center text-white text-[13px] font-extrabold shrink-0 shadow-sm">
                     {creator.name.slice(0, 2)}
                   </div>
                   <div className="flex-1 min-w-0">

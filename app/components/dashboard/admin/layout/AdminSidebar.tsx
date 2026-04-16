@@ -68,7 +68,7 @@ export default function AdminSidebar({
                   w-full flex items-center gap-3 px-4 py-3 rounded-xl text-[14px] font-bold
                   transition-all duration-200 relative
                   ${isActive
-                    ? "bg-[#058B7F] text-white shadow-[0_4px_20px_rgba(5,139,127,0.35)]"
+                    ? "bg-[#1a3a7a] text-white shadow-[0_4px_20px_rgba(14,36,83,0.45)] border-r-2 border-white/25"
                     : "text-white/50 hover:bg-white/[0.06] hover:text-white/80 hover:translate-x-[-4px]"
                   }
                 `}

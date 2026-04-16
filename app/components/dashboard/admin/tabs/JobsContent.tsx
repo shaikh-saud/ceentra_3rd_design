@@ -42,11 +42,11 @@ const MOCK_SEEKERS: Seeker[] = [
 ];
 
 const JOB_STATS = [
-  { label:"وظائف معلقة",    value:"1",  icon:Clock,      gradient:"from-[#b45309] to-[#d97706]" },
-  { label:"وظائف منشورة",   value:"64", icon:Briefcase,  gradient:"from-[#058B7F] to-[#0FAE9E]" },
-  { label:"باحثين معلقين",  value:"1",  icon:UserSearch, gradient:"from-[#7c3aed] to-[#a855f7]" },
-  { label:"باحثين منشورين", value:"53", icon:Users,      gradient:"from-[#0e2453] to-[#1a3a7a]" },
-  { label:"إعلانات مثبتة",  value:"2",  icon:Pin,        gradient:"from-[#0e2453] to-[#058B7F]" },
+  { label:"وظائف معلقة",    value:"1",  icon:Clock,      bg:"bg-navy" },
+  { label:"وظائف منشورة",   value:"64", icon:Briefcase,  bg:"bg-primary" },
+  { label:"باحثين معلقين",  value:"1",  icon:UserSearch, bg:"bg-navy" },
+  { label:"باحثين منشورين", value:"53", icon:Users,      bg:"bg-primary" },
+  { label:"إعلانات مثبتة",  value:"2",  icon:Pin,        bg:"bg-navy" },
 ];
 
 const JOB_TYPE_CONFIG: Record<JobType, string> = {
@@ -88,7 +88,7 @@ export default function JobsContent() {
         subtitle="إدارة إعلانات الوظائف والباحثين عن عمل"
         badge="65 وظيفة"
         action={
-          <a href="#" className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-[13px] font-extrabold text-white bg-gradient-to-l from-[#058B7F] to-[#0FAE9E] shadow-[0_4px_16px_rgba(5,139,127,0.3)] hover:shadow-[0_8px_24px_rgba(5,139,127,0.45)] hover:-translate-y-0.5 transition-all duration-200 active:scale-95 shrink-0">
+          <a href="#" className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-[13px] font-extrabold text-white bg-navy shadow-[0_4px_16px_rgba(14,36,83,0.25)] hover:shadow-[0_8px_24px_rgba(14,36,83,0.35)] hover:-translate-y-0.5 transition-all duration-200 active:scale-95 shrink-0">
             <ExternalLink className="w-4 h-4" />
             عرض الصفحة
           </a>
@@ -100,7 +100,7 @@ export default function JobsContent() {
         {JOB_STATS.map((card, i) => {
           const Icon = card.icon;
           return (
-            <div key={i} className={`bg-gradient-to-br ${card.gradient} rounded-2xl p-5 text-white relative overflow-hidden group transition-all duration-300 hover:scale-[1.03] hover:shadow-xl cursor-default`}>
+            <div key={i} className={`${card.bg} rounded-2xl p-5 text-white relative overflow-hidden group transition-all duration-300 hover:scale-[1.03] hover:shadow-xl cursor-default`}>
               <div className="absolute -top-5 -left-5 w-20 h-20 rounded-full bg-white/[0.07] group-hover:bg-white/[0.12] transition-colors" />
               <div className="absolute -bottom-3 -right-3 w-12 h-12 rounded-full bg-white/[0.04]" />
               <div className="relative z-10">
@@ -124,8 +124,8 @@ export default function JobsContent() {
               onClick={() => handleSegment(seg)}
               className={`flex items-center gap-2 px-4 py-2 rounded-lg text-[13px] font-extrabold transition-all duration-200 ${
                 activeSegment === seg
-                  ? "bg-[#058B7F] text-white shadow-[0_2px_10px_rgba(5,139,127,0.3)]"
-                  : "text-[#0e2453]/50 hover:text-[#0e2453]"
+                  ? "bg-navy text-white shadow-[0_2px_10px_rgba(14,36,83,0.3)]"
+                  : "text-navy/50 hover:text-navy"
               }`}
             >
               {seg === "jobs" ? <Briefcase className="w-4 h-4" /> : <UserSearch className="w-4 h-4" />}
@@ -142,7 +142,7 @@ export default function JobsContent() {
             type="text" value={search}
             onChange={(e) => { setSearch(e.target.value); setCurrentPage(1); }}
             placeholder={activeSegment === "jobs" ? "بحث عن وظيفة..." : "بحث عن باحث..."}
-            className="pr-10 pl-4 h-10 w-[220px] rounded-xl border border-gray-200 bg-white text-[13px] font-medium text-[#0e2453] placeholder:text-[#0e2453]/30 outline-none focus:border-[#058B7F] focus:ring-2 focus:ring-[#058B7F]/20 transition-all duration-200"
+            className="pr-10 pl-4 h-10 w-[220px] rounded-xl border border-gray-200 bg-white text-[13px] font-medium text-navy placeholder:text-navy/30 outline-none focus:border-navy/50 focus:ring-2 focus:ring-navy/10 transition-all duration-200"
           />
         </div>
       </div>
@@ -190,7 +190,7 @@ export default function JobsContent() {
                       </td>
                       <td className="px-5 py-4 whitespace-nowrap">
                         <span className="flex items-center gap-1.5 text-[13px] font-medium text-[#0e2453]/60">
-                          <MapPin className="w-3.5 h-3.5 text-[#058B7F]/60 shrink-0" />{job.location}
+                          <MapPin className="w-3.5 h-3.5 text-navy/50 shrink-0" />{job.location}
                         </span>
                       </td>
                       <td className="px-5 py-4 whitespace-nowrap">
@@ -280,7 +280,7 @@ export default function JobsContent() {
                       <td className="px-5 py-4 text-[13px] font-bold text-[#0e2453]/40 whitespace-nowrap">{(currentPage - 1) * PAGE_SIZE + idx + 1}</td>
                       <td className="px-5 py-4 whitespace-nowrap">
                         <div className="flex items-center gap-3">
-                          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#0e2453] to-[#058B7F] flex items-center justify-center text-white text-[12px] font-extrabold shrink-0">
+                          <div className="w-9 h-9 rounded-xl bg-navy flex items-center justify-center text-white text-[12px] font-extrabold shrink-0">
                             {seeker.name.slice(0, 2)}
                           </div>
                           <span className="text-[14px] font-extrabold text-[#0e2453]">{seeker.name}</span>
@@ -289,7 +289,7 @@ export default function JobsContent() {
                       <td className="px-5 py-4 text-[13px] font-medium text-[#0e2453]/60 whitespace-nowrap">{seeker.specialty}</td>
                       <td className="px-5 py-4 whitespace-nowrap">
                         <span className="flex items-center gap-1.5 text-[13px] font-medium text-[#0e2453]/60">
-                          <MapPin className="w-3.5 h-3.5 text-[#058B7F]/60 shrink-0" />{seeker.location}
+                          <MapPin className="w-3.5 h-3.5 text-navy/50 shrink-0" />{seeker.location}
                         </span>
                       </td>
                       <td className="px-5 py-4 whitespace-nowrap">
@@ -331,7 +331,7 @@ export default function JobsContent() {
                 <div key={seeker.id} className="p-4 hover:bg-gray-50/60 transition-colors animate-[fadeSlideUp_0.4s_ease-out]"
                   style={{ animationDelay: `${idx * 45}ms`, animationFillMode: "both" }}>
                   <div className="flex items-center gap-3 mb-3">
-                    <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#0e2453] to-[#058B7F] flex items-center justify-center text-white text-[13px] font-extrabold shrink-0">
+                    <div className="w-10 h-10 rounded-xl bg-navy flex items-center justify-center text-white text-[13px] font-extrabold shrink-0">
                       {seeker.name.slice(0, 2)}
                     </div>
                     <div className="flex-1 min-w-0">

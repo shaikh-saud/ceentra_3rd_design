@@ -127,7 +127,7 @@ export default function CompaniesContent() {
         {/* Header action — total badge */}
         <div className="flex items-center gap-2 shrink-0">
           <div className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white border border-gray-100 shadow-[0_2px_8px_rgba(0,0,0,0.04)]">
-            <Building2 className="w-4 h-4 text-[#058B7F]" />
+            <Building2 className="w-4 h-4 text-navy" />
             <span className="text-[13px] font-extrabold text-[#0e2453]">{totalAll} شركة</span>
           </div>
         </div>
@@ -147,8 +147,8 @@ export default function CompaniesContent() {
           <>
             {/* Left: title + pending chip */}
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-lg bg-[#058B7F]/10 flex items-center justify-center">
-                <ShieldAlert className="w-4 h-4 text-[#058B7F]" />
+              <div className="w-8 h-8 rounded-lg bg-navy/10 flex items-center justify-center">
+                <ShieldAlert className="w-4 h-4 text-navy" />
               </div>
               <div>
                 <p className="text-[14px] font-extrabold text-[#0e2453] leading-none">قائمة طلبات التوثيق</p>
@@ -166,14 +166,14 @@ export default function CompaniesContent() {
                   value={search}
                   onChange={handleSearch}
                   placeholder="بحث عن شركة..."
-                  className="pr-9 pl-4 h-9 w-[200px] rounded-xl border border-gray-200 bg-white text-[13px] font-medium text-[#0e2453] placeholder:text-[#0e2453]/30 outline-none focus:border-[#058B7F] focus:ring-2 focus:ring-[#058B7F]/20 transition-all duration-200"
+                  className="pr-9 pl-4 h-9 w-[200px] rounded-xl border border-gray-200 bg-white text-[13px] font-medium text-[#0e2453] placeholder:text-[#0e2453]/30 outline-none focus:border-navy/50 focus:ring-2 focus:ring-navy/10 transition-all duration-200"
                 />
               </div>
               {/* Status filter */}
               <div className="relative">
                 <button
                   onClick={() => setFilterOpen(!filterOpen)}
-                  className="flex items-center gap-2 h-9 px-4 rounded-xl border border-gray-200 bg-white text-[13px] font-bold text-[#0e2453]/70 hover:border-[#058B7F] hover:text-[#058B7F] hover:bg-[#058B7F]/5 transition-all duration-200"
+                  className="flex items-center gap-2 h-9 px-4 rounded-xl border border-gray-200 bg-white text-[13px] font-bold text-[#0e2453]/70 hover:border-navy hover:text-navy hover:bg-navy/5 transition-all duration-200"
                 >
                   <Filter className="w-3.5 h-3.5" />
                   <span className="hidden sm:block">{FILTER_OPTIONS.find((o) => o.value === statusFilter)?.label}</span>
@@ -185,7 +185,7 @@ export default function CompaniesContent() {
                     <div className="absolute left-0 top-[calc(100%+6px)] w-40 bg-white rounded-xl shadow-[0_8px_32px_rgba(0,0,0,0.12)] border border-gray-100 py-1.5 z-30 animate-[fadeSlideUp_0.2s_ease-out]">
                       {FILTER_OPTIONS.map((opt) => (
                         <button key={opt.value} onClick={() => handleFilter(opt.value)}
-                          className={`w-full text-right px-4 py-2.5 text-[13px] font-bold transition-colors ${statusFilter === opt.value ? "bg-[#058B7F]/10 text-[#058B7F]" : "text-[#0e2453]/70 hover:bg-gray-50"}`}>
+                          className={`w-full text-right px-4 py-2.5 text-[13px] font-bold transition-colors ${statusFilter === opt.value ? "bg-navy/10 text-navy" : "text-[#0e2453]/70 hover:bg-gray-50"}`}>
                           {opt.label}
                         </button>
                       ))}

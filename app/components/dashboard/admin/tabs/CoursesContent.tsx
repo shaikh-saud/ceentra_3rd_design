@@ -36,10 +36,10 @@ const MOCK_COURSES: Course[] = [
 ];
 
 const COURSE_STATS = [
-  { title:"إجمالي الكورسات",  value:"18", icon:BookOpen,      gradient:"from-[#0e2453] to-[#1a3a7a]", change:"+2" },
-  { title:"كورسات نشطة",     value:"18", icon:GraduationCap,  gradient:"from-[#058B7F] to-[#0FAE9E]", change:"100%" },
-  { title:"إجمالي التسجيلات", value:"8",  icon:UserCheck,      gradient:"from-[#0e2453] to-[#058B7F]", change:"+3" },
-  { title:"إيرادات الكورسات", value:"0",  icon:TrendingUp,     gradient:"from-[#058B7F] to-[#047a6f]", change:"ر.س" },
+  { title:"إجمالي الكورسات",  value:"18", icon:BookOpen,      gradient:"bg-navy",    change:"+2" },
+  { title:"كورسات نشطة",     value:"18", icon:GraduationCap,  gradient:"bg-primary", change:"100%" },
+  { title:"إجمالي التسجيلات", value:"8",  icon:UserCheck,      gradient:"bg-navy",    change:"+3" },
+  { title:"إيرادات الكورسات", value:"0",  icon:TrendingUp,     gradient:"bg-primary", change:"ر.س" },
 ];
 
 const LEVEL_CONFIG: Record<CourseLevel, string> = {

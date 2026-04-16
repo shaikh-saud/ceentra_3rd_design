@@ -31,7 +31,7 @@ export default function SearchInput({
           pr-10 pl-4 h-9 ${width} rounded-xl border border-gray-200 bg-white
           text-[13px] font-medium text-[#0e2453]
           placeholder:text-[#0e2453]/30
-          outline-none focus:border-[#058B7F] focus:ring-2 focus:ring-[#058B7F]/20
+          outline-none focus:border-navy/50 focus:ring-2 focus:ring-navy/10
           transition-all duration-200
           ${disabled ? "cursor-not-allowed bg-gray-50" : ""}
         `}

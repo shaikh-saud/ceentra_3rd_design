@@ -22,13 +22,13 @@ export default function PageHeader({
       <div>
         <div className="flex items-center gap-3 mb-1">
           {Icon && (
-            <div className="w-9 h-9 rounded-xl bg-[#058B7F]/10 flex items-center justify-center shrink-0">
-              <Icon className="w-4 h-4 text-[#058B7F]" />
+            <div className="w-9 h-9 rounded-xl bg-navy/10 flex items-center justify-center shrink-0">
+              <Icon className="w-4 h-4 text-navy" />
             </div>
           )}
-          <h1 className="text-[24px] font-extrabold text-[#0e2453] leading-tight">{title}</h1>
+          <h1 className="text-[24px] font-extrabold text-navy leading-tight">{title}</h1>
           {badge && (
-            <span className="inline-flex items-center px-3 py-1 rounded-full text-[12px] font-bold bg-[#058B7F]/10 text-[#058B7F] border border-[#058B7F]/20">
+            <span className="inline-flex items-center px-3 py-1 rounded-full text-[12px] font-bold bg-navy/8 text-navy border border-navy/15">
               {badge}
             </span>
           )}

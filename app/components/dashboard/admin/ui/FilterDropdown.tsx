@@ -26,7 +26,7 @@ export default function FilterDropdown({
     <div className="relative">
       <button
         onClick={() => setOpen(!open)}
-        className="flex items-center gap-2 h-9 px-4 rounded-xl border border-gray-200 bg-white text-[13px] font-bold text-[#0e2453]/70 hover:border-[#058B7F] hover:text-[#058B7F] hover:bg-[#058B7F]/5 transition-all duration-200"
+        className="flex items-center gap-2 h-9 px-4 rounded-xl border border-gray-200 bg-white text-[13px] font-bold text-navy/70 hover:border-navy hover:text-navy hover:bg-navy/5 transition-all duration-200"
       >
         <Filter className="w-3.5 h-3.5 shrink-0" />
         <span className="hidden sm:block">{selected?.label}</span>
@@ -46,8 +46,8 @@ export default function FilterDropdown({
                 onClick={() => { onChange(opt.value); setOpen(false); }}
                 className={`w-full text-right px-4 py-2.5 text-[13px] font-bold transition-colors ${
                   value === opt.value
-                    ? "bg-[#058B7F]/10 text-[#058B7F]"
-                    : "text-[#0e2453]/70 hover:bg-gray-50"
+                    ? "bg-navy/10 text-navy font-extrabold"
+                    : "text-navy/70 hover:bg-gray-50"
                 }`}
               >
                 {opt.label}

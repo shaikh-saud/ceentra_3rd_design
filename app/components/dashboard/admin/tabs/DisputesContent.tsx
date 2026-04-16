@@ -25,7 +25,7 @@ export default function DisputesContent() {
           <p className="text-[13px] text-[#0e2453]/50 font-medium mt-0.5">لوحة إدارة منصة سنترا</p>
         </div>
         <div className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white border border-gray-100 shadow-[0_2px_8px_rgba(0,0,0,0.04)] shrink-0 self-start">
-          <Shield className="w-4 h-4 text-[#058B7F]" strokeWidth={1.8} />
+          <Shield className="w-4 h-4 text-navy" strokeWidth={1.8} />
           <span className="text-[13px] font-extrabold text-[#0e2453]">مدير النظام</span>
         </div>
       </div>

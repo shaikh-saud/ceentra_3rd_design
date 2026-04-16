@@ -21,8 +21,8 @@ export default function ConsultantsContent() {
       <TableCard
         toolbar={
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg bg-[#058B7F]/10 flex items-center justify-center">
-              <Lightbulb className="w-4 h-4 text-[#058B7F]" />
+            <div className="w-8 h-8 rounded-lg bg-navy/10 flex items-center justify-center">
+              <Lightbulb className="w-4 h-4 text-navy" />
             </div>
             <p className="text-[14px] font-extrabold text-[#0e2453]">قائمة الطلبات</p>
           </div>

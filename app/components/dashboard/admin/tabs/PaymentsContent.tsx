@@ -9,10 +9,10 @@ import SearchInput from "../ui/SearchInput";
 import TableCard from "../ui/TableCard";
 
 const PAYMENT_STATS = [
-  { title:"إجمالي الإيرادات", value:"0", unit:"ر.س",   icon:Banknote,  gradient:"from-[#0e2453] to-[#1a3a7a]",  change:"—", changeStyle:"plain" as const },
-  { title:"مدفوعات معلقة",   value:"0", unit:"عملية", icon:Clock,     gradient:"from-[#b45309] to-[#d97706]",  change:"—", changeStyle:"plain" as const },
-  { title:"آخر المدفوعات",   value:"0", unit:"ر.س",   icon:CreditCard, gradient:"from-[#058B7F] to-[#0FAE9E]", change:"—", changeStyle:"plain" as const },
-  { title:"نسبة الضريبة",    value:"15", unit:"%",    icon:BarChart3,  gradient:"from-[#0e2453] to-[#058B7F]", change:"VAT", changeStyle:"plain" as const },
+  { title:"إجمالي الإيرادات", value:"0", unit:"ر.س",  icon:Banknote,  gradient:"bg-navy",    change:"—", changeStyle:"plain" as const },
+  { title:"مدفوعات معلقة",   value:"0", unit:"عملية", icon:Clock,     gradient:"bg-primary", change:"—", changeStyle:"plain" as const },
+  { title:"آخر المدفوعات",   value:"0", unit:"ر.س",   icon:CreditCard, gradient:"bg-navy",   change:"—", changeStyle:"plain" as const },
+  { title:"نسبة الضريبة",    value:"15", unit:"%",    icon:BarChart3,  gradient:"bg-primary", change:"VAT", changeStyle:"plain" as const },
 ];
 
 const PAYMENT_COLS = ["رقم العملية","المستخدم","الخدمة","المبلغ","البوابة","الحالة","التاريخ","الإجراءات"];
@@ -36,8 +36,8 @@ export default function PaymentsContent() {
         toolbar={
           <>
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-lg bg-[#058B7F]/10 flex items-center justify-center">
-                <CreditCard className="w-4 h-4 text-[#058B7F]" />
+              <div className="w-8 h-8 rounded-lg bg-navy/10 flex items-center justify-center">
+                <CreditCard className="w-4 h-4 text-navy" />
               </div>
               <p className="text-[14px] font-extrabold text-[#0e2453]">آخر المدفوعات</p>
             </div>
@@ -51,7 +51,7 @@ export default function PaymentsContent() {
               <div className="w-9 h-9 rounded-xl border border-gray-200 flex items-center justify-center">
                 <ChevronRight className="w-4 h-4 text-[#0e2453]/40" />
               </div>
-              <div className="w-9 h-9 rounded-xl border border-[#058B7F] bg-[#058B7F] flex items-center justify-center">
+              <div className="w-9 h-9 rounded-xl border border-navy bg-navy flex items-center justify-center">
                 <span className="text-[13px] font-bold text-white">1</span>
               </div>
               <div className="w-9 h-9 rounded-xl border border-gray-200 flex items-center justify-center">

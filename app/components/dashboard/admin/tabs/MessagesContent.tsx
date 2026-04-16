@@ -50,7 +50,7 @@ export default function MessagesContent() {
               <h2 className="text-[14px] font-extrabold text-[#0e2453]">المحادثات</h2>
               <span className="text-[11px] font-bold bg-[#0e2453]/[0.06] text-[#0e2453]/50 px-2 py-0.5 rounded-md">1</span>
             </div>
-            <button className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-[13px] font-extrabold text-white bg-gradient-to-l from-[#058B7F] to-[#0FAE9E] shadow-[0_4px_12px_rgba(5,139,127,0.25)] hover:shadow-[0_6px_20px_rgba(5,139,127,0.4)] hover:-translate-y-0.5 transition-all duration-200 active:scale-95">
+            <button className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-[13px] font-extrabold text-white bg-navy shadow-[0_4px_12px_rgba(14,36,83,0.2)] hover:shadow-[0_6px_20px_rgba(14,36,83,0.3)] hover:-translate-y-0.5 transition-all duration-200 active:scale-95">
               <Plus className="w-4 h-4" />
               محادثة جديدة
             </button>
@@ -62,7 +62,7 @@ export default function MessagesContent() {
               onClick={() => setActiveConv(CONVERSATION.id)}
               className={`w-full text-right px-4 py-3.5 flex items-start gap-3 transition-all duration-200 group ${
                 activeConv === CONVERSATION.id
-                  ? "bg-[#058B7F]/[0.07] border-r-2 border-[#058B7F]"
+                  ? "bg-navy/5 border-r-2 border-navy"
                   : "hover:bg-gray-50/80 border-r-2 border-transparent"
               }`}
             >
@@ -103,17 +103,17 @@ export default function MessagesContent() {
 
             {/* Icon stack */}
             <div className="relative mb-7">
-              <div className="w-28 h-28 rounded-full bg-[#058B7F]/[0.06] flex items-center justify-center">
-                <div className="w-20 h-20 rounded-full bg-[#058B7F]/[0.08] flex items-center justify-center">
-                  <div className="w-14 h-14 rounded-full bg-[#058B7F]/[0.10] flex items-center justify-center">
-                    <MessageSquare className="w-7 h-7 text-[#058B7F]/50" strokeWidth={1.5} />
+              <div className="w-28 h-28 rounded-full bg-navy/5 flex items-center justify-center">
+                <div className="w-20 h-20 rounded-full bg-navy/7 flex items-center justify-center">
+                  <div className="w-14 h-14 rounded-full bg-navy/10 flex items-center justify-center">
+                    <MessageSquare className="w-7 h-7 text-navy/40" strokeWidth={1.5} />
                   </div>
                 </div>
               </div>
               {/* Decorative dots */}
-              <span className="absolute top-2 right-1 w-2.5 h-2.5 rounded-full bg-[#058B7F]/20" />
-              <span className="absolute bottom-3 left-1 w-2 h-2 rounded-full bg-[#0e2453]/10" />
-              <span className="absolute top-6 -left-3 w-1.5 h-1.5 rounded-full bg-[#058B7F]/15" />
+              <span className="absolute top-2 right-1 w-2.5 h-2.5 rounded-full bg-navy/15" />
+              <span className="absolute bottom-3 left-1 w-2 h-2 rounded-full bg-navy/10" />
+              <span className="absolute top-6 -left-3 w-1.5 h-1.5 rounded-full bg-navy/10" />
             </div>
 
             <h3 className="text-[20px] font-extrabold text-[#0e2453]/60 mb-2 text-center">

@@ -112,7 +112,7 @@ export default function UsersContent() {
                     key={user.id}
                     onClick={() => setActiveRow(isActive ? null : user.id)}
                     className={`border-b border-gray-50 cursor-pointer transition-all duration-150 animate-[fadeSlideUp_0.4s_ease-out] ${
-                      isActive ? "bg-[#058B7F]/[0.04] border-[#058B7F]/10" : "hover:bg-[#0e2453]/[0.018]"
+                      isActive ? "bg-navy/4 border-navy/10" : "hover:bg-navy/[0.018]"
                     }`}
                     style={{ animationDelay: `${idx * 40}ms`, animationFillMode: "both" }}
                   >

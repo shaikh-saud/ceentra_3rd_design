@@ -112,9 +112,9 @@ export default function ServicesContent() {
   const handleSearch    = (e: React.ChangeEvent<HTMLInputElement>) => { setSearch(e.target.value); setPage(1); };
 
   const SERVICE_STATS = [
-    { label:"إجمالي الخدمات", value: totalServices,    icon: ShoppingBag, gradient:"from-[#0e2453] to-[#1a3a7a]", tag:"الكل"    },
-    { label:"خدمات نشطة",     value: activeServices,   icon: CheckCircle, gradient:"from-[#058B7F] to-[#0FAE9E]", tag:"نشطة"    },
-    { label:"خدمات معطلة",    value: disabledServices, icon: ToggleLeft,  gradient: disabledServices > 0 ? "from-[#b91c1c] to-[#ef4444]" : "from-[#6b7280] to-[#9ca3af]", tag:"معطلة" },
+    { label:"إجمالي الخدمات", value: totalServices,    icon: ShoppingBag, gradient:"bg-navy",    tag:"الكل"    },
+    { label:"خدمات نشطة",     value: activeServices,   icon: CheckCircle, gradient:"bg-primary", tag:"نشطة"    },
+    { label:"خدمات معطلة",    value: disabledServices, icon: ToggleLeft,  gradient:"bg-navy",    tag:"معطلة"   },
   ];
 
   return (
@@ -124,7 +124,7 @@ export default function ServicesContent() {
         subtitle="إدارة وتسعير جميع الخدمات الإلكترونية على المنصة"
         badge={`${totalServices} خدمة`}
         action={
-          <button className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-[13px] font-extrabold text-white bg-gradient-to-l from-[#0e2453] to-[#1a3a7a] shadow-[0_4px_16px_rgba(14,36,83,0.3)] hover:shadow-[0_8px_24px_rgba(14,36,83,0.45)] hover:-translate-y-0.5 transition-all duration-200 active:scale-95 shrink-0">
+          <button className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-[13px] font-extrabold text-white bg-navy shadow-[0_4px_16px_rgba(14,36,83,0.3)] hover:bg-navy-dark hover:shadow-[0_8px_24px_rgba(14,36,83,0.45)] hover:-translate-y-0.5 transition-all duration-200 active:scale-95 shrink-0">
             <Plus className="w-4 h-4" />
             إضافة خدمة
           </button>
@@ -136,7 +136,7 @@ export default function ServicesContent() {
         {SERVICE_STATS.map((card, i) => {
           const Icon = card.icon;
           return (
-            <div key={i} className={`bg-gradient-to-br ${card.gradient} rounded-2xl p-6 text-white relative overflow-hidden group transition-all duration-300 hover:scale-[1.02] hover:shadow-xl cursor-default`}>
+            <div key={i} className={`${card.gradient} rounded-2xl p-6 text-white relative overflow-hidden group transition-all duration-300 hover:scale-[1.02] hover:shadow-xl cursor-default`}>
               <div className="absolute -top-6 -left-6 w-24 h-24 rounded-full bg-white/[0.07] group-hover:bg-white/[0.12] transition-colors" />
               <div className="absolute -bottom-4 -right-4 w-16 h-16 rounded-full bg-white/[0.04]" />
               <div className="relative z-10">
@@ -193,8 +193,8 @@ export default function ServicesContent() {
                     <td className="px-5 py-4 text-[13px] font-bold text-[#0e2453]/40 whitespace-nowrap">{(currentPage - 1) * PAGE_SIZE + idx + 1}</td>
                     <td className="px-5 py-4 max-w-[280px]">
                       <div className="flex items-center gap-3">
-                        <div className="w-9 h-9 rounded-xl bg-[#0e2453]/[0.05] flex items-center justify-center shrink-0 group-hover:bg-[#058B7F]/10 transition-colors">
-                          <CatIcon className="w-4 h-4 text-[#0e2453]/50 group-hover:text-[#058B7F] transition-colors" strokeWidth={1.6} />
+                        <div className="w-9 h-9 rounded-xl bg-[#0e2453]/[0.05] flex items-center justify-center shrink-0 group-hover:bg-navy/10 transition-colors">
+                          <CatIcon className="w-4 h-4 text-[#0e2453]/50 group-hover:text-navy transition-colors" strokeWidth={1.6} />
                         </div>
                         <div className="min-w-0">
                           <p className="text-[14px] font-extrabold text-[#0e2453] truncate leading-snug">{service.title}</p>
@@ -208,14 +208,14 @@ export default function ServicesContent() {
                     <td className="px-5 py-4 whitespace-nowrap">
                       {service.priceType === "نسبة مئوية" ? (
                         <div className="flex items-center gap-1">
-                          <span className="text-[16px] font-extrabold text-[#058B7F]">{service.price}</span>
-                          <Percent className="w-3.5 h-3.5 text-[#058B7F]" />
+                          <span className="text-[16px] font-extrabold text-navy">{service.price}</span>
+                          <Percent className="w-3.5 h-3.5 text-navy" />
                         </div>
                       ) : service.price === 0 ? (
                         <span className="text-[14px] font-extrabold text-green-600">مجاني</span>
                       ) : (
                         <div className="flex flex-col gap-0.5">
-                          <span className="text-[15px] font-extrabold text-[#058B7F]">{service.price.toLocaleString("ar-SA")} ر.س</span>
+                          <span className="text-[15px] font-extrabold text-navy">{service.price.toLocaleString("ar-SA")} ر.س</span>
                           {service.originalPrice && (
                             <span className="text-[11px] font-medium text-[#0e2453]/35 line-through">{service.originalPrice.toLocaleString("ar-SA")} ر.س</span>
                           )}
@@ -284,12 +284,12 @@ export default function ServicesContent() {
                 <div className="flex items-center justify-between">
                   <div className="flex flex-col">
                     {service.priceType === "نسبة مئوية" ? (
-                      <span className="text-[14px] font-extrabold text-[#058B7F]">{service.price}%</span>
+                      <span className="text-[14px] font-extrabold text-navy">{service.price}%</span>
                     ) : service.price === 0 ? (
                       <span className="text-[14px] font-extrabold text-green-600">مجاني</span>
                     ) : (
                       <>
-                        <span className="text-[14px] font-extrabold text-[#058B7F]">{service.price.toLocaleString("ar-SA")} ر.س</span>
+                        <span className="text-[14px] font-extrabold text-navy">{service.price.toLocaleString("ar-SA")} ر.س</span>
                         {service.originalPrice && <span className="text-[11px] text-[#0e2453]/35 line-through">{service.originalPrice.toLocaleString("ar-SA")} ر.س</span>}
                       </>
                     )}

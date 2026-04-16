@@ -16,9 +16,11 @@ import AlertsContent      from "@/app/components/dashboard/admin/tabs/AlertsCont
 import MessagesContent    from "@/app/components/dashboard/admin/tabs/MessagesContent";
 import RequestsContent    from "@/app/components/dashboard/admin/tabs/RequestsContent";
 import DisputesContent    from "@/app/components/dashboard/admin/tabs/DisputesContent";
+import ReportsContent     from "@/app/components/dashboard/admin/tabs/ReportsContent";
+import SettingsContent    from "@/app/components/dashboard/admin/tabs/SettingsContent";
 import PlaceholderContent from "@/app/components/dashboard/admin/tabs/PlaceholderContent";
 
-const IMPLEMENTED = ["overview", "users", "courses", "payments", "jobs", "services", "companies", "consultants", "creators", "alerts", "messages", "requests", "disputes"];
+const IMPLEMENTED = ["overview", "users", "courses", "payments", "jobs", "services", "companies", "consultants", "creators", "alerts", "messages", "requests", "disputes", "reports", "settings"];
 
 export default function AdminDashboardPage() {
   const [activeTab, setActiveTab]       = useState("overview");
@@ -53,6 +55,8 @@ export default function AdminDashboardPage() {
           {activeTab === "messages"    && <MessagesContent />}
           {activeTab === "requests"    && <RequestsContent />}
           {activeTab === "disputes"    && <DisputesContent />}
+          {activeTab === "reports"     && <ReportsContent />}
+          {activeTab === "settings"    && <SettingsContent />}
           {!IMPLEMENTED.includes(activeTab) && <PlaceholderContent tab={activeTab} />}
         </main>
       </div>

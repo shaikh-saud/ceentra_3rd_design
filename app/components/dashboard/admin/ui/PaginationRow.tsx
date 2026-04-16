@@ -25,7 +25,7 @@ function PaginationBtn({
     <button
       onClick={onClick}
       disabled={disabled}
-      className="w-9 h-9 rounded-xl border border-gray-200 flex items-center justify-center text-[#0e2453]/50 hover:bg-[#058B7F] hover:text-white hover:border-[#058B7F] disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-white disabled:hover:text-[#0e2453]/50 disabled:hover:border-gray-200 transition-all duration-200"
+      className="w-9 h-9 rounded-xl border border-gray-200 flex items-center justify-center text-navy/50 hover:bg-navy hover:text-white hover:border-navy disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-white disabled:hover:text-navy/50 disabled:hover:border-gray-200 transition-all duration-200"
     >
       {children}
     </button>
@@ -66,8 +66,8 @@ export default function PaginationRow({
             onClick={() => onPageChange(p)}
             className={`w-9 h-9 rounded-xl text-[13px] font-bold border transition-all duration-200 ${
               currentPage === p
-                ? "bg-[#058B7F] text-white border-[#058B7F] shadow-[0_4px_12px_rgba(5,139,127,0.3)]"
-                : "border-gray-200 text-[#0e2453]/60 hover:bg-[#058B7F] hover:text-white hover:border-[#058B7F]"
+                ? "bg-navy text-white border-navy shadow-[0_4px_12px_rgba(14,36,83,0.3)]"
+                : "border-gray-200 text-navy/60 hover:bg-navy hover:text-white hover:border-navy"
             }`}
           >
             {p}

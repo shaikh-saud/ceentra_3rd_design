@@ -29,7 +29,7 @@ export default function StatCard({
 }: StatCardProps) {
   return (
     <div
-      className={`bg-gradient-to-br ${gradient} rounded-2xl p-6 text-white relative overflow-hidden group transition-all duration-300 hover:scale-[1.02] hover:shadow-xl cursor-default`}
+      className={`${gradient} rounded-2xl p-6 text-white relative overflow-hidden group transition-all duration-300 hover:scale-[1.02] hover:shadow-xl cursor-default`}
       style={{ animationDelay: `${delay}ms` }}
     >
       {/* Decorative circles */}

@@ -12,8 +12,8 @@ function SectionCard({ title, children, icon: Icon }: { title: string; children:
     <div className="bg-white rounded-2xl border border-gray-100 shadow-[0_4px_20px_rgba(0,0,0,0.04)] overflow-hidden">
       <div className="px-6 py-4 border-b border-gray-100 flex items-center gap-2.5">
         {Icon && (
-          <div className="w-7 h-7 rounded-lg bg-[#058B7F]/10 flex items-center justify-center shrink-0">
-            <Icon className="w-3.5 h-3.5 text-[#058B7F]" />
+          <div className="w-7 h-7 rounded-lg bg-navy/10 flex items-center justify-center shrink-0">
+            <Icon className="w-3.5 h-3.5 text-navy" />
           </div>
         )}
         <h2 className="text-[14px] font-extrabold text-[#0e2453]">{title}</h2>
@@ -32,9 +32,9 @@ function FieldLabel({ label, required }: { label: string; required?: boolean }) 
   );
 }
 
-const inputCls = "w-full h-10 px-4 rounded-xl border border-gray-200 bg-white text-[13px] font-medium text-[#0e2453] placeholder:text-[#0e2453]/30 outline-none focus:border-[#058B7F] focus:ring-2 focus:ring-[#058B7F]/20 transition-all duration-200";
-const selectCls = "w-full h-10 px-4 rounded-xl border border-gray-200 bg-white text-[13px] font-medium text-[#0e2453] outline-none focus:border-[#058B7F] focus:ring-2 focus:ring-[#058B7F]/20 transition-all duration-200 cursor-pointer appearance-none";
-const textareaCls = "w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-[13px] font-medium text-[#0e2453] placeholder:text-[#0e2453]/30 outline-none focus:border-[#058B7F] focus:ring-2 focus:ring-[#058B7F]/20 transition-all duration-200 resize-none";
+const inputCls = "w-full h-10 px-4 rounded-xl border border-gray-200 bg-white text-[13px] font-medium text-[#0e2453] placeholder:text-[#0e2453]/30 outline-none focus:border-navy/50 focus:ring-2 focus:ring-navy/10 transition-all duration-200";
+const selectCls = "w-full h-10 px-4 rounded-xl border border-gray-200 bg-white text-[13px] font-medium text-[#0e2453] outline-none focus:border-navy/50 focus:ring-2 focus:ring-navy/10 transition-all duration-200 cursor-pointer appearance-none";
+const textareaCls = "w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-[13px] font-medium text-[#0e2453] placeholder:text-[#0e2453]/30 outline-none focus:border-navy/50 focus:ring-2 focus:ring-navy/10 transition-all duration-200 resize-none";
 
 function SelectField({ label, required, options, defaultValue }: {
   label: string; required?: boolean; options: string[]; defaultValue?: string;
@@ -57,25 +57,25 @@ function SelectField({ label, required, options, defaultValue }: {
 function CheckOption({ label, defaultChecked, icon: Icon }: { label: string; defaultChecked?: boolean; icon?: React.ElementType }) {
   const [checked, setChecked] = useState(defaultChecked ?? false);
   return (
-    <label className={`flex items-center gap-3 px-4 py-3 rounded-xl border cursor-pointer transition-all duration-200 select-none ${checked ? "bg-[#058B7F]/[0.05] border-[#058B7F]/25" : "bg-white border-gray-200 hover:border-[#058B7F]/30 hover:bg-gray-50/60"}`}>
+    <label className={`flex items-center gap-3 px-4 py-3 rounded-xl border cursor-pointer transition-all duration-200 select-none ${checked ? "bg-navy/5 border-navy/20" : "bg-white border-gray-200 hover:border-navy/20 hover:bg-gray-50/60"}`}>
       <div
         onClick={() => setChecked(!checked)}
-        className={`w-5 h-5 rounded-md border-2 flex items-center justify-center shrink-0 transition-all duration-200 ${checked ? "bg-[#058B7F] border-[#058B7F]" : "border-gray-300"}`}
+        className={`w-5 h-5 rounded-md border-2 flex items-center justify-center shrink-0 transition-all duration-200 ${checked ? "bg-navy border-navy" : "border-gray-300"}`}
       >
         {checked && <svg className="w-3 h-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>}
       </div>
-      {Icon && <Icon className={`w-4 h-4 shrink-0 ${checked ? "text-[#058B7F]" : "text-[#0e2453]/40"}`} strokeWidth={1.8} />}
-      <span className={`text-[13px] font-bold ${checked ? "text-[#058B7F]" : "text-[#0e2453]/70"}`}>{label}</span>
+      {Icon && <Icon className={`w-4 h-4 shrink-0 ${checked ? "text-navy" : "text-navy/40"}`} strokeWidth={1.8} />}
+      <span className={`text-[13px] font-bold ${checked ? "text-navy" : "text-navy/70"}`}>{label}</span>
     </label>
   );
 }
 
 function RadioOption({ label, name, defaultChecked }: { label: string; name: string; defaultChecked?: boolean }) {
   return (
-    <label className="flex items-center gap-3 px-4 py-3 rounded-xl border border-gray-200 cursor-pointer hover:border-[#058B7F]/30 hover:bg-gray-50/60 transition-all duration-200 select-none group">
+    <label className="flex items-center gap-3 px-4 py-3 rounded-xl border border-gray-200 cursor-pointer hover:border-navy/20 hover:bg-gray-50/60 transition-all duration-200 select-none group">
       <input type="radio" name={name} defaultChecked={defaultChecked}
-        className="w-4 h-4 accent-[#058B7F] shrink-0 cursor-pointer" />
-      <span className="text-[13px] font-bold text-[#0e2453]/70 group-has-[:checked]:text-[#058B7F]">{label}</span>
+        className="w-4 h-4 accent-navy shrink-0 cursor-pointer" />
+      <span className="text-[13px] font-bold text-navy/70 group-has-[:checked]:text-navy">{label}</span>
     </label>
   );
 }
@@ -94,8 +94,8 @@ export default function AlertsContent() {
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
           <div className="flex items-center gap-3 mb-1.5">
-            <div className="w-9 h-9 rounded-xl bg-[#058B7F]/10 flex items-center justify-center shrink-0">
-              <Bell className="w-4 h-4 text-[#058B7F]" />
+            <div className="w-9 h-9 rounded-xl bg-navy/10 flex items-center justify-center shrink-0">
+              <Bell className="w-4 h-4 text-navy" />
             </div>
             <h1 className="text-[24px] font-extrabold text-[#0e2453] leading-tight">إنشاء تنبيه جديد</h1>
           </div>
@@ -107,7 +107,7 @@ export default function AlertsContent() {
           <button className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-[13px] font-extrabold text-[#0e2453]/60 bg-white border border-gray-200 hover:border-gray-300 hover:text-[#0e2453] transition-all duration-200 active:scale-95">
             إلغاء
           </button>
-          <button className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-[13px] font-extrabold text-white bg-gradient-to-l from-[#058B7F] to-[#0FAE9E] shadow-[0_4px_16px_rgba(5,139,127,0.3)] hover:shadow-[0_8px_24px_rgba(5,139,127,0.45)] hover:-translate-y-0.5 transition-all duration-200 active:scale-95">
+          <button className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-[13px] font-extrabold text-white bg-navy shadow-[0_4px_16px_rgba(14,36,83,0.25)] hover:shadow-[0_8px_24px_rgba(14,36,83,0.35)] hover:-translate-y-0.5 transition-all duration-200 active:scale-95">
             <Send className="w-4 h-4" />
             حفظ وإرسال
           </button>
@@ -207,12 +207,12 @@ export default function AlertsContent() {
         <div className="space-y-5">
 
           {/* Section 7: Advice */}
-          <div className="bg-[#058B7F]/[0.04] rounded-2xl border border-[#058B7F]/15 p-5">
+          <div className="bg-navy/4 rounded-2xl border border-navy/10 p-5">
             <div className="flex items-center gap-2.5 mb-4">
-              <div className="w-7 h-7 rounded-lg bg-[#058B7F]/15 flex items-center justify-center shrink-0">
-                <Lightbulb className="w-3.5 h-3.5 text-[#058B7F]" />
+              <div className="w-7 h-7 rounded-lg bg-navy/10 flex items-center justify-center shrink-0">
+                <Lightbulb className="w-3.5 h-3.5 text-navy" />
               </div>
-              <h3 className="text-[13px] font-extrabold text-[#058B7F]">نصائح</h3>
+              <h3 className="text-[13px] font-extrabold text-navy">نصائح</h3>
             </div>
             <ul className="space-y-3">
               {[
@@ -222,8 +222,8 @@ export default function AlertsContent() {
                 "يمكنك استخدام متغيرات في الرسالة مثل {{user_name}}",
               ].map((tip, i) => (
                 <li key={i} className="flex items-start gap-2.5">
-                  <span className="w-5 h-5 rounded-full bg-[#058B7F]/15 flex items-center justify-center shrink-0 mt-0.5">
-                    <span className="text-[9px] font-extrabold text-[#058B7F]">{i + 1}</span>
+                  <span className="w-5 h-5 rounded-full bg-navy/10 flex items-center justify-center shrink-0 mt-0.5">
+                    <span className="text-[9px] font-extrabold text-navy">{i + 1}</span>
                   </span>
                   <p className="text-[12px] font-medium text-[#0e2453]/60 leading-relaxed">{tip}</p>
                 </li>
@@ -234,12 +234,12 @@ export default function AlertsContent() {
           {/* Section 8: Stats */}
           <div className="grid grid-cols-2 gap-3">
             {[
-              { label:"الإشعارات المرسَلة", value:0, icon:Send,    gradient:"from-[#0e2453] to-[#1a3a7a]" },
-              { label:"غير مقروءة",         value:0, icon:Eye,     gradient:"from-[#058B7F] to-[#0FAE9E]" },
+              { label:"الإشعارات المرسَلة", value:0, icon:Send, bg:"bg-navy" },
+              { label:"غير مقروءة",         value:0, icon:Eye,  bg:"bg-primary" },
             ].map((card) => {
               const Icon = card.icon;
               return (
-                <div key={card.label} className={`bg-gradient-to-br ${card.gradient} rounded-2xl p-4 text-white relative overflow-hidden group transition-all duration-300 hover:scale-[1.03] hover:shadow-xl cursor-default`}>
+                <div key={card.label} className={`${card.bg} rounded-2xl p-4 text-white relative overflow-hidden group transition-all duration-300 hover:scale-[1.03] hover:shadow-xl cursor-default`}>
                   <div className="absolute -top-4 -left-4 w-16 h-16 rounded-full bg-white/[0.07]" />
                   <div className="absolute -bottom-2 -right-2 w-10 h-10 rounded-full bg-white/[0.04]" />
                   <div className="relative z-10">
@@ -258,8 +258,8 @@ export default function AlertsContent() {
           <div className="bg-white rounded-2xl border border-gray-100 shadow-[0_4px_20px_rgba(0,0,0,0.04)] overflow-hidden">
             <div className="px-5 py-4 border-b border-gray-100 flex items-center justify-between">
               <div className="flex items-center gap-2.5">
-                <div className="w-7 h-7 rounded-lg bg-[#058B7F]/10 flex items-center justify-center shrink-0">
-                  <Bell className="w-3.5 h-3.5 text-[#058B7F]" />
+                <div className="w-7 h-7 rounded-lg bg-navy/10 flex items-center justify-center shrink-0">
+                  <Bell className="w-3.5 h-3.5 text-navy" />
                 </div>
                 <h3 className="text-[13px] font-extrabold text-[#0e2453]">سجل الإشعارات</h3>
               </div>
@@ -285,8 +285,8 @@ export default function AlertsContent() {
 
             {/* Empty state */}
             <div className="flex flex-col items-center justify-center py-10 gap-2.5">
-              <div className="w-10 h-10 rounded-xl bg-[#058B7F]/[0.07] flex items-center justify-center">
-                <Bell className="w-5 h-5 text-[#058B7F]/40" strokeWidth={1.5} />
+              <div className="w-10 h-10 rounded-xl bg-navy/7 flex items-center justify-center">
+                <Bell className="w-5 h-5 text-navy/35" strokeWidth={1.5} />
               </div>
               <p className="text-[12px] font-bold text-[#0e2453]/30">لم يُرسَل أي إشعار بعد</p>
             </div>
