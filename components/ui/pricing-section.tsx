@@ -161,7 +161,7 @@ function PlanPills({ plans, activeKey, onChange }: { plans: Plan[]; activeKey: P
               background: isActive ? `linear-gradient(135deg, ${TEAL}, ${TEAL_L})` : "#ffffff",
               color: isActive ? "#ffffff" : NAVY,
               border: isActive ? "none" : `1.5px solid rgba(14,36,83,0.12)`,
-              boxShadow: isActive ? `0 4px 20px rgba(5,139,127,0.30)` : "0 1px 4px rgba(0,0,0,0.06)",
+              boxShadow: isActive ? `0 4px 20px rgba(14,36,83,0.30)` : "0 1px 4px rgba(0,0,0,0.06)",
             }}
           >
             <span
@@ -209,7 +209,7 @@ function PriceOrb({ plan }: { plan: Plan }) {
       {/* Dashed orbit — teal */}
       <div
         className="absolute rounded-full"
-        style={{ width: "280px", height: "280px", border: `1px dashed rgba(5,139,127,0.20)` }}
+        style={{ width: "280px", height: "280px", border: `1px dashed rgba(14,36,83,0.20)` }}
       />
       {/* Mid ring — navy */}
       <div
@@ -229,13 +229,13 @@ function PriceOrb({ plan }: { plan: Plan }) {
           width: "192px", height: "192px",
           borderRadius: "50%",
           background: `linear-gradient(145deg, ${NAVY} 0%, ${NAVY2} 100%)`,
-          boxShadow: `0 16px 56px rgba(14,36,83,0.42), 0 0 0 1.5px rgba(5,139,127,0.25), 0 2px 0 rgba(255,255,255,0.10) inset`,
+          boxShadow: `0 16px 56px rgba(14,36,83,0.42), 0 0 0 1.5px rgba(14,36,83,0.25), 0 2px 0 rgba(255,255,255,0.10) inset`,
         }}
       >
         {/* Teal inner shimmer ring */}
         <div
           className="absolute inset-3 rounded-full pointer-events-none"
-          style={{ border: `1px solid rgba(15,174,158,0.20)` }}
+          style={{ border: `1px solid rgba(22,45,110,0.20)` }}
         />
         {/* Price */}
         <div className="flex flex-col items-center" dir="ltr">
@@ -256,7 +256,7 @@ function PriceOrb({ plan }: { plan: Plan }) {
             background: `linear-gradient(135deg, ${TEAL}, ${TEAL_L})`,
             color: "#fff",
             fontSize: "11px", fontWeight: 700,
-            boxShadow: `0 4px 14px rgba(5,139,127,0.32)`,
+            boxShadow: `0 4px 14px rgba(14,36,83,0.32)`,
           }}
         >
           <Zap className="w-3 h-3" />
@@ -291,7 +291,7 @@ function PriceOrb({ plan }: { plan: Plan }) {
           style={{
             width: i % 2 === 0 ? "6px" : "4px",
             height: i % 2 === 0 ? "6px" : "4px",
-            background: i % 2 === 0 ? `rgba(14,36,83,0.25)` : `rgba(5,139,127,0.30)`,
+            background: i % 2 === 0 ? `rgba(14,36,83,0.25)` : `rgba(14,36,83,0.30)`,
             transform: `rotate(${deg}deg) translateY(-128px)`,
           }}
         />
@@ -306,7 +306,7 @@ function FeaturePills({ plan }: { plan: Plan }) {
     <div className="flex flex-col gap-6">
       {plan.features.map((group, gi) => {
         const color = group.accent === "navy" ? NAVY : TEAL;
-        const colorBg = group.accent === "navy" ? "rgba(14,36,83,0.07)" : "rgba(5,139,127,0.08)";
+        const colorBg = group.accent === "navy" ? "rgba(14,36,83,0.07)" : "rgba(14,36,83,0.08)";
         return (
           <div key={gi}>
             {/* Group label */}
@@ -354,7 +354,7 @@ function FeaturePills({ plan }: { plan: Plan }) {
                 className="mt-5 mx-auto"
                 style={{
                   height: "2px", width: "60%",
-                  background: `linear-gradient(to left, transparent, rgba(5,139,127,0.18), rgba(14,36,83,0.12), transparent)`,
+                  background: `linear-gradient(to left, transparent, rgba(14,36,83,0.18), rgba(14,36,83,0.12), transparent)`,
                   borderRadius: "999px",
                 }}
               />
@@ -369,7 +369,7 @@ function FeaturePills({ plan }: { plan: Plan }) {
           className="flex items-center gap-2 px-8 py-4 rounded-full font-bold text-[15px] text-white transition-all duration-300 hover:scale-[1.03] active:scale-[0.97]"
           style={{
             background: `linear-gradient(135deg, ${TEAL} 0%, ${TEAL_L} 100%)`,
-            boxShadow: `0 6px 28px rgba(5,139,127,0.36)`,
+            boxShadow: `0 6px 28px rgba(14,36,83,0.36)`,
           }}
         >
           اشترك الآن
@@ -455,7 +455,7 @@ export default function PricingSection() {
       />
       <div
         className="absolute bottom-0 right-0 w-80 h-80 rounded-full pointer-events-none"
-        style={{ background: `radial-gradient(ellipse, rgba(5,139,127,0.06) 0%, transparent 70%)` }}
+        style={{ background: `radial-gradient(ellipse, rgba(14,36,83,0.06) 0%, transparent 70%)` }}
       />
 
       <div className="relative z-10 max-w-5xl mx-auto">

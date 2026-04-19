@@ -98,7 +98,7 @@ const floatingCards = [
     icon: BarChart3,
     title: "نتائج قابلة للقياس",
     sub: "تتبّع أداء حملاتك",
-    iconBg: "rgba(5,139,127,0.10)",
+    iconBg: "rgba(5,139,127,0.12)",
     iconColor: "#058B7F",
     subColor: "#058B7F",
     rotate: "4deg", x: "18%", y: "30%", delay: 0.6, zIndex: 4,
@@ -116,9 +116,9 @@ const floatingCards = [
     icon: Zap,
     title: "تنفيذ سريع وفعّال",
     sub: "ابدأ خلال 24 ساعة",
-    iconBg: "rgba(5,139,127,0.10)",
-    iconColor: "#0FAE9E",
-    subColor: "#058B7F",
+    iconBg: "rgba(5,139,127,0.12)",
+    iconColor: "#058B7F",
+    subColor: "#0e2453",
     rotate: "6deg", x: "26%", y: "66%", delay: 1.5, zIndex: 2,
   },
 ];
@@ -134,7 +134,7 @@ function FloatingVisual({ isInView }: { isInView: boolean }) {
         style={{
           background:
             "radial-gradient(ellipse 70% 60% at 30% 40%, rgba(14,36,83,0.07) 0%, transparent 65%), " +
-            "radial-gradient(ellipse 60% 50% at 70% 65%, rgba(5,139,127,0.07) 0%, transparent 65%)",
+            "radial-gradient(ellipse 60% 50% at 70% 65%, rgba(14,36,83,0.07) 0%, transparent 65%)",
         }}
       />
 
@@ -145,7 +145,7 @@ function FloatingVisual({ isInView }: { isInView: boolean }) {
       />
       <div
         className="absolute w-52 h-52 rounded-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none"
-        style={{ border: "1px solid rgba(5,139,127,0.12)" }}
+        style={{ border: "1px solid rgba(14,36,83,0.12)" }}
       />
 
       {/* Central badge — navy gradient with teal icon accent */}
@@ -159,7 +159,7 @@ function FloatingVisual({ isInView }: { isInView: boolean }) {
           height: "100px",
           borderRadius: "50%",
           background: "linear-gradient(145deg, #0e2453 0%, #091a3e 100%)",
-          boxShadow: "0 12px 40px rgba(14,36,83,0.40), 0 0 0 4px rgba(5,139,127,0.18)",
+          boxShadow: "0 12px 40px rgba(14,36,83,0.40), 0 0 0 4px rgba(14,36,83,0.18)",
         }}
       >
         <TrendingUp className="w-8 h-8 mb-1" style={{ color: "#0FAE9E" }} />
@@ -196,8 +196,8 @@ function FloatingVisual({ isInView }: { isInView: boolean }) {
                   background: "rgba(255,255,255,0.88)",
                   backdropFilter: "blur(14px)",
                   WebkitBackdropFilter: "blur(14px)",
-                  border: `1px solid ${i % 2 === 0 ? "rgba(14,36,83,0.12)" : "rgba(5,139,127,0.12)"}`,
-                  boxShadow: `0 8px 32px ${i % 2 === 0 ? "rgba(14,36,83,0.10)" : "rgba(5,139,127,0.10)"}, 0 1px 0 rgba(255,255,255,0.6) inset`,
+                  border: `1px solid ${i % 2 === 0 ? "rgba(14,36,83,0.12)" : "rgba(14,36,83,0.12)"}`,
+                  boxShadow: `0 8px 32px ${i % 2 === 0 ? "rgba(14,36,83,0.10)" : "rgba(14,36,83,0.10)"}, 0 1px 0 rgba(255,255,255,0.6) inset`,
                   minWidth: "175px",
                 }}
               >
@@ -227,8 +227,8 @@ function FloatingVisual({ isInView }: { isInView: boolean }) {
           borderRadius: "999px",
           background: "rgba(255,255,255,0.92)",
           backdropFilter: "blur(12px)",
-          border: "1px solid rgba(5,139,127,0.14)",
-          boxShadow: "0 4px 20px rgba(5,139,127,0.12)",
+          border: "1px solid rgba(14,36,83,0.14)",
+          boxShadow: "0 4px 20px rgba(14,36,83,0.12)",
           animationName: isInView ? "floatCard" : "none",
           animationDuration: "4s",
           animationTimingFunction: "ease-in-out",
@@ -239,7 +239,7 @@ function FloatingVisual({ isInView }: { isInView: boolean }) {
       >
         <div className="flex">
           {[...Array(5)].map((_, i) => (
-            <Star key={i} className="w-3 h-3" style={{ fill: "#058B7F", color: "#058B7F" }} />
+            <Star key={i} className="w-3 h-3" style={{ fill: "#0e2453", color: "#0e2453" }} />
           ))}
         </div>
         <span className="text-[11px] font-bold" style={{ color: "#0e2453" }}>98% رضا العملاء</span>
@@ -298,7 +298,7 @@ export default function AboutUs() {
       {/* Teal ambient blob — bottom left */}
       <div
         className="absolute -bottom-24 -left-24 w-90 h-90 rounded-full pointer-events-none"
-        style={{ background: "radial-gradient(circle, rgba(5,139,127,0.06) 0%, transparent 65%)" }}
+        style={{ background: "radial-gradient(circle, rgba(14,36,83,0.06) 0%, transparent 65%)" }}
       />
 
 
@@ -331,7 +331,7 @@ export default function AboutUs() {
               >
                 <span
                   className="w-1.5 h-1.5 rounded-full inline-block animate-pulse"
-                  style={{ background: "#058B7F" }}
+                  style={{ background: "#0e2453" }}
                 />
                 من نحن
               </span>
@@ -401,7 +401,7 @@ export default function AboutUs() {
                 className="inline-flex items-center gap-2 text-white font-bold text-[14px] sm:text-[15px] px-8 py-4 rounded-full transition-all duration-300 hover:opacity-90 hover:scale-[1.03] active:scale-[0.98]"
                 style={{
                   background: "linear-gradient(135deg, #0e2453 0%, #162d6e 100%)",
-                  boxShadow: "0 4px 22px rgba(14,36,83,0.32), 0 0 0 1.5px rgba(5,139,127,0.30)",
+                  boxShadow: "0 4px 22px rgba(14,36,83,0.32), 0 0 0 1.5px rgba(14,36,83,0.30)",
                 }}
               >
                 تواصل معنا

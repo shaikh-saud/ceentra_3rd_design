@@ -55,7 +55,7 @@ export default function FinalCTA() {
                   className="h-14 px-8 text-[15px] font-bold rounded-full transition-all hover:-translate-y-0.5 w-full sm:w-auto group hover:bg-gray-50"
                   style={{
                     background: "#ffffff",
-                    color: "#058B7F",
+                    color: "#0e2453",
                     boxShadow: "0 8px 24px rgba(0,0,0,0.1)",
                   }}
                 >

@@ -30,7 +30,7 @@ const CONTACT_LINKS = [
     href: "tel:+966920000000",
     label: "+966 920 000 000",
     icon: Phone,
-    color: "#058B7F",
+    color: "#0e2453",
     ltr: true,
   },
   {
@@ -65,7 +65,7 @@ export default function HomeContactSection() {
       <div
         className="absolute bottom-0 left-0 w-80 h-72 rounded-full pointer-events-none"
         style={{
-          background: "radial-gradient(circle, rgba(5,139,127,0.08) 0%, transparent 70%)",
+          background: "radial-gradient(circle, rgba(14,36,83,0.08) 0%, transparent 70%)",
           filter: "blur(55px)",
         }}
       />
@@ -108,7 +108,7 @@ export default function HomeContactSection() {
               >
                 <span
                   className="w-1.5 h-1.5 rounded-full animate-pulse"
-                  style={{ background: "#058B7F" }}
+                  style={{ background: "#0e2453" }}
                 />
                 تواصل معنا
               </span>
@@ -156,7 +156,7 @@ export default function HomeContactSection() {
                     style={{
                       background: color === "#0e2453"
                         ? "rgba(14,36,83,0.08)"
-                        : "rgba(5,139,127,0.10)",
+                        : "rgba(14,36,83,0.10)",
                     }}
                   >
                     <Icon className="w-3.5 h-3.5 shrink-0" strokeWidth={2} style={{ color }} />
@@ -227,7 +227,7 @@ export default function HomeContactSection() {
               <div
                 className="absolute bottom-0 right-0 w-32 h-32 pointer-events-none"
                 style={{
-                  backgroundImage: "radial-gradient(circle, rgba(5,139,127,0.18) 1.5px, transparent 1.5px)",
+                  backgroundImage: "radial-gradient(circle, rgba(14,36,83,0.18) 1.5px, transparent 1.5px)",
                   backgroundSize: "14px 14px",
                   maskImage: "radial-gradient(ellipse at bottom right, white 30%, transparent 75%)",
                   WebkitMaskImage: "radial-gradient(ellipse at bottom right, white 30%, transparent 75%)",
@@ -265,7 +265,7 @@ export default function HomeContactSection() {
                     dir="ltr"
                     placeholder="example@email.com"
                     className="h-11 rounded-xl bg-white border-0 text-[14px] text-right shadow-[0_1px_3px_rgba(0,0,0,0.08)] focus-visible:ring-2"
-                    style={{ "--tw-ring-color": "rgba(5,139,127,0.30)" } as React.CSSProperties}
+                    style={{ "--tw-ring-color": "rgba(14,36,83,0.30)" } as React.CSSProperties}
                   />
                 </div>
 
@@ -296,7 +296,7 @@ export default function HomeContactSection() {
                   <Textarea
                     placeholder="اكتب رسالتك هنا..."
                     className="rounded-xl bg-white border-0 min-h-30 text-[14px] shadow-[0_1px_3px_rgba(0,0,0,0.08)] resize-none focus-visible:ring-2"
-                    style={{ "--tw-ring-color": "rgba(5,139,127,0.30)" } as React.CSSProperties}
+                    style={{ "--tw-ring-color": "rgba(14,36,83,0.30)" } as React.CSSProperties}
                   />
                 </div>
 

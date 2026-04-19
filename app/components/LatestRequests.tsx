@@ -127,7 +127,7 @@ const ALL_REQUESTS: Request[] = [
 
 // ─── Category colour map — navy for استشارات, teal for تسويق ──────────────────
 const CAT_COLORS: Record<string, { bg: string; text: string; border: string }> = {
-  تسويق:    { bg: `rgba(5,139,127,0.09)`,  text: TEAL,            border: `rgba(5,139,127,0.20)`  },
+  تسويق:    { bg: `rgba(14,36,83,0.09)`,  text: TEAL,            border: `rgba(14,36,83,0.20)`  },
   استشارات: { bg: `rgba(14,36,83,0.07)`,   text: NAVY,            border: `rgba(14,36,83,0.16)`   },
   وظائف:    { bg: "rgba(245,158,11,0.09)", text: "#D97706",       border: "rgba(245,158,11,0.18)" },
   تصميم:    { bg: "rgba(236,72,153,0.09)", text: "#DB2777",       border: "rgba(236,72,153,0.18)" },
@@ -148,10 +148,10 @@ function RequestCard({ request, index }: { request: Request; index: number }) {
   const c = CAT_COLORS[request.category] ?? CAT_COLORS["تسويق"];
   // Alternate card accent: even = navy, odd = teal
   const cardAccent = index % 2 === 0 ? NAVY : TEAL;
-  const cardAccentLight = index % 2 === 0 ? "rgba(14,36,83,0.28)" : "rgba(5,139,127,0.28)";
+  const cardAccentLight = index % 2 === 0 ? "rgba(14,36,83,0.28)" : "rgba(14,36,83,0.28)";
   const cardGlow = index % 2 === 0
     ? "0 12px 40px rgba(14,36,83,0.10), 0 2px 8px rgba(0,0,0,0.04)"
-    : "0 12px 40px rgba(5,139,127,0.12), 0 2px 8px rgba(0,0,0,0.04)";
+    : "0 12px 40px rgba(14,36,83,0.12), 0 2px 8px rgba(0,0,0,0.04)";
 
   return (
     <motion.div
@@ -244,7 +244,7 @@ function RequestCard({ request, index }: { request: Request; index: number }) {
             <span
               className="text-[11px] font-bold px-2.5 py-1 rounded-full"
               style={{
-                background: index % 2 === 0 ? "rgba(14,36,83,0.07)" : "rgba(5,139,127,0.07)",
+                background: index % 2 === 0 ? "rgba(14,36,83,0.07)" : "rgba(14,36,83,0.07)",
                 color: cardAccent,
                 border: `1px solid ${cardAccent}25`,
               }}
@@ -298,7 +298,7 @@ export default function LatestRequests() {
       <div
         className="absolute bottom-0 left-0 w-72 h-72 rounded-full pointer-events-none"
         style={{
-          background: `radial-gradient(circle, rgba(5,139,127,0.07) 0%, transparent 70%)`,
+          background: `radial-gradient(circle, rgba(14,36,83,0.07) 0%, transparent 70%)`,
           filter: "blur(50px)",
         }}
       />

@@ -50,7 +50,7 @@ function FAQItem({ q, a, isOpen, onToggle, index }: {
 }) {
   // On white bg — use teal for open highlight, navy for closed
   const questionColor = isOpen ? TEAL : NAVY;
-  const dividerColor  = isOpen ? "rgba(5,139,127,0.30)" : "rgba(14,36,83,0.10)";
+  const dividerColor  = isOpen ? "rgba(14,36,83,0.30)" : "rgba(14,36,83,0.10)";
 
   return (
     <div
@@ -140,7 +140,7 @@ export default function FAQWithSpiral() {
       {/* Teal blob — bottom left */}
       <div
         className="absolute bottom-0 left-0 w-72 h-72 rounded-full pointer-events-none"
-        style={{ background: `radial-gradient(circle, rgba(5,139,127,0.07) 0%, transparent 70%)`, filter: "blur(50px)" }}
+        style={{ background: `radial-gradient(circle, rgba(14,36,83,0.07) 0%, transparent 70%)`, filter: "blur(50px)" }}
       />
 
       <div className="relative z-10 max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">

@@ -121,7 +121,7 @@ export default function TrustSection() {
                 backdropFilter: "blur(8px)",
               }}
             >
-              <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: "#0FAE9E" }} />
+              <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: "#162d6e" }} />
               خدماتنا
             </span>
           </motion.div>
@@ -174,9 +174,9 @@ export default function TrustSection() {
           className="mt-10 flex flex-wrap items-center justify-center gap-x-8 gap-y-3"
         >
           {[
-            { text: "200+ شركة موثقة",    dot: "#0FAE9E" },
+            { text: "200+ شركة موثقة",    dot: "#162d6e" },
             { text: "98% رضا العملاء",    dot: "rgba(14,36,83,0.70)" },
-            { text: "خدمة 24/7",          dot: "#0FAE9E" },
+            { text: "خدمة 24/7",          dot: "#162d6e" },
             { text: "بيئة آمنة ومضمونة", dot: "rgba(14,36,83,0.70)" },
           ].map((item) => (
             <div key={item.text} className="flex items-center gap-2 text-[12.5px]" style={{ color: "rgba(14,36,83,0.65)" }}>

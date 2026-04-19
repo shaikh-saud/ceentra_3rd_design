@@ -115,7 +115,7 @@ export default function Testimonials() {
               className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-[13px] font-semibold"
               style={{ background: "rgba(14,36,83,0.07)", border: "1px solid rgba(14,36,83,0.14)", color: "#0e2453" }}
             >
-              <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: "#058B7F" }} />
+              <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: "#0e2453" }} />
               آراء العملاء
             </span>
           </motion.div>
@@ -159,7 +159,7 @@ export default function Testimonials() {
           >
             {[
               { value: "98%",   label: "رضا العملاء",    color: "#0e2453" },
-              { value: "+500",  label: "تقييم إيجابي",   color: "#058B7F" },
+              { value: "+500",  label: "تقييم إيجابي",   color: "#0e2453" },
               { value: "4.9★",  label: "متوسط التقييم",  color: "#0e2453" },
             ].map((s) => (
               <div key={s.label} className="flex flex-col items-center gap-1">

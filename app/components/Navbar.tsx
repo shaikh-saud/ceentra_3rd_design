@@ -111,10 +111,10 @@ export default function Navbar() {
                 ${active ? "w-36" : "w-11 hover:w-36"}`}
               style={{
                 background: active
-                  ? "linear-gradient(135deg, #058B7F 0%, #0FAE9E 100%)"
+                  ? "linear-gradient(135deg, #0e2453 0%, #162d6e 100%)"
                   : "transparent",
                 boxShadow: active
-                  ? "0 4px 16px rgba(5,139,127,0.40)"
+                  ? "0 4px 16px rgba(14,36,83,0.40)"
                   : "none",
               }}
               onClick={() => handleClick(link.href)}
@@ -123,7 +123,7 @@ export default function Navbar() {
               {!active && (
                 <span
                   className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-500"
-                  style={{ background: "linear-gradient(135deg, #058B7F 0%, #0FAE9E 100%)" }}
+                  style={{ background: "linear-gradient(135deg, #0e2453 0%, #162d6e 100%)" }}
                 />
               )}
 

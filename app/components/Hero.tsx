@@ -350,8 +350,8 @@ export default function Hero() {
             href="/register"
             className="inline-flex items-center justify-center gap-2 px-10 py-4 rounded-full font-bold text-[15px] text-white transition-all duration-300 hover:scale-[1.04] active:scale-[0.98]"
             style={{
-              background: "linear-gradient(135deg, #058B7F 0%, #0FAE9E 100%)",
-              boxShadow: "0 4px 24px rgba(5,139,127,0.45)",
+              background: "linear-gradient(135deg, #0e2453 0%, #162d6e 100%)",
+              boxShadow: "0 4px 24px rgba(14,36,83,0.45)",
             }}
           >
             ابدأ الآن مجانًا

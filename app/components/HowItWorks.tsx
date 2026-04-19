@@ -107,7 +107,7 @@ export default function HowItWorks() {
       <div
         className="absolute bottom-0 left-0 w-105 h-80 rounded-full pointer-events-none"
         style={{
-          background: "radial-gradient(ellipse, rgba(5,139,127,0.06) 0%, transparent 70%)",
+          background: "radial-gradient(ellipse, rgba(14,36,83,0.06) 0%, transparent 70%)",
           filter: "blur(60px)",
         }}
       />
@@ -127,7 +127,7 @@ export default function HowItWorks() {
             >
               <span
                 className="w-1.5 h-1.5 rounded-full inline-block animate-pulse"
-                style={{ background: "#058B7F" }}
+                style={{ background: "#0e2453" }}
               />
               آلية العمل
             </span>
@@ -247,14 +247,14 @@ export default function HowItWorks() {
                         {/* Inactive bg — teal tint */}
                         <motion.div
                           className="absolute inset-0 rounded-full"
-                          style={{ background: "rgba(5,139,127,0.10)" }}
+                          style={{ background: "rgba(14,36,83,0.10)" }}
                           animate={{ opacity: isActive ? 0 : 1 }}
                           transition={T}
                         />
                         {/* Active bg — teal ring on navy */}
                         <motion.div
                           className="absolute inset-0 rounded-full"
-                          style={{ background: "rgba(15,174,158,0.18)", border: "1.5px solid rgba(15,174,158,0.35)" }}
+                          style={{ background: "rgba(22,45,110,0.18)", border: "1.5px solid rgba(22,45,110,0.35)" }}
                           animate={{ opacity: isActive ? 1 : 0 }}
                           transition={T}
                         />
@@ -266,14 +266,14 @@ export default function HowItWorks() {
                             animate={{ opacity: isActive ? 0 : 1 }}
                             transition={T}
                           >
-                            <Icon style={{ width: "26px", height: "26px", color: "#058B7F" }} />
+                            <Icon style={{ width: "26px", height: "26px", color: "#0e2453" }} />
                           </motion.span>
                           <motion.span
                             className="absolute inset-0 flex items-center justify-center"
                             animate={{ opacity: isActive ? 1 : 0 }}
                             transition={T}
                           >
-                            <Icon style={{ width: "26px", height: "26px", color: "#0FAE9E" }} />
+                            <Icon style={{ width: "26px", height: "26px", color: "#162d6e" }} />
                           </motion.span>
                         </span>
                       </div>
@@ -291,13 +291,13 @@ export default function HowItWorks() {
                         />
                         <motion.div
                           className="absolute inset-0"
-                          style={{ borderRadius: "999px", background: "rgba(15,174,158,0.20)" }}
+                          style={{ borderRadius: "999px", background: "rgba(22,45,110,0.20)" }}
                           animate={{ opacity: isActive ? 1 : 0 }}
                           transition={T}
                         />
                         <motion.span
                           className="relative z-10 block"
-                          animate={{ color: isActive ? "#0FAE9E" : "#0e2453" }}
+                          animate={{ color: isActive ? "#162d6e" : "#0e2453" }}
                           transition={T}
                         >
                           {step.label}

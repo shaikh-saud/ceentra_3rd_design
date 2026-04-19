@@ -108,10 +108,10 @@ function RequestCard({ request, index }: { request: typeof requests[0]; index: n
           borderRadius: "24px",
           background: "#ffffff",
           border: hovered
-            ? "1px solid rgba(5,139,127,0.30)"
+            ? "1px solid rgba(14,36,83,0.30)"
             : "1px solid rgba(14,36,83,0.06)",
           boxShadow: hovered
-            ? "0 20px 60px rgba(14,36,83,0.08), 0 0 0 1px rgba(15,174,158,0.30), 0 0 40px rgba(5,139,127,0.18)"
+            ? "0 20px 60px rgba(14,36,83,0.08), 0 0 0 1px rgba(22,45,110,0.30), 0 0 40px rgba(14,36,83,0.18)"
             : "0 8px 32px rgba(14,36,83,0.04)",
           transition: "border 0.35s, box-shadow 0.35s",
           padding: "24px",
@@ -126,17 +126,17 @@ function RequestCard({ request, index }: { request: typeof requests[0]; index: n
             {/* Icon bubble */}
             <div
               className="w-9 h-9 flex items-center justify-center rounded-full"
-              style={{ background: "rgba(15,174,158,0.18)", border: "1px solid rgba(15,174,158,0.25)" }}
+              style={{ background: "rgba(22,45,110,0.18)", border: "1px solid rgba(22,45,110,0.25)" }}
             >
-              <Icon className="w-4.25 h-4.25" style={{ color: "#0FAE9E" }} strokeWidth={1.8} />
+              <Icon className="w-4.25 h-4.25" style={{ color: "#162d6e" }} strokeWidth={1.8} />
             </div>
             {/* Category pill */}
             <span
               className="text-[11px] font-bold px-2.5 py-1 rounded-full"
               style={{
-                background: "rgba(15,174,158,0.14)",
-                color: "#0FAE9E",
-                border: "1px solid rgba(15,174,158,0.22)",
+                background: "rgba(22,45,110,0.14)",
+                color: "#162d6e",
+                border: "1px solid rgba(22,45,110,0.22)",
               }}
             >
               {request.category}
@@ -159,7 +159,7 @@ function RequestCard({ request, index }: { request: typeof requests[0]; index: n
           className="font-extrabold text-right leading-snug mb-2"
           style={{
             fontSize: "16px",
-            color: hovered ? "#058B7F" : "#0e2453",
+            color: hovered ? "#0e2453" : "#0e2453",
             transition: "color 0.3s",
           }}
         >
@@ -179,9 +179,9 @@ function RequestCard({ request, index }: { request: typeof requests[0]; index: n
           <span
             className="text-[12px] font-bold px-3 py-1 rounded-full"
             style={{
-              background: "rgba(5,139,127,0.22)",
-              color: "#0FAE9E",
-              border: "1px solid rgba(5,139,127,0.30)",
+              background: "rgba(14,36,83,0.22)",
+              color: "#162d6e",
+              border: "1px solid rgba(14,36,83,0.30)",
             }}
           >
             {request.budget}
@@ -200,11 +200,11 @@ function RequestCard({ request, index }: { request: typeof requests[0]; index: n
               padding: "8px 16px",
               fontSize: "12px",
               background: hovered
-                ? "linear-gradient(135deg, #058B7F, #0FAE9E)"
-                : "rgba(5,139,127,0.22)",
-              color: hovered ? "#ffffff" : "#058B7F",
-              border: "1px solid rgba(15,174,158,0.30)",
-              boxShadow: hovered ? "0 4px 18px rgba(5,139,127,0.40)" : "none",
+                ? "linear-gradient(135deg, #0e2453, #162d6e)"
+                : "rgba(14,36,83,0.22)",
+              color: hovered ? "#ffffff" : "#0e2453",
+              border: "1px solid rgba(22,45,110,0.30)",
+              boxShadow: hovered ? "0 4px 18px rgba(14,36,83,0.40)" : "none",
             }}
           >
             عرض التفاصيل
@@ -267,17 +267,17 @@ function BackgroundBlobs() {
       {/* Top-right large glow */}
       <div
         className="absolute -top-24 -right-24 w-96 h-96 rounded-full pointer-events-none"
-        style={{ background: "radial-gradient(circle, rgba(15,174,158,0.08) 0%, transparent 65%)", filter: "blur(40px)" }}
+        style={{ background: "radial-gradient(circle, rgba(22,45,110,0.08) 0%, transparent 65%)", filter: "blur(40px)" }}
       />
       {/* Bottom-left medium glow */}
       <div
         className="absolute bottom-0 -left-16 w-72 h-72 rounded-full pointer-events-none"
-        style={{ background: "radial-gradient(circle, rgba(5,139,127,0.10) 0%, transparent 60%)", filter: "blur(50px)" }}
+        style={{ background: "radial-gradient(circle, rgba(14,36,83,0.10) 0%, transparent 60%)", filter: "blur(50px)" }}
       />
       {/* Centre subtle glow */}
       <div
         className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-150 h-75 rounded-full pointer-events-none"
-        style={{ background: "radial-gradient(ellipse, rgba(4,110,101,0.05) 0%, transparent 70%)", filter: "blur(60px)" }}
+        style={{ background: "radial-gradient(ellipse, rgba(5,139,127,0.05) 0%, transparent 70%)", filter: "blur(60px)" }}
       />
       {/* Dot grid overlay — very subtle */}
       <div
@@ -324,9 +324,9 @@ export default function FeaturedRequests() {
               <span
                 className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-[13px] font-semibold"
                 style={{
-                  background: "rgba(15,174,158,0.12)",
-                  border: "1px solid rgba(15,174,158,0.25)",
-                  color: "#0FAE9E",
+                  background: "rgba(22,45,110,0.12)",
+                  border: "1px solid rgba(22,45,110,0.25)",
+                  color: "#162d6e",
                 }}
               >
                 <span className="w-1.5 h-1.5 rounded-full bg-primary-light animate-pulse" />
@@ -395,7 +395,7 @@ export default function FeaturedRequests() {
             <div key={s.label} className="flex items-center gap-2.5">
               <span
                 className="text-[22px] font-black"
-                style={{ color: "#0FAE9E" }}
+                style={{ color: "#162d6e" }}
               >
                 {s.value}
               </span>
