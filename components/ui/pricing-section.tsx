@@ -300,30 +300,50 @@ function PriceOrb({ plan }: { plan: Plan }) {
   );
 }
 
-// ─── Feature pills panel ───────────────────────────────────────────────────────
 function FeaturePills({ plan }: { plan: Plan }) {
   return (
-    <div className="flex flex-col gap-6">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-5 w-full">
       {plan.features.map((group, gi) => {
         const color = group.accent === "navy" ? NAVY : TEAL;
-        const colorBg = group.accent === "navy" ? "rgba(14,36,83,0.07)" : "rgba(14,36,83,0.08)";
+        const colorLight = group.accent === "navy" ? "rgba(14,36,83,0.04)" : "rgba(5,139,127,0.04)";
+        const borderColor = group.accent === "navy" ? "rgba(14,36,83,0.12)" : "rgba(5,139,127,0.14)";
+        const headerBg = group.accent === "navy"
+          ? "linear-gradient(135deg, rgba(14,36,83,0.06) 0%, rgba(14,36,83,0.03) 100%)"
+          : "linear-gradient(135deg, rgba(5,139,127,0.07) 0%, rgba(5,139,127,0.03) 100%)";
         return (
-          <div key={gi}>
-            {/* Group label */}
-            <div className="flex items-center gap-2 mb-4 justify-end">
+          <div
+            key={gi}
+            className="rounded-2xl overflow-hidden h-full flex flex-col"
+            style={{
+              background: "#ffffff",
+              border: `1.5px solid ${borderColor}`,
+              boxShadow: "0 2px 12px rgba(14,36,83,0.05)",
+            }}
+          >
+            {/* Group header bar */}
+            <div
+              className="flex items-center gap-2 justify-end px-5 py-3 shrink-0"
+              style={{
+                background: headerBg,
+                borderBottom: `1px solid ${borderColor}`,
+              }}
+            >
               <span
-                className="text-[11px] font-black uppercase tracking-widest"
+                className="text-[12px] font-black uppercase tracking-widest"
                 style={{ color }}
               >
                 {group.group}
               </span>
-              <div className="h-5 px-2 rounded-full flex items-center" style={{ background: colorBg }}>
-                <BadgeCheck className="w-3 h-3" style={{ color }} />
+              <div
+                className="h-6 w-6 rounded-full flex items-center justify-center"
+                style={{ background: `${color}15` }}
+              >
+                <BadgeCheck className="w-3.5 h-3.5" style={{ color }} />
               </div>
             </div>
 
             {/* Feature items */}
-            <ul className="flex flex-col gap-2.5">
+            <ul className="flex flex-col gap-3 px-5 py-5 flex-1">
               {group.items.map((item, ii) => (
                 <motion.li
                   key={`${plan.key}-${gi}-${ii}`}
@@ -332,14 +352,14 @@ function FeaturePills({ plan }: { plan: Plan }) {
                   transition={{ duration: 0.38, delay: gi * 0.1 + ii * 0.06, ease: "easeOut" }}
                   className="flex items-center justify-end gap-3"
                 >
-                  <span className="text-[14px] leading-snug" style={{ color: "rgba(14,36,83,0.70)" }}>{item}</span>
+                  <span className="text-[14px] leading-snug text-right" style={{ color: "rgba(14,36,83,0.70)" }}>{item}</span>
                   <div
                     className="flex items-center justify-center shrink-0"
                     style={{
                       width: "24px", height: "24px",
                       borderRadius: "50%",
-                      background: colorBg,
-                      border: `1.5px solid ${color}30`,
+                      background: `${color}10`,
+                      border: `1.5px solid ${color}25`,
                     }}
                   >
                     <Check className="w-3 h-3" style={{ color }} strokeWidth={2.8} />
@@ -347,36 +367,9 @@ function FeaturePills({ plan }: { plan: Plan }) {
                 </motion.li>
               ))}
             </ul>
-
-            {/* Separator — navy to teal gradient */}
-            {gi < plan.features.length - 1 && (
-              <div
-                className="mt-5 mx-auto"
-                style={{
-                  height: "2px", width: "60%",
-                  background: `linear-gradient(to left, transparent, rgba(14,36,83,0.18), rgba(14,36,83,0.12), transparent)`,
-                  borderRadius: "999px",
-                }}
-              />
-            )}
           </div>
         );
       })}
-
-      {/* CTA */}
-      <div className="mt-2 flex flex-col items-end gap-3">
-        <button
-          className="flex items-center gap-2 px-8 py-4 rounded-full font-bold text-[15px] text-white transition-all duration-300 hover:scale-[1.03] active:scale-[0.97]"
-          style={{
-            background: `linear-gradient(135deg, ${TEAL} 0%, ${TEAL_L} 100%)`,
-            boxShadow: `0 6px 28px rgba(14,36,83,0.36)`,
-          }}
-        >
-          اشترك الآن
-          <ArrowUpRight className="w-4 h-4" />
-        </button>
-        <p className="text-[11px]" style={{ color: "rgba(14,36,83,0.38)" }}>بدون رسوم خفية · إلغاء في أي وقت</p>
-      </div>
     </div>
   );
 }
@@ -393,7 +386,7 @@ function PricingDisplay({ plan }: { plan: Plan }) {
         transition={{ duration: 0.35 }}
         className="w-full max-w-5xl mx-auto"
       >
-        <div className="flex justify-center mb-10">
+        <div className="flex justify-center mb-16 mt-4">
           <div
             className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-[13px]"
             style={{
@@ -408,12 +401,29 @@ function PricingDisplay({ plan }: { plan: Plan }) {
           </div>
         </div>
 
-        <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
-          <div className="w-full lg:w-[42%] flex justify-center">
+        <div className="flex flex-col items-center gap-20 mb-10">
+          <div className="w-full flex justify-center py-8">
             <PriceOrb plan={plan} />
           </div>
-          <div className="w-full lg:w-[58%]">
+          <div className="w-full max-w-4xl mx-auto">
             <FeaturePills plan={plan} />
+          </div>
+        </div>
+
+        {/* CTA Section */}
+        <div className="flex justify-center mt-4 mb-4">
+          <div className="flex flex-col items-center gap-3">
+            <button
+              className="flex items-center gap-2 px-10 py-4 rounded-full font-bold text-[16px] text-white transition-all duration-300 hover:scale-[1.03] active:scale-[0.97]"
+              style={{
+                background: `linear-gradient(135deg, ${TEAL} 0%, ${TEAL_L} 100%)`,
+                boxShadow: `0 6px 28px rgba(14,36,83,0.36)`,
+              }}
+            >
+              اشترك الآن
+              <ArrowUpRight className="w-4 h-4" />
+            </button>
+            <p className="text-[12px]" style={{ color: "rgba(14,36,83,0.45)" }}>بدون رسوم خفية · إلغاء في أي وقت</p>
           </div>
         </div>
       </motion.div>

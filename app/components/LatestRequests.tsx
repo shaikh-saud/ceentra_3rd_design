@@ -213,7 +213,7 @@ function RequestCard({ request, index }: { request: Request; index: number }) {
       <div className="flex-1 text-right">
         <h3
           className="text-[15.5px] font-extrabold mb-1.5 leading-snug transition-colors duration-200"
-          style={{ color: hovered ? cardAccent : NAVY }}
+          style={{ color: hovered ? NAVY : TEAL }}
         >
           {request.title}
         </h3>

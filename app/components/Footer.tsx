@@ -53,7 +53,7 @@ export default function Footer() {
       <div
         className="relative overflow-hidden"
         style={{
-          background: "#058B7F",
+          background: "#0e2453",
         }}
       >
 

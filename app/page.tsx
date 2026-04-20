@@ -1,6 +1,7 @@
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import HowItWorks from "./components/HowItWorks";
+import ServicesCarousel from "./components/ServicesCarousel";
 import AboutUs from "./components/AboutUs";
 import FAQWithSpiral from "@/components/ui/faq-section";
 import TrustSection from "./components/TrustSection";
@@ -19,6 +20,7 @@ export default function Home() {
       <main>
         <Hero />
         <HowItWorks />
+        <ServicesCarousel />
         <AboutUs />
         <TrustSection />
         <PricingSection />
