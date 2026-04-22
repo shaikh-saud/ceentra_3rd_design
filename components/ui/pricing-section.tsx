@@ -40,7 +40,7 @@ const individualPlans: Plan[] = [
   },
   {
     key: "semi",
-    label: "نصف سنوي",
+    label: "6 أشهر",
     sublabel: "الأكثر طلبًا",
     price: "799",
     period: "6 أشهر",
@@ -82,7 +82,7 @@ const companyPlans: Plan[] = [
   },
   {
     key: "semi",
-    label: "نصف سنوي",
+    label: "6 أشهر",
     sublabel: "الأكثر طلبًا",
     price: "1,999",
     period: "6 أشهر",

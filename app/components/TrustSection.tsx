@@ -20,7 +20,7 @@ const SERVICES: CardItem[] = [
     description:
       "تصفح أفضل شركات التسويق الرقمي الموثوقة في المملكة واختر الشريك الأنسب لأهدافك التجارية.",
     imgSrc:
-      "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=1200&q=80",
     icon: <Building2 className="w-5 h-5" strokeWidth={1.8} />,
     tag: "الأكثر طلبًا",
     href: "/marketing-companies",
@@ -31,7 +31,7 @@ const SERVICES: CardItem[] = [
     description:
       "أنشئ طلبك التسويقي بدقيقة واحدة واستقبل عروضًا من شركات متخصصة بشفافية كاملة.",
     imgSrc:
-      "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&w=1200&q=80",
     icon: <FileText className="w-5 h-5" strokeWidth={1.8} />,
     tag: "سريع وسهل",
     href: "/solutions",
@@ -42,7 +42,7 @@ const SERVICES: CardItem[] = [
     description:
       "احصل على استشارات تسويقية احترافية من خبراء معتمدين لتحقيق أقصى عائد على استثماراتك.",
     imgSrc:
-      "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=1200&q=80",
     icon: <Lightbulb className="w-5 h-5" strokeWidth={1.8} />,
     tag: "خبراء معتمدون",
     href: "/consulting",
@@ -53,7 +53,7 @@ const SERVICES: CardItem[] = [
     description:
       "اكتشف فرص العمل المتاحة في مجال التسويق الرقمي وانطلق في مسيرتك المهنية الآن.",
     imgSrc:
-      "https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=1200&q=80",
     icon: <Briefcase className="w-5 h-5" strokeWidth={1.8} />,
     tag: "فرص حصرية",
     href: "/jobs",
@@ -64,7 +64,7 @@ const SERVICES: CardItem[] = [
     description:
       "طوّر مهاراتك بدورات تدريبية متخصصة في التسويق الرقمي مع نخبة من المدربين المعتمدين.",
     imgSrc:
-      "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1200&q=80",
     icon: <GraduationCap className="w-5 h-5" strokeWidth={1.8} />,
     tag: "تعلّم واحترف",
     href: "/courses",
@@ -75,7 +75,7 @@ const SERVICES: CardItem[] = [
     description:
       "احصل على خدمات تصوير وإنتاج محتوى احترافي يعزز حضور علامتك التجارية ويجذب جمهورك.",
     imgSrc:
-      "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&w=1200&q=80",
     icon: <Video className="w-5 h-5" strokeWidth={1.8} />,
     tag: "محتوى إبداعي",
     href: "/visual-production",

@@ -6,12 +6,13 @@ import {
   Clock,
   ArrowLeft,
   ChevronLeft,
-  Megaphone,
-  Briefcase,
-  Lightbulb,
-  Palette,
-  LayoutGrid,
+  Target,
+  Building2,
+  GraduationCap,
+  PenTool,
+  LayoutDashboard,
   TrendingUp,
+  Briefcase,
 } from "lucide-react";
 
 const NAVY  = "#0e2453";
@@ -20,11 +21,11 @@ const TEAL_L = "#0FAE9E";
 
 // ─── Data ─────────────────────────────────────────────────────────────────────
 const CATEGORIES = [
-  { label: "الكل",     icon: LayoutGrid },
-  { label: "تسويق",   icon: Megaphone  },
-  { label: "استشارات",icon: Lightbulb  },
-  { label: "وظائف",   icon: Briefcase  },
-  { label: "تصميم",   icon: Palette    },
+  { label: "الكل",     icon: LayoutDashboard },
+  { label: "تسويق",   icon: Target          },
+  { label: "استشارات",icon: GraduationCap   },
+  { label: "وظائف",   icon: Building2       },
+  { label: "تصميم",   icon: PenTool         },
 ];
 
 interface Request {
@@ -145,13 +146,33 @@ const fadeUp = {
 // ─── Request Card ──────────────────────────────────────────────────────────────
 function RequestCard({ request, index }: { request: Request; index: number }) {
   const [hovered, setHovered] = useState(false);
+  const [tilt, setTilt] = useState({ x: 0, y: 0 });
+  const cardRef = useRef<HTMLDivElement>(null);
+
   const c = CAT_COLORS[request.category] ?? CAT_COLORS["تسويق"];
-  // Alternate card accent: even = navy, odd = teal
   const cardAccent = index % 2 === 0 ? NAVY : TEAL;
   const cardAccentLight = index % 2 === 0 ? "rgba(14,36,83,0.28)" : "rgba(14,36,83,0.28)";
-  const cardGlow = index % 2 === 0
-    ? "0 12px 40px rgba(14,36,83,0.10), 0 2px 8px rgba(0,0,0,0.04)"
-    : "0 12px 40px rgba(14,36,83,0.12), 0 2px 8px rgba(0,0,0,0.04)";
+
+  function handleMouseMove(e: React.MouseEvent<HTMLDivElement>) {
+    const el = cardRef.current;
+    if (!el) return;
+    const { left, top, width, height } = el.getBoundingClientRect();
+    const cx = (e.clientX - left) / width - 0.5;   // -0.5 → 0.5
+    const cy = (e.clientY - top) / height - 0.5;   // -0.5 → 0.5
+    setTilt({ x: cy * -10, y: cx * 10 });           // max ±5deg
+  }
+
+  function handleMouseLeave() {
+    setHovered(false);
+    setTilt({ x: 0, y: 0 });
+  }
+
+  const shadowX = tilt.y * 2;
+  const shadowY = tilt.x * -2 + (hovered ? 18 : 4);
+  const shadowBlur = hovered ? 40 : 8;
+  const shadowColor = index % 2 === 0
+    ? `rgba(14,36,83,${hovered ? 0.22 : 0.06})`
+    : `rgba(5,139,127,${hovered ? 0.20 : 0.05})`;
 
   return (
     <motion.div
@@ -160,14 +181,25 @@ function RequestCard({ request, index }: { request: Request; index: number }) {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, scale: 0.97 }}
       transition={{ duration: 0.38, ease: "easeOut", delay: index * 0.05 }}
+      style={{ perspective: "900px" }}
+    >
+    <div
+      ref={cardRef}
       onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
       className="group relative flex flex-col gap-4 bg-white rounded-3xl px-6 py-5 cursor-pointer overflow-hidden"
       style={{
         border: hovered ? `1.5px solid ${cardAccentLight}` : "1.5px solid rgba(0,0,0,0.055)",
-        boxShadow: hovered ? cardGlow : "0 2px 8px rgba(0,0,0,0.04)",
-        transform: hovered ? "translateY(-3px)" : "translateY(0)",
-        transition: "box-shadow 0.35s ease, border-color 0.35s ease, transform 0.35s ease",
+        boxShadow: `${shadowX}px ${shadowY}px ${shadowBlur}px ${shadowColor}, 0 2px 4px rgba(0,0,0,0.04)`,
+        transform: hovered
+          ? `rotateX(${tilt.x}deg) rotateY(${tilt.y}deg) translateZ(16px) scale(1.018)`
+          : "rotateX(0deg) rotateY(0deg) translateZ(0px) scale(1)",
+        transition: hovered
+          ? "box-shadow 0.08s ease, border-color 0.15s ease, transform 0.07s ease"
+          : "box-shadow 0.5s ease, border-color 0.35s ease, transform 0.5s cubic-bezier(0.23,1,0.32,1)",
+        willChange: "transform",
+        transformStyle: "preserve-3d",
       }}
     >
       {/* Top accent stripe on hover — navy or teal per card */}
@@ -264,6 +296,7 @@ function RequestCard({ request, index }: { request: Request; index: number }) {
           </span>
         </div>
       </div>
+    </div>
     </motion.div>
   );
 }
